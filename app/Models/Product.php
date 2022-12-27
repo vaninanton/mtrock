@@ -12,6 +12,18 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, HasSlug;
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'price' => 'double',
+        'old_price' => 'double',
+        'flag_new' => 'boolean',
+        'flag_hit' => 'boolean',
+    ];
+
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
