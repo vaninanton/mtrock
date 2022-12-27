@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', IndexController::class);
+Route::get('/', IndexController::class)->name('index');
 
 Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/category/{category}', IndexController::class)->name('category');
