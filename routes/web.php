@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', IndexController::class)->name('index');
 
 Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/category/{category}', IndexController::class)->name('category');
+Route::get('/store/{category}', CategoryController::class)->name('category');
+Route::get('/store/{category}/{product}.html', ProductController::class)->name('product');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,4 +29,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
