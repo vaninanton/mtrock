@@ -41,7 +41,24 @@
 
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are new to the framework or have previous experience with Laravel, we recommend reading all of the documentation from beginning to end.
+                                    <div class="ml-4 text-sm text-gray-500">
+                                        @isset($categories)
+                                        <ul>
+                                            @foreach($categories as $category)
+                                                <li>
+                                                    <a href="{{ route('category', $category) }}">{{ $category->title }}</a> ({{ $category->products_count }})
+                                                    @if($category->childrenRecursive)
+                                                        <ul>
+                                                            @foreach($category->childrenRecursive as $subCategory)
+                                                                <li><a href="{{ route('category', $subCategory) }}">{{ $subCategory->title }}</a></li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                        @endisset
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -110,23 +127,6 @@
 
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-
-                    <div class="ml-4 text-sm text-gray-500">
-                        <ul>
-                        @foreach($categories as $category)
-                            <li>
-                                <a href="{{ route('category', $category) }}">{{ $category->name }}</a>
-                                @if($category->childrenRecursive)
-                                    <ul>
-                                    @foreach($category->childrenRecursive as $subCategory)
-                                        <li><a href="{{ route('category', $subCategory) }}">{{ $subCategory->name }}</a></li>
-                                    @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
-                        </ul>
                     </div>
                 </div>
             </div>

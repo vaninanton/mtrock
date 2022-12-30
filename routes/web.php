@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
@@ -21,6 +22,7 @@ Route::get('/', IndexController::class)->name('index');
 
 Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/store/{category}', CategoryController::class)->name('category');
+Route::get('/store/brands/{brand}', BrandController::class)->name('brand');
 Route::get('/store/{category}/{product}.html', ProductController::class)->name('product');
 
 Route::middleware('auth')->group(function () {
