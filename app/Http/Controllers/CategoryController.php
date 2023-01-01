@@ -11,7 +11,7 @@ class CategoryController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Category $category): Response

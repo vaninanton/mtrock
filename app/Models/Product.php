@@ -41,7 +41,7 @@ class Product extends Model
     }
 
     /**
-     * @return string
+     * @return Attribute
      */
     public function humanWeight(): Attribute
     {
@@ -60,7 +60,7 @@ class Product extends Model
     }
 
     /**
-     * @return string
+     * @return Attribute
      */
     public function humanSize(): Attribute
     {
