@@ -16,10 +16,12 @@ class TypeSeeder extends Seeder
     {
         DB::insert('INSERT INTO `types` (
             `id`,
-            `title`
+            `title`,
+            `title_plural`
         )
         SELECT
             `id`,
+            `name`,
             `name`
         FROM `mtrock_old`.`mr_store_type`');
     }

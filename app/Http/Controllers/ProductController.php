@@ -13,7 +13,6 @@ class ProductController extends Controller
         session()->push('products.recently_viewed', $product->getKey());
 
         return view('product', [
-            'category' => $category,
             'product' => $product,
         ]);
     }

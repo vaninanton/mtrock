@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -9,12 +9,19 @@
     <title>@yield('meta_title', config('app.name')) | Mountain-Rock.ru</title>
     <meta name="description" content="@yield('meta_description')">
     <link rel="canonical" href="@yield('canonical', URL::current())">
+    <meta name="theme-color" content="#0350b1">
+    <meta name="theme-color" content="#4285f4">
+
+    <meta name="robots" content="index,follow">
+    <meta name="google" content="nositelinkssearchbox">
+    <meta name="google" content="notranslate">
+    <meta name="format-detection" content="telephone=no">
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -71,13 +78,7 @@
                     </ul>
                 </div>
             </nav>
-            <div class="py-8">
-                <div class="container mx-auto px-4">
-                    <main class="border bg-white shadow-2xl">
-                        {{ $slot }}
-                    </main>
-                </div>
-            </div>
+            {{ $slot }}
         </div>
 
         <footer class="footer bg-black text-white border-t-4 border-t-blue-600">

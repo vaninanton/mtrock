@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('title_plural')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -24,14 +24,18 @@
 
     <div class="py-4 px-6">
         <h1 class="h1">Бренды</h1>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-5 gap-4">
             @foreach($brands as $item)
-            <div class="bg-white border rounded shadow-sm mb-2 flex flex-col">
-                <a href="{{ route('brand.show', $item) }}" class="block">
-                    <img src="https://mountain-rock.ru/uploads/thumbs/producer/348x174_{{ $item->image }}" alt="" class="mx-auto">
-                    <div class="font-bold px-4">{{ $item->title }}</div>
+            <div class="bg-white border rounded shadow-sm mb-2 flex flex-col justify-between">
+                <a href="{{ route('brand.show', $item) }}" class="flex flex-col items-center justify-center p-4">
+                    <img src="https://mountain-rock.ru/uploads/thumbs/store/producer/250x250_{{ $item->image }}" alt="" class="object-contain h-40 w-auto" loading="lazy">
                 </a>
-                <div class="text-sm p-4">{{ strip_tags($item->short_description) }}</div>
+                <div>
+                    <a href="{{ route('brand.show', $item) }}">
+                        <div class="font-bold px-4">{{ $item->title }}</div>
+                    </a>
+                    <div class="text-sm p-4">{{ strip_tags($item->short_description) }}</div>
+                </div>
             </div>
             @endforeach
         </div>

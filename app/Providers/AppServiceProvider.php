@@ -32,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        setlocale(LC_TIME, 'Russian');
+
         Model::preventLazyLoading();
 
         Blade::directive('money', function ($expression) {
