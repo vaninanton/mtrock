@@ -21,10 +21,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ *
  * @method static \Database\Factories\NewsFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|News newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|News newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|News query()
+ *
  * @mixin \Eloquent
  */
 class News extends Model

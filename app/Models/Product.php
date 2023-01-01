@@ -42,6 +42,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read string $human_size
  * @property-read string $human_weight
  * @property-read \App\Models\Type|null $type
+ *
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
@@ -50,6 +51,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
  * @method static \Illuminate\Database\Query\Builder|Product withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Product withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Product extends Model
@@ -94,7 +96,7 @@ class Product extends Model
         return $query
             // ->orderBy('availability_preorder', 'asc')
             ->orderBy('in_stock', 'desc');
-            // ->orderBy('position', 'asc');
+        // ->orderBy('position', 'asc');
     }
 
     /**
