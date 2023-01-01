@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\RecentlyViewedProductsViewComposer;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
 
             return sprintf('<?php echo number_format(%s, %s, \'.\', \'&nbsp;\'); ?>&nbsp;₽', ...$params);
         });
+
+        View::composer('product', RecentlyViewedProductsViewComposer::class);
 
         Route::bind('category_path', function ($path) {
             $slugs = explode('/', $path);

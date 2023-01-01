@@ -10,6 +10,8 @@ class ProductController extends Controller
 {
     public function __invoke(Category $category, Product $product): View
     {
+        session()->push('products.recently_viewed', $product->getKey());
+
         return view('product', [
             'category' => $category,
             'product' => $product,

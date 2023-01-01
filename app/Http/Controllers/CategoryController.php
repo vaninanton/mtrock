@@ -18,17 +18,9 @@ class CategoryController extends Controller
     {
         $category->load([
             'childrenRecursive' => [
-                'products' => function (HasMany $query) {
-                    return $query->with([
-                        'brand',
-                        'category',
-                    ])->paginate(4);
-                },
+                'products' => fn (HasMany $query) => $query->with(['brand', 'category'])->paginate(4)
             ],
-            'products' => [
-                'brand',
-                'category',
-            ],
+            'products' => fn (HasMany $query) => $query->with(['brand', 'category'])->ordered()->get()
         ]);
 
         return response()->view('category', [

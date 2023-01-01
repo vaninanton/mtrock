@@ -1,3 +1,5 @@
+@section('meta_title', 'Новости')
+
 <x-app-layout>
 
     <nav class="flex bg-gray-100 py-2 px-4" aria-label="Breadcrumb">

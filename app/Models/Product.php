@@ -25,6 +25,8 @@ class Product extends Model
         'flag_hit' => 'boolean',
     ];
 
+    protected $perPage = 50;
+
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
@@ -38,6 +40,14 @@ class Product extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query
+            // ->orderBy('availability_preorder', 'asc')
+            ->orderBy('in_stock', 'desc');
+            // ->orderBy('position', 'asc');
     }
 
     /**

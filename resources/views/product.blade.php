@@ -1,3 +1,6 @@
+@section('meta_title', $product->type_prefix.' '.$product->brand->title.' '.$product->model.' купить')
+@section('meta_description', $product->type_prefix.' '.$product->brand->title.' '.$product->model.' - '.strip_tags($product->short_description))
+
 <x-app-layout>
     <nav class="flex bg-gray-100 py-2 px-4" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -38,10 +41,23 @@
                     <div class="text-2xl font-bold text-blue-900">@money($product->price)</div>
                 </div>
                 <div class="flex-0 text-right">
-                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-2xl px-6 py-3.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    @if ($product->quantity > 0)
+                    <form action="{{ route('cart.put') }}" method="post">
+                        @csrf
+                        @method('put')
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="text-2xl px-6 py-3.5 bg-blue-700 addtocart">
+                            Купить
+                        </button>
+                    </form>
+                    <div><small>Товар в наличии</small></div>
+                    @else
+                    <button class="text-slate-800 bg-slate-300 hover:bg-slate-300 font-medium rounded-lg text-2xl px-6 py-3.5 text-center">
                         Купить
                     </button>
-                    <div><small>Товар в наличии</small></div>
+                    <div><small>Нет в наличии</small></div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -115,5 +131,11 @@
     </div>
     <div class="content py-8 mx-auto max-w-xl">
         {!! $product->description !!}
+    </div>
+    <hr>
+    <div class="grid grid-cols-4 gap-8 px-4">
+        @foreach($recentlyViewed as $product)
+        <x-product-card :product="$product" />
+        @endforeach
     </div>
 </x-app-layout>

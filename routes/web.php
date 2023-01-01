@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IndexController;
@@ -23,9 +24,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', IndexController::class)->name('index');
 
-Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+Route::group([
+    'as' => 'cart.',
+    'prefix' => 'cart/',
+], function() {
+    Route::put('/', [CartController::class, 'put'])->name('put');
+});
 
-Route::get('/contact', ContactController::class)->name('contact');
+// Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/store/brand', [BrandController::class, 'index'])->name('brand.index');
 Route::get('/store/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');

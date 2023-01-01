@@ -1,3 +1,4 @@
+@section('meta_title', 'Снаряжение для туризма, товары для спорта и отдыха')
 <x-app-layout>
     <div class="content p-8">
         <img src="/img/logo.svg" alt="" class="block mx-auto mt-4 max-w-xs">

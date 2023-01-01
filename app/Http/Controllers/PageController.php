@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 
 class PageController extends Controller
 {
-    public function __invoke(Page $page): Response
+    public function __invoke(Page $page): ViewContract
     {
-        return response()->view('page', compact('page'));
+        return View::first(['page.index', 'page.'.$page->slug], compact('page'));
     }
 }

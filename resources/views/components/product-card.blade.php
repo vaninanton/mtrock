@@ -15,9 +15,18 @@
             <div class="text-base font-bold text-blue-900 leading-none">@money($product->price)</div>
         </div>
         @if ($product->quantity > 0)
-        <button class="addtocart shadow">Купить</button>
+        <form action="{{ route('cart.put') }}" method="post">
+            @csrf
+            @method('put')
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="addtocart">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                Купить
+            </button>
+        </form>
         @else
-        <button class="addtocart bg-gray-400 hover:bg-gray-400 text-black cursor-default">Нет в наличии</button>
+        <button class="addtocart-not-in-stock">Нет в наличии</button>
         @endif
     </div>
 </div>
