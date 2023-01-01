@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read Category|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
  * @property-read int|null $products_count
+ *
  * @method static \Database\Factories\CategoryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
@@ -39,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Category extends Model

@@ -94,7 +94,7 @@
                             </div>
                             <div class="footer__contact__time">
                                 <i class="far fa-clock fa-fw"></i>
-                                <a href="/news/grafik-raboty-magazina.html" target="_blank">График работы</a>
+                                <a href="{{ route('page', 'contact') }}" target="_blank">График работы</a>
                             </div>
                         </div>
                     </div>

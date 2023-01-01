@@ -26,7 +26,8 @@ Route::get('/', IndexController::class)->name('index');
 Route::group([
     'as' => 'cart.',
     'prefix' => 'cart/',
-], function() {
+], function () {
+    Route::get('/', [CartController::class, 'index'])->name('index');
     Route::put('/', [CartController::class, 'put'])->name('put');
 });
 

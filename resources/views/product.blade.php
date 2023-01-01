@@ -1,5 +1,5 @@
-@section('meta_title', $product->type_prefix.' '.$product->brand->title.' '.$product->model.' купить')
-@section('meta_description', $product->type_prefix.' '.$product->brand->title.' '.$product->model.' - '.strip_tags($product->short_description))
+@section('meta_title', $product->title.' купить')
+@section('meta_description', $product->title.' - '.strip_tags($product->short_description))
 
 <x-app-layout>
     <nav class="flex bg-gray-100 py-2 px-4" aria-label="Breadcrumb">
@@ -63,18 +63,22 @@
         </div>
         <div class="p-4 md:order-2">
             <h1 class="h1">
-                {{ $product->type_prefix }}
-                {{ $product->brand->title }}
-                {{ $product->model }}
+                {{ $product->title }}
             </h1>
+            @if ($product->brand)
             <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
                 <img src="https://mountain-rock.ru/uploads/thumbs/store/producer/300x300_{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4" loading="lazy">
                 {{ $product->brand->title }}
             </a>
+            @endif
             <div class="text-lg pb-4 mb-6 border-b">{{ strip_tags($product->short_description) }}</div>
             <div>Артикул: {{ $product->sku }}</div>
+            @if ($product->weight)
             <div>Вес: {{ $product->humanWeight }}</div>
+            @endif
+            @if ($product->length || $product->width || $product->height)
             <div>Размер: {{ $product->humanSize }}</div>
+            @endif
         </div>
         <div class="bg-white md:order-1 p-4">
             <img src="https://mountain-rock.ru/uploads/store/product/{{ $product->image }}" alt="" class="block h-auto w-full" loading="lazy">

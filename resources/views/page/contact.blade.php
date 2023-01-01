@@ -1,3 +1,5 @@
+@section('meta_title', 'Контакты и пункт выдачи')
+
 <x-app-layout>
     <div class="grid md:grid-cols-2">
         <div class="px-2">

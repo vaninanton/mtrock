@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
@@ -18,9 +17,9 @@ class CategoryController extends Controller
     {
         $category->load([
             'childrenRecursive' => [
-                'products' => fn ($query) => $query->with(['brand', 'category'])->ordered()->paginate(4)
+                'products' => fn ($query) => $query->with(['brand', 'category'])->ordered()->paginate(4),
             ],
-            'products' => fn ($query) => $query->with(['brand', 'category'])->ordered()->get()
+            'products' => fn ($query) => $query->with(['brand', 'category'])->ordered()->get(),
         ]);
 
         return response()->view('category', [

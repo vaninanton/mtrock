@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
  * @property-read int|null $products_count
+ *
  * @method static \Database\Factories\TypeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Type newQuery()
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Type query()
  * @method static \Illuminate\Database\Query\Builder|Type withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Type withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Type extends Model

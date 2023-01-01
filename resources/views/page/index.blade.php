@@ -1,5 +1,6 @@
 @section('meta_title', $page->title)
 @section('meta_description', $page->meta_description)
+
 <x-app-layout>
     <div class="p-4">
         <h1 class="h1">{{ $page->title }}</h1>
