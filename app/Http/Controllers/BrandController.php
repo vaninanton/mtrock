@@ -3,18 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BrandController extends Controller
 {
     /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Brand $brand)
+    public function index(): Response
     {
-        dd($brand);
+        $brands = Brand::query()->get();
+
+        return response()->view('brand.index', compact('brands'));
+    }
+
+    /**
+     * @param  Brand  $brand
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Brand $brand): Response
+    {
+        $brand->load([
+            'products' => [
+                'brand',
+                'category',
+            ],
+        ]);
+
+        return response()->view('brand.show', compact('brand'));
     }
 }

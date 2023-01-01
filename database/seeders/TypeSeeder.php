@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Type;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TypeSeeder extends Seeder
 {
@@ -14,6 +14,13 @@ class TypeSeeder extends Seeder
      */
     public function run(): void
     {
-        Type::factory(10)->create();
+        DB::insert('INSERT INTO `types` (
+            `id`,
+            `title`
+        )
+        SELECT
+            `id`,
+            `name`
+        FROM `mtrock_old`.`mr_store_type`');
     }
 }

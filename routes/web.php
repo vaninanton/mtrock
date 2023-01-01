@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -21,9 +24,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', IndexController::class)->name('index');
 
 Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/contact', ContactController::class)->name('contact');
+
+Route::get('/store/brand', [BrandController::class, 'index'])->name('brand.index');
+Route::get('/store/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');
+
 Route::get('/store/{category}', CategoryController::class)->name('category');
-Route::get('/store/brands/{brand}', BrandController::class)->name('brand');
 Route::get('/store/{category}/{product}.html', ProductController::class)->name('product');
+// Route::get('/store/{category_path}', CategoryController::class)->name('category')->where('category_path', '.*');
+
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{news}.html', [NewsController::class, 'show'])->name('news.show')->missing(fn () => redirect(route('news.index')));
+
+Route::get('/{page}', PageController::class)->name('page');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -31,4 +45,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

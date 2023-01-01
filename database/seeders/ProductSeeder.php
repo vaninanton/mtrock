@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
 {
@@ -14,16 +14,58 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory()->create([
-            'title' => 'Палатка Alexika Mirage 4 красный',
-            'slug' => 'palatka-alexika-mirage-4-krasnyy',
-            'sku' => '9101.4103',
-            'price' => 83039,
-            'old_price' => 103799,
-            'category_id' => 1,
-            'short_description' => 'Предназначена для организации высокогорных базовых лагерей.',
-            'description' => '<p><strong>Палатка Alexika Mirage 4</strong></p><div>Отличная экспедиционная палатка с повышенной ветроустойчивостью каркаса и внешнего тента. Предназначена для организации высокогорных базовых лагерей и длительной эксплуатации в тяжелых погодных условиях. Имеется большой тамбур для снаряжение. В палатке при необходимости могут разместиться 5 человек. 4-х местная эволюция отлично зарекомендовавшей себя палатки MIRAGE 3.<br></div><div><strong>Характеристики палатки Alexika Mirage 4:</strong></div><ul><li>Количество мест 4</li><li>Вес 6.6 кг</li><li>Область применения Экстрим</li><li>Внутренняя палатка есть</li><li>Размер 395x210x120 см</li><li>Размер в чехле 20×52 см</li><li>Материал тента Нейлон 3000 мм</li><li>Материал дна Полиэстер. мин. 6000, макс. 10000 мм Н2О</li><li>Материал дуг Алюминий 8.5 мм</li><li>Количество входов 2</li><li>Цвет красный</li></ul><div><strong>Преимущества и особенности:</strong></div><div>-Пропитка, задерживающая распространение огня.</div><div>-Швы герметизированы термоусадочной лентой.</div><div>-Узлы палатки, испытывающие высокие нагрузки, усилены более прочной тканью.</div><div>-Край тента обшит прочной стропой.</div><div>-Молнии на внешнем тенте фиксируются алюминиевым крючком.</div><div>-Эффективная система вентиляции состоит из двух вентиляционных окон с ветровым клапаном, расположенных в верхней точке купола, плюс дополнительное вентиляционное окно в тамбуре.</div><div>-Прочный нейлоновый тент с усиленным плетением RipStop и силиконовым покрытием.</div><div>-Жёсткий пятидуговый каркас.</div><div>-Полог (юбка) по периметру палатки защищает от попадания дождя и снега и при загрузке увеличивает устойчивость конструкции.</div><div>-При необходимости быстро собирается с помощью петель с фиксаторами.</div><div>-Молнии YKK на внешнем тенте.</div><div>-Внутренняя палатка оснащена противомоскитной сеткой, четырьмя карманами, кольцом для фонаря и полочкой для мелких предметов.</div><div>-Возможность закрывать вентиляционное окно из палатки</div>',
-        ]);
-        Product::factory(10)->create();
+        DB::insert('INSERT INTO `products` (
+            `id`,
+            `title`,
+            `slug`,
+            `sku`,
+            `category_id`,
+            `brand_id`,
+            `type_id`,
+            `quantity`,
+            `in_stock`,
+            `price`,
+            `old_price`,
+            `type_prefix`,
+            `model`,
+            `image`,
+            `short_description`,
+            `description`,
+            `flag_new`,
+            `flag_hit`,
+            `length`,
+            `width`,
+            `height`,
+            `weight`,
+            `created_at`,
+            `updated_at`
+        )
+        SELECT
+            `id`,
+            `name`,
+            `slug`,
+            `sku`,
+            `category_id`,
+            `producer_id`,
+            `type_id`,
+            IFNULL(`quantity`, 0),
+            IFNULL(`in_stock`, 0),
+            `price`,
+            `old_price`,
+            `type_prefix`,
+            `model`,
+            `image`,
+            `short_description`,
+            `description`,
+            IFNULL(`is_new`, 0),
+            IFNULL(`is_hit`, 0),
+            `length`,
+            `width`,
+            `height`,
+            `weight`,
+            `create_time`,
+            `update_time`
+        FROM `mtrock_old`.`mr_store_product`
+        WHERE `status` = 1');
     }
 }

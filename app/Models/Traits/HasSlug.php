@@ -2,7 +2,8 @@
 
 namespace App\Models\Traits;
 
-trait HasSlug {
+trait HasSlug
+{
     /**
      * Get the route key for the model.
      *
