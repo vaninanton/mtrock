@@ -21,6 +21,7 @@ class IndexController extends Controller
                 'brand',
                 'category',
             ])
+            ->ordered()
             ->paginate(100);
 
         return response()->view('welcome', compact('products'));

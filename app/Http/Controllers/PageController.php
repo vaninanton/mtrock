@@ -10,6 +10,6 @@ class PageController extends Controller
 {
     public function __invoke(Page $page): ViewContract
     {
-        return View::first(['page.index', 'page.'.$page->slug], compact('page'));
+        return View::first(['page.'.$page->slug, 'page.index'], compact('page'));
     }
 }

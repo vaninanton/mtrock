@@ -25,7 +25,7 @@ class BrandController extends Controller
     public function show(Brand $brand): Response
     {
         $brand->load([
-            'products' => fn (HasMany $query) => $query->with(['brand', 'category'])->ordered()->get()
+            'products' => fn ($query) => $query->with(['brand', 'category'])->ordered()->get()
         ]);
 
         return response()->view('brand.show', compact('brand'));
