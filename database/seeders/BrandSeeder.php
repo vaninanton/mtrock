@@ -31,7 +31,7 @@ class BrandSeeder extends Seeder
             `short_description`,
             REPLACE(`description`, "https://mountain-rock.ru/", "/"),
             `sort`
-        FROM `mtrock_old`.`mr_store_producer`
+        FROM `mtrock`.`mr_store_producer`
         WHERE `status` = 1');
     }
 }

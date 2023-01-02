@@ -21,6 +21,7 @@ class IndexController extends Controller
                 'brand',
                 'category',
             ])
+            ->whereNull('category_id')
             ->ordered()
             ->paginate(100);
 

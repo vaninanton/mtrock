@@ -1,7 +1,7 @@
 @section('meta_title', $category->title)
 
 <x-app-layout>
-    <x-top-header :h1="$category->title">
+    <x-top-header :h1="$category->title" class="-mx-4">
         <x-slot:breadcrumbs>
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 lg:space-x-3">
@@ -26,9 +26,8 @@
         </x-slot>
     </x-top-header>
 
-    <div class="p-4">
+    <div class="p-4 -mx-8">
         <div class="content max-w-2xl mx-auto">
-            <h1 class="h1">{{ $category->title }}</h1>
             {!! $category->short_description !!}
         </div>
         @foreach ($category->childrenRecursive as $child)

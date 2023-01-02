@@ -21,8 +21,8 @@ class TypeSeeder extends Seeder
         )
         SELECT
             `id`,
-            `name`,
-            `name`
-        FROM `mtrock_old`.`mr_store_type`');
+            TRIM(`name`),
+            TRIM(`name`)
+        FROM `mtrock`.`mr_store_type`');
     }
 }

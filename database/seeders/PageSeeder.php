@@ -25,7 +25,7 @@ class PageSeeder extends Seeder
             `title`,
             `slug`,
             `body`
-        FROM `mtrock_old`.`mr_page_page`
+        FROM `mtrock`.`mr_page_page`
         WHERE `status` = 1');
     }
 }

@@ -35,7 +35,7 @@ class NewsSeeder extends Seeder
             `link`,
             `video`,
             `create_time` AS created_at
-        FROM `mtrock_old`.`mr_news_news`
+        FROM `mtrock`.`mr_news_news`
         WHERE `status` = 1');
     }
 }
