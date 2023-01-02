@@ -79,7 +79,7 @@ class Product extends Model
         'flag_hit' => 'boolean',
     ];
 
-    protected $perPage = 50;
+    protected $perPage = 51;
 
     public function brand(): BelongsTo
     {
