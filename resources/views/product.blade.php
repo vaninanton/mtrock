@@ -88,20 +88,21 @@
                 @endif
             </div>
             <div class="bg-white md:order-1 p-4">
-                <img src="https://mountain-rock.ru/uploads/store/product/{{ $product->image }}" alt="" class="block h-auto w-full" loading="lazy">
-                <div class="flex justify-center items-center gap-4 mt-4">
-                    <a href="#">
-                        <img src="https://picsum.photos/40/30?random=12345" alt="" class="transition-transform transform-gpu hover:scale-150" loading="lazy">
-                    </a>
-                    <a href="#">
-                        <img src="https://picsum.photos/30/30?random=12345" alt="" class="transition-transform transform-gpu hover:scale-150" loading="lazy">
-                    </a>
-                    <a href="#">
-                        <img src="https://picsum.photos/30/40?random=12345" alt="" class="transition-transform transform-gpu hover:scale-150" loading="lazy">
-                    </a>
-                    <a href="#">
-                        <img src="https://picsum.photos/30/10?random=12345" alt="" class="transition-transform transform-gpu hover:scale-150" loading="lazy">
-                    </a>
+                <div id="myTabContent">
+                    <div class="hidden" id="image_main">
+                        <img src="https://mountain-rock.ru/uploads/store/product/{{ $product->image }}" alt="" class="block h-auto w-full" loading="lazy">
+                    </div>
+                    @foreach ($product->images as $image)
+                    <div class="hidden" id="image_{{ $image->id }}">
+                        <img src="https://mountain-rock.ru/uploads/store/product/{{ $image->path }}" alt="" class="transition-transform transform-gpu" loading="eager">
+                    </div>
+                    @endforeach
+                </div>
+                <div class="flex justify-center items-center gap-4 mt-4" data-tabs-toggle="#myTabContent" role="tablist">
+                    <button data-tabs-target="#image_main" type="button" role="tab" aria-controls="contacts" aria-selected="false"><img src="https://mountain-rock.ru/uploads/thumbs/store/product/64x64_{{ $product->image }}" alt="" class="transition-transform transform-gpu" loading="lazy"></button>
+                    @foreach ($product->images as $image)
+                    <button data-tabs-target="#image_{{ $image->id }}" type="button" role="tab" aria-controls="contacts" aria-selected="false"><img src="https://mountain-rock.ru/uploads/thumbs/store/product/64x64_{{ $image->path }}" alt="" class="transition-transform transform-gpu" loading="lazy"></button>
+                    @endforeach
                 </div>
             </div>
         </div>

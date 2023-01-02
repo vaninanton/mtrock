@@ -91,6 +91,11 @@ class Product extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
     public function linked()
     {
         return $this->belongsToMany(Product::class, null, 'product_id', 'linked_product_id')->using(ProductProduct::class);

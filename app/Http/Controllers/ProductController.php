@@ -16,6 +16,7 @@ class ProductController extends Controller
             'category',
             'brand',
             'type',
+            'images',
             'linked' => [
                 'category', 'brand', 'type'
             ],
