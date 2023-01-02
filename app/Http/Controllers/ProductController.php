@@ -12,6 +12,15 @@ class ProductController extends Controller
     {
         session()->push('products.recently_viewed', $product->getKey());
 
+        $product->load([
+            'category',
+            'brand',
+            'type',
+            'linked' => [
+                'category', 'brand', 'type'
+            ],
+        ]);
+
         return view('product', [
             'product' => $product,
         ]);

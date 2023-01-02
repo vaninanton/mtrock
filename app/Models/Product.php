@@ -91,6 +91,11 @@ class Product extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function linked()
+    {
+        return $this->belongsToMany(Product::class, null, 'product_id', 'linked_product_id')->using(ProductProduct::class);
+    }
+
     public function scopeOrdered($query)
     {
         return $query

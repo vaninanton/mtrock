@@ -35,7 +35,7 @@
                 </x-slot>
     </x-top-header>
 
-    <div class="container mx-auto py-4">
+    <div class="container mx-auto p-4">
         @if ($brand->description)
         <div class="content max-w-4xl mx-auto">
             <img src="https://mountain-rock.ru/uploads/thumbs/store/producer/300x300_{{ $brand->image }}" alt="" class="float-right" loading="lazy">

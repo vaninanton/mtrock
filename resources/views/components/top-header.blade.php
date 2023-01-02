@@ -1,7 +1,7 @@
 @props(['h1' => 'Заголовок', 'subheading' => ''])
 
 <div {!! $attributes->merge(['class' => 'bg-[#0350b1] text-white py-8']) !!}>
-    <div class="container mx-auto">
+    <div class="container mx-auto px-4">
         <div class="lg:flex justify-between items-center">
             <div class="lg:order-2">
                 {{ $breadcrumbs }}

@@ -143,7 +143,17 @@
         <div class="content py-8 mx-auto max-w-xl">
             {!! $product->description !!}
         </div>
-        <hr>
+
+        <hr class="my-8">
+        <h2 class="h2">SET:</h2>
+        <div class="grid grid-cols-4 gap-8 px-4">
+            @foreach($product->linked as $product)
+            <x-product-card :product="$product" />
+            @endforeach
+        </div>
+
+        <hr class="my-8">
+        <h2 class="h2">Просмотренные товары:</h2>
         <div class="grid grid-cols-4 gap-8 px-4">
             @foreach($recentlyViewed as $product)
             <x-product-card :product="$product" />
