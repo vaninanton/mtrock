@@ -41,6 +41,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Category|null $category
  * @property-read string $human_size
  * @property-read string $human_weight
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductImage[] $images
+ * @property-read int|null $images_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Product[] $linked
+ * @property-read int|null $linked_count
+ * @property-read string $route
  * @property-read \App\Models\Type|null $type
  *
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
@@ -132,9 +137,10 @@ class Product extends Model
     {
         return Attribute::make(
             get: function (): string {
-                if (!$this->category) {
+                if (! $this->category) {
                     return route('product_no_cat', [$this]);
                 }
+
                 return route('product', [$this->category, $this]);
             }
         )->shouldCache();

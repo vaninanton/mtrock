@@ -49,11 +49,9 @@
                     </div>
                     <div class="flex-0 text-right">
                         @if ($product->quantity > 0)
-                        <form action="{{ route('cart.put') }}" method="post">
+                        <form action="{{ route('cart.add', $product) }}" method="post">
                             @csrf
                             @method('put')
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="text-2xl px-6 py-3.5 bg-blue-700 addtocart">
                                 Купить
                             </button>

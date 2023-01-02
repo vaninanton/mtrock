@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
@@ -15,15 +16,15 @@ class CategoryController extends Controller
      */
     public function __invoke(Category $category): Response
     {
-        $category->load([
-            'childrenRecursive' => [
-                'products' => fn ($query) => $query->with(['brand', 'category'])->ordered()->paginate(4),
-            ],
-            'products' => fn ($query) => $query->with(['brand', 'category'])->ordered()->get(),
-        ]);
+        $products = Product::query()
+            ->whereIn('category_id', [$category->id])
+            ->ordered()
+            ->with(['brand', 'category', 'type'])
+            ->paginate();
 
         return response()->view('category', [
             'category' => $category,
+            'products' => $products,
         ]);
     }
 }

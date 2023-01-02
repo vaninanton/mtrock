@@ -1,5 +1,5 @@
 @props(['product'])
-<div class="bg-white border rounded shadow-lg mb-2 flex flex-col justify-between">
+<div {{ $attributes->merge(['class' => 'bg-white border rounded shadow-lg mb-2 flex flex-col justify-between']) }}>
     <div>
         <a href="{{ $product->route }}">
             <img src="https://mountain-rock.ru/uploads/thumbs/store/product/250x250_{{ $product->image }}" alt="{{ $product->brand?->title }} {{ $product->model }}" class="m-auto object-contain h-32" loading="lazy">
@@ -15,11 +15,9 @@
             <div class="text-base font-bold text-blue-900 leading-none">@money($product->price)</div>
         </div>
         @if ($product->quantity > 0)
-        <form action="{{ route('cart.put') }}" method="post">
+        <form action="{{ route('cart.add', $product) }}" method="post">
             @csrf
             @method('put')
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <input type="hidden" name="quantity" value="1">
             <button type="submit" class="addtocart">
                 <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                 Купить

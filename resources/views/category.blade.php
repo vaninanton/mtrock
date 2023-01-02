@@ -1,7 +1,7 @@
 @section('meta_title', $category->title)
 
 <x-app-layout>
-    <x-top-header :h1="$category->title" class="-mx-4">
+    <x-top-header :h1="$category->title">
         <x-slot:breadcrumbs>
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 lg:space-x-3">
@@ -23,31 +23,23 @@
                     </li>
                 </ol>
             </nav>
-            </x-slot>
+        </x-slot:breadcrumbs>
     </x-top-header>
 
     <main class="container mx-auto px-4 py-8">
-        <div class="-mx-8">
-            <div class="content max-w-2xl mx-auto">
-                {!! $category->short_description !!}
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+            @foreach($products as $index => $product)
+            @if($loop->index === 2)
+            <div class="hidden lg:block content col-span-2 -mt-20 bg-white border rounded shadow-lg mb-2 p-4">
+                <img src="https://mountain-rock.ru/uploads/thumbs/store/category/250x250_palatkazm.jpeg" alt="" class="mx-auto">
+                <p>Если Вы собираетесь на природу с детьми или компанией, Вам не обойтись без кемпинговой палатки.</p>
+                <p>Такое снаряжение тяжелее и больше туристического, его часто выбирают для отдыха большие компании людей, семьи и те, кто ставит лагерь на одном месте.</p>
             </div>
-            @foreach ($category->childrenRecursive as $child)
-            <div>
-                <h2 class="h2"><a href="{{ route('category', $child) }}">{{ $child->title }}</a></h2>
-                <div class="grid grid-cols-4 gap-8 px-4">
-                    @foreach($child->products as $product)
-                    <x-product-card :product="$product" />
-                    @endforeach
-                </div>
-            </div>
-            @endforeach
-            <div class="content max-w-2xl mx-auto">{!! $category->description !!}</div>
-        </div>
-
-        <div class="grid grid-cols-4 gap-8 px-4">
-            @foreach($category->products as $product)
+            @endif
             <x-product-card :product="$product" />
             @endforeach
         </div>
+        {{ $products->links() }}
+        <div class="content max-w-2xl mx-auto">{!! $category->description !!}</div>
     </main>
 </x-app-layout>

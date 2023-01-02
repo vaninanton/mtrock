@@ -28,7 +28,11 @@ Route::group([
     'prefix' => 'cart/',
 ], function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
-    Route::put('/', [CartController::class, 'put'])->name('put');
+    Route::put('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::put('/product/{product:id}/add', [CartController::class, 'add'])->name('add');
+    Route::post('/product/{product:id}/minus', [CartController::class, 'minus'])->name('minus');
+    Route::post('/product/{product:id}/plus', [CartController::class, 'plus'])->name('plus');
+    Route::delete('/product/{product:id}/delete', [CartController::class, 'delete'])->name('delete');
 });
 
 // Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');

@@ -60,7 +60,7 @@
                                 <a href="{{ route('page', 'contact') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Контакты</a>
                             </li>
                             <li>
-                                <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">Корзина</a>
+                                <a href="{{ route('cart.index') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">Корзина</a>
                             </li>
                         </ul>
                     </div>
@@ -71,7 +71,6 @@
                         <li>
                             <a href="{{ route('category', $category) }}" class="block p-3 rounded-lg hover:bg-gray-50">
                                 <div class="font-semibold">{{ $category->title }}</div>
-                                {{-- <span class="text-sm font-light text-gray-500">{{ $category->short_description }}</span> --}}
                             </a>
                         </li>
                         @endforeach
