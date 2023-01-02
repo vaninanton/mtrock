@@ -26,20 +26,21 @@
         </x-slot:breadcrumbs>
     </x-top-header>
 
-    <main class="container mx-auto px-4 py-8">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
-            @foreach($products as $index => $product)
-            @if($loop->index === 2)
-            <div class="hidden lg:block content col-span-2 -mt-20 bg-white border rounded shadow-lg mb-2 p-4">
-                <img src="https://mountain-rock.ru/uploads/thumbs/store/category/250x250_palatkazm.jpeg" alt="" class="mx-auto">
-                <p>Если Вы собираетесь на природу с детьми или компанией, Вам не обойтись без кемпинговой палатки.</p>
-                <p>Такое снаряжение тяжелее и больше туристического, его часто выбирают для отдыха большие компании людей, семьи и те, кто ставит лагерь на одном месте.</p>
+    <main class="container mx-auto px-4 py-8 grid grid-cols-12">
+        <div class="col-span-3">
+            <div class="-mt-14 bg-white border rounded-xl shadow-xl mb-2 p-8">
+                <x-category-menu></x-category-menu>
             </div>
-            @endif
-            <x-product-card :product="$product" />
-            @endforeach
         </div>
-        {{ $products->links() }}
-        <div class="content max-w-2xl mx-auto">{!! $category->description !!}</div>
+        <div class="col-span-9">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+                @foreach($products as $index => $product)
+                <x-product-card :product="$product" />
+                @endforeach
+            </div>
+            {{ $products->links() }}
+            <div class="content max-w-2xl mx-auto">{!! $category->description !!}</div>
+        </div>
+
     </main>
 </x-app-layout>

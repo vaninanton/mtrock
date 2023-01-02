@@ -76,9 +76,9 @@ class ProductSeeder extends Seeder
             'Палатки' => ['Палатка'],
             'Спальные мешки' => ['Спальник'],
             'Рюкзаки' => ['Рюкзак'],
-            'Горелки и газовое оборудование' => ['Горелка'],
-            'Походная посуда' => ['Туристическая посуда', 'Термос', 'Фильтр для воды'],
-            'Туристические коврики и подушки' => ['Самонадувающийся коврик', 'Коврик туристический'],
+            'Посуда и горелки' => ['Туристическая посуда', 'Термос', 'Фильтр для воды', 'Горелка'],
+            'Горелки' => ['Горелка'],
+            'Туристические коврики' => ['Самонадувающийся коврик', 'Коврик туристический'],
             'Кемпинговая мебель' => ['Кемпинговая мебель'],
             'Аксессуары' => ['Аксессуары', 'Мультитул', 'Гамаши', 'Аптечка туристическая'],
             'Гермомешки, гермобаулы' => ['Гермомешок'],
@@ -97,6 +97,7 @@ class ProductSeeder extends Seeder
             $category_id = Category::whereTitle($category)->first()->id;
             Product::whereBelongsTo(Type::whereIn('title', $types)->get())->update(['category_id' => $category_id]);
         }
-        Product::whereBelongsTo(Brand::where('title', 'Kovea')->get())->update(['category_id' => 4]);
+        $category_id = Category::whereTitle('Горелки')->first()->id;
+        Product::whereBelongsTo(Brand::where('title', 'Kovea')->get())->update(['category_id' => $category_id]);
     }
 }

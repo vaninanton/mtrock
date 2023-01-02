@@ -17,37 +17,144 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categories = [
-            'Палатки',
-            'Спальные мешки',
-            'Рюкзаки',
-            'Горелки и газовое оборудование',
-            'Походная посуда',
-            'Туристические коврики и подушки',
-            'Кемпинговая мебель',
-            'Аксессуары',
-            'Гермомешки, гермобаулы',
-            'Тенты',
-            'Треккинговые палки',
-            'Самокаты',
-            'Снегоступы',
-            'Дорожные, вело и поясные сумки',
-            'Лонгборды и круизёры',
-            'Фонари и источники питания',
-            'Лавинное снаряжение',
-            'Альпинизм',
+            [
+                'title' => 'Палатки',
+                'subcategories' => [
+                    'Кемпинговые палатки',
+                    'Легкие палатки',
+                    'Палатки душ-туалет',
+                    'Быстросборные палатки',
+                    'Тенты и шатры',
+                ],
+            ],
+            [
+                'title' => 'Спальные мешки',
+                'subcategories' => [
+                    'Кокон',
+                    'Одеяло',
+                ],
+            ],
+            [
+                'title' => 'Рюкзаки',
+                'subcategories' => [
+                    'Туристические',
+                    'Городские',
+                    'Питьевые системы',
+                ],
+            ],
+            [
+                'title' => 'Посуда и горелки',
+                'subcategories' => [
+                    'Горелки',
+                    'Аксессуары для газового оборудования',
+                ],
+            ],
+            [
+                'title' => 'Походная посуда',
+                'subcategories' => [
+                    'Туристические кружки',
+                    'Котелки и чайники',
+                    'Столовые приборы',
+                    'Термосы и фляги',
+                    'Посуда',
+                    // 'Аксессуары',
+                ],
+            ],
+            [
+                'title' => 'Туристические коврики',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Кемпинговая мебель',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Аксессуары',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Гермомешки, гермобаулы',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Тенты',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Треккинговые палки',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Самокаты',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Снегоступы',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Дорожные, вело и поясные сумки',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Лонгборды и круизёры',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Фонари и источники питания',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Лавинное снаряжение',
+                'subcategories' => [
+
+                ],
+            ],
+            [
+                'title' => 'Альпинизм',
+                'subcategories' => [
+
+                ],
+            ],
         ];
 
         foreach ($categories as $category) {
-            $slug = Str::slug($category, '-');
-            Category::factory()
+            $slug = Str::slug($category['title'], '-');
+            $parent = Category::factory()
                 ->create([
-                    'title' => $category,
+                    'title' => $category['title'],
                     'slug' => $slug,
                 ]);
-            // $count = rand(0, 5);
-            // $parent->children()->saveMany(Category::factory($count)->make([
-            //     'parent_id' => $parent->id,
-            // ]));
+            foreach ($category['subcategories'] as $subcategory) {
+                $slug = Str::slug($subcategory, '-');
+                $parent->children()->save(Category::factory()->make([
+                    'parent_id' => $parent->id,
+                    'title' => $subcategory,
+                    'slug' => $slug,
+                ]));
+            }
         }
 
         // DB::insert('INSERT INTO `categories` (
