@@ -27,7 +27,7 @@
     </x-top-header>
 
     <div class="container mx-auto py-4 px-6">
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             @foreach($news as $item)
             <div class="bg-white border rounded shadow-sm mb-2 flex flex-col">
                 <a href="{{ route('news.show', $item) }}" class="block">

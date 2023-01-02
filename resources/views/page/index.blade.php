@@ -26,7 +26,7 @@
             </nav>
         </x-slot>
     </x-top-header>
-    <div class="container mx-auto pt-24 pb-4">
+    <div class="container mx-auto p-4 pt-24">
         <div class="content">{!! $page->body !!}</div>
     </div>
 </x-app-layout>

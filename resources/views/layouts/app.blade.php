@@ -26,6 +26,20 @@
 </head>
 
 <body class="font-sans antialiased" itemscope itemtype="http://schema.org/WebPage">
+    <div class="bg-slate-800 text-white">
+        <div class="container px-4 mx-auto flex justify-between items-center">
+            <div>
+                <div>+7 (499) 391-80-19</div>
+                <div>admin@mountain-rock.ru</div>
+            </div>
+            <div>
+                <a href="{{ route('news.index') }}">Новости</a>
+                <a href="{{ route('page', 'oplata-i-dostavka-po-moskve-i-rossii') }}">Оплата и доставка</a>
+                <a href="{{ route('page', 'obmen-i-vozvrat') }}">Обмен и возврат</a>
+                <a href="{{ route('page', 'contact') }}">Контакты</a>
+            </div>
+        </div>
+    </div>
     <div class="flex flex-col bg-gray-50 min-h-screen justify-between">
         <div>
             <nav class="bg-white border-gray-200">

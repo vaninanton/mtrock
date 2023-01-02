@@ -2,7 +2,7 @@
 @section('meta_description', strip_tags($news->short_text))
 
 <x-app-layout>
-    <x-top-header class="-mb-14" :h1="$news->title">
+    <x-top-header class="lg:-mb-14" :h1="$news->title">
         <x-slot:breadcrumbs>
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 lg:space-x-3">

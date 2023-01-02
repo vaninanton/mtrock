@@ -139,24 +139,28 @@
                 <div class="advantage__item__descr">Отправим любым удобным для&nbsp;Вас&nbsp;способом!</div>
             </a>
         </div>
-        <div class="content py-8 mx-auto max-w-xl">
+        <div class="content p-4 pt-8 mx-auto max-w-xl">
             {!! $product->description !!}
         </div>
 
+        @if ($product->linked->count())
         <hr class="my-8">
         <h2 class="h2">SET:</h2>
-        <div class="grid grid-cols-4 gap-8 px-4">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 px-4">
             @foreach($product->linked as $product)
             <x-product-card :product="$product" />
             @endforeach
         </div>
+        @endif
 
+        @if ($recentlyViewed->count())
         <hr class="my-8">
         <h2 class="h2">Просмотренные товары:</h2>
-        <div class="grid grid-cols-4 gap-8 px-4">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 px-4">
             @foreach($recentlyViewed as $product)
             <x-product-card :product="$product" />
             @endforeach
         </div>
+        @endif
     </div>
 </x-app-layout>
