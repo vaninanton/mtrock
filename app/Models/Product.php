@@ -118,6 +118,21 @@ class Product extends Model
     /**
      * @return Attribute
      */
+    public function route(): Attribute
+    {
+        return Attribute::make(
+            get: function (): string {
+                if (!$this->category) {
+                    return route('product_no_cat', [$this]);
+                }
+                return route('product', [$this->category, $this]);
+            }
+        )->shouldCache();
+    }
+
+    /**
+     * @return Attribute
+     */
     public function humanWeight(): Attribute
     {
         return Attribute::make(

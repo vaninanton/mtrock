@@ -36,8 +36,9 @@ Route::group([
 Route::get('/store/brand', [BrandController::class, 'index'])->name('brand.index');
 Route::get('/store/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');
 
-Route::get('/store/{category}', CategoryController::class)->name('category');
+Route::get('/store/{product}.html', ProductController::class)->name('product_no_cat');
 Route::get('/store/{category?}/{product}.html', ProductController::class)->name('product');
+Route::get('/store/{category}', CategoryController::class)->name('category');
 // Route::get('/store/{category_path}', CategoryController::class)->name('category')->where('category_path', '.*');
 
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');

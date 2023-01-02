@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function __invoke(Category $category, Product $product): View
+    public function __invoke(?Category $category=null, Product $product): View
     {
         session()->push('products.recently_viewed', $product->getKey());
 

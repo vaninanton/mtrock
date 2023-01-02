@@ -1,7 +1,7 @@
 @props(['product'])
 <div class="bg-white border rounded shadow-lg mb-2 flex flex-col justify-between">
     <div>
-        <a href="{{ route('product', [$product->category, $product]) }}">
+        <a href="{{ $product->route }}">
             <img src="https://mountain-rock.ru/uploads/thumbs/store/product/250x250_{{ $product->image }}" alt="{{ $product->brand?->title }} {{ $product->model }}" class="m-auto object-contain h-32" loading="lazy">
             <div class="px-4">{{ $product->type_prefix }} {{ $product->brand?->title }} <span class="font-bold">{{ $product->model }}</span></div>
         </a>

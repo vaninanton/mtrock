@@ -23,14 +23,15 @@
                     </li>
                 </ol>
             </nav>
-        </x-slot>
+            </x-slot>
     </x-top-header>
 
-    <div class="p-4 -mx-8">
-        <div class="content max-w-2xl mx-auto">
-            {!! $category->short_description !!}
-        </div>
-        @foreach ($category->childrenRecursive as $child)
+    <main class="container mx-auto px-4 py-8">
+        <div class="-mx-8">
+            <div class="content max-w-2xl mx-auto">
+                {!! $category->short_description !!}
+            </div>
+            @foreach ($category->childrenRecursive as $child)
             <div>
                 <h2 class="h2"><a href="{{ route('category', $child) }}">{{ $child->title }}</a></h2>
                 <div class="grid grid-cols-4 gap-8 px-4">
@@ -39,13 +40,14 @@
                     @endforeach
                 </div>
             </div>
-        @endforeach
-        <div class="content max-w-2xl mx-auto">{!! $category->description !!}</div>
-    </div>
+            @endforeach
+            <div class="content max-w-2xl mx-auto">{!! $category->description !!}</div>
+        </div>
 
-    <div class="grid grid-cols-4 gap-8 px-4">
-        @foreach($category->products as $product)
-        <x-product-card :product="$product" />
-        @endforeach
-    </div>
+        <div class="grid grid-cols-4 gap-8 px-4">
+            @foreach($category->products as $product)
+            <x-product-card :product="$product" />
+            @endforeach
+        </div>
+    </main>
 </x-app-layout>
