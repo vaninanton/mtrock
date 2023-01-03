@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\IndexController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -23,10 +24,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class)->name('index');
 
-Route::group([
-    'as' => 'cart.',
-    'prefix' => 'cart/',
-], function () {
+// Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::name('cart.')->prefix('/cart')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
     Route::put('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::put('/product/{product:id}/add', [CartController::class, 'add'])->name('add');
@@ -35,25 +35,29 @@ Route::group([
     Route::delete('/product/{product:id}/delete', [CartController::class, 'delete'])->name('delete');
 });
 
-// Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('/store')->group(function () {
+    Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
+    Route::get('/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');
+    Route::get('/{product}.html', ProductController::class)->name('product');
+    Route::get('/{category}', CategoryController::class)->name('category');
+    // Route::get('/{category_path}', CategoryController::class)->name('category')->where('category_path', '.*');
+});
 
-Route::get('/store/brand', [BrandController::class, 'index'])->name('brand.index');
-Route::get('/store/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');
-
-Route::get('/store/{product}.html', ProductController::class)->name('product_no_cat');
-Route::get('/store/{category?}/{product}.html', ProductController::class)->name('product');
-Route::get('/store/{category}', CategoryController::class)->name('category');
-// Route::get('/store/{category_path}', CategoryController::class)->name('category')->where('category_path', '.*');
-
-Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-Route::get('/news/{news}.html', [NewsController::class, 'show'])->name('news.show')->missing(fn () => redirect(route('news.index')));
-
-Route::get('/{page}', PageController::class)->name('page');
+Route::prefix('/news')->name('news.')->group(function () {
+    Route::get('/', [NewsController::class, 'index'])->name('index');
+    Route::get('/{news}.html', [NewsController::class, 'show'])->name('show');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::name('backend.')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/backend', IndexController::class)->name('index');
+});
+
+Route::get('/{page}.html', PageController::class)->name('page');
 
 require __DIR__.'/auth.php';

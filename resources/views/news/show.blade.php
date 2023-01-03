@@ -40,8 +40,8 @@
         </x-top-header>
     </x-slot:header>
 
-    <div class="container mx-auto p-4 max-w-3xl">
-        <img src="https://mountain-rock.ru/uploads/thumbs/news/320x0_cropped_{{ $news->image }}" alt="" class="mx-auto" loading="lazy">
+    <div class="container mx-auto p-4 max-w-3xl prose dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600">
+        <img src="https://mountain-rock.ru/uploads/thumbs/news/320x0_cropped_{{ $news->image }}" alt="" class="float-right ml-4" loading="lazy">
         <div>{!! $news->short_text !!}</div>
         <div>{!! $news->full_text !!}</div>
     </div>

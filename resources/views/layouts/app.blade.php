@@ -28,7 +28,7 @@
     <div class="bg-slate-800 text-white">
         <div class="container px-4 mx-auto flex justify-between items-center">
             <div>
-                <div>+7 (499) 391-80-19 <button type="button" class="">Перезвоните мне!</button></div>
+                <div>+7 (499) 391-80-19 <button type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">Перезвоните мне!</button></div>
             </div>
             <div class="flex">
                 <x-nav-link href="{{ route('news.index') }}" :active="request()->routeIs('news.*')">Новости</x-nav-link>
@@ -75,7 +75,7 @@
                                 <a href="{{ route('page', 'contact') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Контакты</a>
                             </li>
                             <li>
-                                <a href="{{ route('cart.index') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">Корзина</a>
+                                <a href="{{ route('cart.index') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Корзина</a>
                             </li>
                         </ul>
                     </div>
@@ -99,11 +99,9 @@
 
             <main class="container mx-auto px-4 py-8 grid grid-cols-12">
                 <div class="hidden lg:block lg:col-span-3">
-                    <div class="-mt-14 bg-white border rounded-xl shadow p-8 sticky -top-4 mb-20 z-20">
-                        <x-category-menu></x-category-menu>
-                    </div>
+                    <x-category-menu class="bg-white border rounded-xl shadow p-8 sticky -top-4 mb-20 z-20" :hasHeader="isset($header)"></x-category-menu>
                 </div>
-                <div class="col-span-12 lg:col-span-9 lg:pl-10">
+                <div class="col-span-12 lg:col-span-9 lg:pl-10 bg-white">
                     {{ $slot }}
                 </div>
             </main>

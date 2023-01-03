@@ -146,7 +146,7 @@
             </div>
         </div>
         <div class="lg:h-[200px]"></div>
-        <div class="content p-4 pt-8 mx-auto max-w-xl">
+        <div class="content p-4 pt-8 mx-auto prose dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600">
             {!! $product->description !!}
         </div>
 

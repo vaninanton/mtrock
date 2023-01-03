@@ -161,11 +161,7 @@ class Product extends Model
     {
         return Attribute::make(
             get: function (): string {
-                if (! $this->category) {
-                    return route('product_no_cat', [$this]);
-                }
-
-                return route('product', [$this->category, $this]);
+                return route('product', $this);
             }
         )->shouldCache();
     }

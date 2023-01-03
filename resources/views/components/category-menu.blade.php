@@ -1,4 +1,10 @@
-<div>
+@props(['hasHeader'])
+
+@php
+$classes = ($hasHeader ?? false) ? '-mt-14' : '';
+@endphp
+
+<div {{ $attributes->merge(['class' => $classes]) }}>
     <h3 class="font-bold text-xl mb-4">Категории</h3>
     <ul id="accordion-collapse" data-accordion="collapse">
         @foreach ($categories as $category)
