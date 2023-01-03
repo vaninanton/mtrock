@@ -23,7 +23,7 @@ class ProductAttributes extends Component
             foreach ($attributeGroup as $attribute) {
                 $value[] = $attribute->pivot->attributeOption?->value ?? $attribute->pivot->value;
             }
-            $this->values[$key] = join(', ', $value);
+            $this->values[$key] = implode(', ', $value);
             if ($this->values[$key] === 'Зима, Весна, Лето, Осень') {
                 $this->values[$key] = 'Всесезонная';
             } elseif ($this->values[$key] === 'Весна, Лето, Осень') {
