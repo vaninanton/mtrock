@@ -18,8 +18,8 @@ class CategoryController extends Controller
     {
         $products = Product::query()
             ->whereIn('category_id', [$category->id])
+            ->forProductCard()
             ->ordered()
-            ->with(['brand', 'category', 'type'])
             ->paginate();
 
         return response()->view('category', [

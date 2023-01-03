@@ -1,6 +1,6 @@
 @props(['h1' => 'Заголовок'])
 
-<div {!! $attributes->merge(['class' => 'bg-[#0350b1] text-white py-8']) !!}>
+<div {!! $attributes->merge(['class' => 'bg-primary text-white py-8']) !!}>
     <div class="container mx-auto px-4">
         <div class="lg:flex justify-between items-center">
             @isset($breadcrumbs)

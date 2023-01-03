@@ -17,9 +17,11 @@ class ProductController extends Controller
             'brand',
             'type',
             'images',
-            'linked' => [
-                'category', 'brand', 'type',
+            'attributes' => [
+                'attribute',
+                'attributeOption',
             ],
+            'linked' => fn ($query) => $query->forProductCard(),
         ]);
 
         return view('product', [

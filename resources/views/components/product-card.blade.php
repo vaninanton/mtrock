@@ -5,6 +5,9 @@
             <img src="https://mountain-rock.ru/uploads/thumbs/store/product/250x250_{{ $product->image }}" alt="{{ $product->brand?->title }} {{ $product->model }}" class="m-auto object-contain h-32" loading="lazy">
             <div class="px-4">{{ $product->type_prefix }} {{ $product->brand?->title }} <span class="font-bold">{{ $product->model }}</span></div>
         </a>
+        @if ($product->relationLoaded('type'))
+        <div class="text-xs px-4">{{ strip_tags($product->type?->title) }}</div>
+        @endif
         <div class="text-xs px-4">{{ strip_tags($product->short_description) }}</div>
     </div>
     <div class="p-4 flex justify-between items-center bg-gray-100">

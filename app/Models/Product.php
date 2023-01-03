@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\Traits\HasSlug;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -21,6 +24,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $type_id
  * @property int $quantity
  * @property int $in_stock
+ * @property int $availability_preorder
+ * @property int $status
  * @property float $price
  * @property float|null $old_price
  * @property string|null $type_prefix
@@ -28,15 +33,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $image
  * @property string|null $short_description
  * @property string|null $description
+ * @property string|null $sales_notes
+ * @property string|null $video1
+ * @property string|null $video2
+ * @property string|null $video3
+ * @property int $flag_special
  * @property bool $flag_new
  * @property bool $flag_hit
  * @property float|null $length
  * @property float|null $width
  * @property float|null $height
  * @property float|null $weight
+ * @property int $position
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductAttribute[] $attributes
+ * @property-read int|null $attributes_count
  * @property-read \App\Models\Brand|null $brand
  * @property-read \App\Models\Category|null $category
  * @property-read string $human_size
@@ -49,11 +62,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Type|null $type
  *
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
+ * @method static Builder|Product forProductCard()
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
  * @method static \Illuminate\Database\Query\Builder|Product onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Product ordered()
- * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ * @method static Builder|Product ordered()
+ * @method static Builder|Product query()
  * @method static \Illuminate\Database\Query\Builder|Product withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Product withoutTrashed()
  *
@@ -96,22 +110,32 @@ class Product extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public function images()
+    public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class);
     }
 
-    public function linked()
+    public function attributes(): HasMany
+    {
+        return $this->hasMany(ProductAttribute::class);
+    }
+
+    public function linked(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, null, 'product_id', 'linked_product_id')->using(ProductProduct::class);
+    }
+
+    public function scopeForProductCard(Builder $query): Builder
+    {
+        return $query->with(['brand', 'category', 'type']);
     }
 
     public function scopeOrdered($query)
     {
         return $query
-            // ->orderBy('availability_preorder', 'asc')
-            ->orderBy('in_stock', 'desc');
-        // ->orderBy('position', 'asc');
+            ->orderBy('availability_preorder', 'asc')
+            ->orderBy('in_stock', 'desc')
+            ->orderBy('position', 'asc');
     }
 
     /**

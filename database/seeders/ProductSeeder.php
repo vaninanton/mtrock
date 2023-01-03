@@ -41,6 +41,12 @@ class ProductSeeder extends Seeder
             `width`,
             `height`,
             `weight`,
+            `availability_preorder`,
+            `status`,
+            `sales_notes`,
+            `video1`,
+            `video2`,
+            `video3`,
             `created_at`,
             `updated_at`
         )
@@ -67,6 +73,12 @@ class ProductSeeder extends Seeder
             `width`,
             `height`,
             `weight`,
+            IFNULL(`availability_preorder`, 0),
+            `status`,
+            `sales_notes`,
+            `video1`,
+            `video2`,
+            `video3`,
             `create_time`,
             `update_time`
         FROM `mtrock`.`mr_store_product`

@@ -6,7 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class IndexController extends Controller
+class WelcomeController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -17,11 +17,8 @@ class IndexController extends Controller
     public function __invoke(Request $request): Response
     {
         $products = Product::query()
-            ->with([
-                'brand',
-                'category',
-            ])
             ->whereNull('category_id')
+            ->forProductCard()
             ->ordered()
             ->paginate(100);
 

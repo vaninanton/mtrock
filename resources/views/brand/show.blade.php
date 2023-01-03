@@ -1,8 +1,9 @@
 @section('meta_title', $brand->title)
 
 <x-app-layout>
-    <x-top-header :h1="$brand->title">
-        <x-slot:subheading>{{ strip_tags($brand->short_description) }}</x-slot>
+    <x-slot:header>
+        <x-top-header :h1="$brand->title">
+            <x-slot:subheading>{{ strip_tags($brand->short_description) }}</x-slot:subheading>
             <x-slot:breadcrumbs>
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 lg:space-x-3">
@@ -32,8 +33,9 @@
                         </li>
                     </ol>
                 </nav>
-                </x-slot>
-    </x-top-header>
+            </x-slot:breadcrumbs>
+        </x-top-header>
+    </x-slot:header>
 
     <div class="container mx-auto p-4">
         @if ($brand->description)
@@ -48,7 +50,7 @@
                 @foreach($brand->products->groupBy('type') as $type)
                 <div class="mb-8">
                     <h2 class="h2" id="{{ Str::slug($type->first()->type?->title_plural) }}">{{ $type->first()->type?->title_plural }}</h2>
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
                         @foreach ($type as $product)
                         <x-product-card :product="$product" />
                         @endforeach
