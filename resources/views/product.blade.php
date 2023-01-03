@@ -64,11 +64,20 @@
                 <h1 class="h1">
                     {{ $product->title }}
                 </h1>
+                @if ($product->category)
+                <div>
+                    <a href="{{ route('category', $product->category) }}" class="text-blue-600 hover:text-blue-800">
+                        {{ $product->category->title }}
+                    </a>
+                </div>
+                @endif
                 @if ($product->brand)
-                <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
-                    <img src="https://mountain-rock.ru/uploads/thumbs/store/producer/300x300_{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4" loading="lazy">
-                    {{ $product->brand->title }}
-                </a>
+                <div>
+                    <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
+                        <img src="https://mountain-rock.ru/uploads/thumbs/store/producer/300x300_{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4" loading="lazy">
+                        {{ $product->brand->title }}
+                    </a>
+                </div>
                 @endif
                 <div class="text-lg pb-4 mb-6 border-b">{{ strip_tags($product->short_description) }}</div>
                 <div>Артикул: {{ $product->sku }}</div>
@@ -78,14 +87,7 @@
                 @if ($product->length || $product->width || $product->height)
                 <div>Размер: {{ $product->humanSize }}</div>
                 @endif
-                @foreach ($product->attributes as $attribute)
-                <div>
-                    <span class="font-bold">{{ $attribute->attribute->title }}:</span>
-                    {{ $attribute->attributeOption?->value ?? $attribute->value }}
-                </div>
-                @endforeach
-                {{--
-                <pre>@json($product->attributes, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE)</pre> --}}
+                <x-product-attributes :$product />
             </div>
             <div class="bg-white md:order-1 p-4">
                 <div id="myTabContent">

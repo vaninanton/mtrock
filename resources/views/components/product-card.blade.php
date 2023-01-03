@@ -5,10 +5,11 @@
             <img src="https://mountain-rock.ru/uploads/thumbs/store/product/250x250_{{ $product->image }}" alt="{{ $product->brand?->title }} {{ $product->model }}" class="m-auto object-contain h-32" loading="lazy">
             <div class="px-4">{{ $product->type_prefix }} {{ $product->brand?->title }} <span class="font-bold">{{ $product->model }}</span></div>
         </a>
+        <div class="text-xs px-4 mb-2">{{ strip_tags($product->short_description) }}</div>
         @if ($product->relationLoaded('type'))
-        <div class="text-xs px-4">{{ strip_tags($product->type?->title) }}</div>
+        <div class="text-xs px-4">Тип: {{ strip_tags($product->type?->title) }}</div>
         @endif
-        <div class="text-xs px-4">{{ strip_tags($product->short_description) }}</div>
+        <x-product-attributes :$product class="text-xs px-4" />
     </div>
     <div class="p-4 flex justify-between items-center bg-gray-100">
         <div class="text-xs">

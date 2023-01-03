@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Attribute as AttributeModel;
 use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -115,9 +116,9 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function attributes(): HasMany
+    public function attributes(): BelongsToMany
     {
-        return $this->hasMany(ProductAttribute::class);
+        return $this->belongsToMany(AttributeModel::class, 'product_attribute')->withPivot('value', 'attribute_option_id')->using(ProductAttribute::class);
     }
 
     public function linked(): BelongsToMany
@@ -127,7 +128,7 @@ class Product extends Model
 
     public function scopeForProductCard(Builder $query): Builder
     {
-        return $query->with(['brand', 'category', 'type']);
+        return $query->with(['brand', 'category', 'type', 'attributes']);
     }
 
     public function scopeOrdered($query)

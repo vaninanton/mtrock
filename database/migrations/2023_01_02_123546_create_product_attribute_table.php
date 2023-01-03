@@ -21,8 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Attribute::class)->constrained()->cascadeOnDelete();
             $table->string('value')->nullable();
-            $table->foreignIdFor(AttributeOption::class)->cascadeOnDelete()->nullable();
-            $table->timestamps();
+            $table->foreignIdFor(AttributeOption::class, 'attribute_option_id')->constrained()->cascadeOnDelete()->nullable();
 
             $table->unique(['product_id', 'attribute_id', 'value', 'attribute_option_id'], 'unique');
         });
