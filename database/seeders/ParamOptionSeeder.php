@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AttributeOptionSeeder extends Seeder
+class ParamOptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,9 @@ class AttributeOptionSeeder extends Seeder
      */
     public function run()
     {
-        DB::insert('INSERT IGNORE INTO `attribute_options` (
+        DB::insert('INSERT IGNORE INTO `param_options` (
             `id`,
-            `attribute_id`,
+            `param_id`,
             `value`,
             `position`
         )

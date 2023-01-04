@@ -29,7 +29,6 @@
     </x-slot:header>
 
     <div class="py-4 px-6">
-        <h1 class="h1">Бренды</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             @foreach($brands as $item)
             <div class="bg-white border rounded shadow-sm mb-2 flex flex-col justify-between">

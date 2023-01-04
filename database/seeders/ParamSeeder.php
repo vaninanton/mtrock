@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AttributeSeeder extends Seeder
+class ParamSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class AttributeSeeder extends Seeder
      */
     public function run()
     {
-        DB::insert('INSERT INTO `attributes` (
+        DB::insert('INSERT INTO `params` (
             `type`,
             `title`,
             `slug`,

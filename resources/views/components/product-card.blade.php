@@ -9,7 +9,7 @@
         @if ($product->relationLoaded('type'))
         <div class="text-xs px-4">Тип: {{ strip_tags($product->type?->title) }}</div>
         @endif
-        <x-product-attributes :$product class="text-xs px-4" />
+        <x-product-params :$product class="text-xs px-4" />
     </div>
     <div class="p-4 flex justify-between items-center bg-gray-100">
         <div class="text-xs">

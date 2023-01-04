@@ -61,9 +61,9 @@
                 </div>
             </div>
             <div class="p-4 md:order-2">
-                <h1 class="h1">
+                <div class="h1">
                     {{ $product->title }}
-                </h1>
+                </div>
                 @if ($product->category)
                 <div>
                     <a href="{{ route('category', $product->category) }}" class="text-blue-600 hover:text-blue-800">
@@ -87,7 +87,7 @@
                 @if ($product->length || $product->width || $product->height)
                 <div>Размер: {{ $product->humanSize }}</div>
                 @endif
-                <x-product-attributes :$product />
+                <x-product-params :$product />
             </div>
             <div class="bg-white md:order-1 p-4">
                 <div id="myTabContent">

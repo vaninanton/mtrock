@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Attribute
+ * App\Models\Param
  *
  * @property int $id
  * @property string $type
@@ -15,14 +15,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property-read int|null $products_count
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Attribute newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Attribute newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Attribute query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Param newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Param newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Param query()
  *
  * @mixin \Eloquent
  */
-class Attribute extends Model
+class Param extends Model
 {
     public function products()
     {

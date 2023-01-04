@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+<html lang="ru_RU" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -15,7 +15,6 @@
     <meta name="google" content="nositelinkssearchbox">
     <meta name="google" content="notranslate">
     <meta name="format-detection" content="telephone=no">
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

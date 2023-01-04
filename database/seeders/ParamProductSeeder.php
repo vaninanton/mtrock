@@ -2,15 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Attribute;
-use App\Models\AttributeOption;
 use App\Models\Category;
+use App\Models\Param;
+use App\Models\ParamOption;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ProductAttributeSeeder extends Seeder
+class ParamProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,9 +19,9 @@ class ProductAttributeSeeder extends Seeder
      */
     public function run()
     {
-        DB::insert('INSERT IGNORE INTO `product_attribute` (
+        DB::insert('INSERT IGNORE INTO `param_product` (
             `product_id`,
-            `attribute_id`,
+            `param_id`,
             `value`
         )
         SELECT
@@ -31,9 +31,9 @@ class ProductAttributeSeeder extends Seeder
         FROM `mtrock`.`mr_store_product_attribute_value`
         WHERE `number_value`
         ');
-        DB::insert('INSERT IGNORE INTO `product_attribute` (
+        DB::insert('INSERT IGNORE INTO `param_product` (
             `product_id`,
-            `attribute_id`,
+            `param_id`,
             `value`
         )
         SELECT
@@ -43,10 +43,10 @@ class ProductAttributeSeeder extends Seeder
         FROM `mtrock`.`mr_store_product_attribute_value`
         WHERE `string_value`
         ');
-        DB::insert('INSERT IGNORE INTO `product_attribute` (
+        DB::insert('INSERT IGNORE INTO `param_product` (
             `product_id`,
-            `attribute_id`,
-            `attribute_option_id`
+            `param_id`,
+            `param_option_id`
         )
         SELECT
             `product_id`,
@@ -65,24 +65,24 @@ class ProductAttributeSeeder extends Seeder
     private function setCategoryByOption(string $whereCategory, string $attributeTitle, string $attributeValue, string $categoryTitle): void
     {
         Product::query()
-            ->where('category_id', '=', $this->getCategory('Палатки'))
+            ->where('category_id', '=', $this->getCategory($whereCategory))
             ->whereHas(
-                'attributes',
+                'params',
                 fn (Builder $query) => $query
-                    ->where('product_attribute.attribute_id', '=', $this->getAttribute($attributeTitle))
-                    ->where('product_attribute.attribute_option_id', '=', $this->getAttributeOption($attributeValue))
+                    ->where('param_product.param_id', '=', $this->getParam($attributeTitle))
+                    ->where('param_product.param_option_id', '=', $this->getParamOption($attributeValue))
             )
             ->update(['category_id' => $this->getCategory($categoryTitle)]);
     }
 
-    private function getAttribute(string $title): int
+    private function getParam(string $title): int
     {
-        return Attribute::where('title', '=', $title)->first()->id;
+        return Param::where('title', '=', $title)->first()->id;
     }
 
-    private function getAttributeOption(string $title): int
+    private function getParamOption(string $title): int
     {
-        return AttributeOption::where('value', '=', $title)->first()->id;
+        return ParamOption::where('value', '=', $title)->first()->id;
     }
 
     private function getCategory(string $title): int

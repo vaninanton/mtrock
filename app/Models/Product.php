@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Attribute as AttributeModel;
 use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -49,8 +48,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductAttribute[] $attributes
- * @property-read int|null $attributes_count
  * @property-read \App\Models\Brand|null $brand
  * @property-read \App\Models\Category|null $category
  * @property-read string $human_size
@@ -59,6 +56,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $images_count
  * @property-read \Illuminate\Database\Eloquent\Collection|Product[] $linked
  * @property-read int|null $linked_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Param[] $params
+ * @property-read int|null $params_count
+ * @property-read array $params_parsed
  * @property-read string $route
  * @property-read \App\Models\Type|null $type
  *
@@ -116,9 +116,9 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function attributes(): BelongsToMany
+    public function params(): BelongsToMany
     {
-        return $this->belongsToMany(AttributeModel::class, 'product_attribute')->withPivot('value', 'attribute_option_id')->using(ProductAttribute::class);
+        return $this->belongsToMany(Param::class)->withPivot('value', 'param_option_id')->using(ParamProduct::class);
     }
 
     public function linked(): BelongsToMany
@@ -128,7 +128,7 @@ class Product extends Model
 
     public function scopeForProductCard(Builder $query): Builder
     {
-        return $query->with(['brand', 'category', 'type', 'attributes']);
+        return $query->with(['brand', 'category', 'type', 'params']);
     }
 
     public function scopeOrdered($query)
@@ -163,6 +163,34 @@ class Product extends Model
         return Attribute::make(
             get: function (): string {
                 return route('product', $this);
+            }
+        )->shouldCache();
+    }
+
+    /**
+     * @return Attribute
+     */
+    public function paramsParsed(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value, $attributes): array {
+                $values = [];
+                $attributeGroups = $this->params->groupBy('title');
+                foreach ($attributeGroups as $attributeGroup) {
+                    $key = $attributeGroup->first()->title;
+                    $value = [];
+                    foreach ($attributeGroup as $attribute) {
+                        $value[] = $attribute->pivot->paramOption?->value ?? $attribute->pivot->value;
+                    }
+                    $values[$key] = implode(', ', $value);
+                    if ($values[$key] === 'Зима, Весна, Лето, Осень') {
+                        $values[$key] = 'Всесезонная';
+                    } elseif ($values[$key] === 'Весна, Лето, Осень') {
+                        $values[$key] = 'Весна-осень';
+                    }
+                }
+
+                return $values;
             }
         )->shouldCache();
     }
