@@ -8,6 +8,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +41,12 @@ Route::prefix('/store')->group(function () {
     Route::get('/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');
     Route::get('/{product}.html', ProductController::class)->name('product');
     Route::get('/{category}', CategoryController::class)->name('category');
-    // Route::get('/{category_path}', CategoryController::class)->name('category')->where('category_path', '.*');
+
+    Route::get('/{category_name}/{category}', [RedirectController::class, 'subCategoryExists']);
+    Route::get('/{cateogy}/{subcategory_name}', [RedirectController::class, 'subCategory']);
+
+    Route::get('/{category_name}/{subcategory_name}/{product}.html', [RedirectController::class, 'subproduct']);
+    Route::get('/{category_name}/{product}.html', [RedirectController::class, 'product']);
 });
 
 Route::prefix('/news')->name('news.')->group(function () {

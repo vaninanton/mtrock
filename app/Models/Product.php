@@ -116,7 +116,7 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function params(): BelongsToMany
+    public function params()
     {
         return $this->belongsToMany(Param::class)->withPivot('value', 'param_option_id')->using(ParamProduct::class);
     }

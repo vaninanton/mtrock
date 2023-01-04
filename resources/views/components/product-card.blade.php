@@ -28,7 +28,7 @@
             </button>
         </form>
         @else
-        <button class="addtocart-not-in-stock">скоро</button>
+        <button class="addtocart-not-in-stock text-sm">Нет в наличии</button>
         @endif
     </div>
 </div>

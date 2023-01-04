@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, 'Russian');
 
         Model::preventLazyLoading();
+        Paginator::useTailwind();
 
         Blade::directive('money', function ($expression) {
             $params = explode(',', $expression, 2);
