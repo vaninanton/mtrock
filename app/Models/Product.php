@@ -180,6 +180,7 @@ class Product extends Model
                     $key = $attributeGroup->first()->title;
                     $value = [];
                     foreach ($attributeGroup as $attribute) {
+                        // @phpstan-ignore-next-line
                         $value[] = $attribute->pivot->paramOption?->value ?? $attribute->pivot->value;
                     }
                     $values[$key] = implode(', ', $value);
