@@ -10,7 +10,7 @@
             @endisset
 
             <div class="flex-0 lg:w-1/2 lg:order-1">
-                <h1 class="text-3xl font-bold">{{ $h1 }}</h1>
+                <h1 class="text-xl lg:text-3xl font-bold">{{ $h1 }}</h1>
             </div>
         </div>
         @isset ($subheading)

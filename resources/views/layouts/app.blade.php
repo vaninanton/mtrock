@@ -29,7 +29,7 @@
             <div>
                 <div>+7 (499) 391-80-19 <button type="button" data-drawer-target="drawer-right-example" data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">Перезвоните мне!</button></div>
             </div>
-            <div class="flex">
+            <div class="hidden md:flex">
                 <x-nav-link href="{{ route('news.index') }}" :active="request()->routeIs('news.*')">Новости</x-nav-link>
                 <x-nav-link href="{{ route('brand.index') }}" :active="request()->routeIs('brand.*')">Бренды</x-nav-link>
                 <x-nav-link href="{{ route('page', 'oplata-i-dostavka-po-moskve-i-rossii') }}" :active="request()->routeIs('page') && request()->route('page.slug') === 'oplata-i-dostavka-po-moskve-i-rossii'">Оплата и доставка</x-nav-link>
