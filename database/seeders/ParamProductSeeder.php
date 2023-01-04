@@ -62,6 +62,10 @@ class ParamProductSeeder extends Seeder
         $this->setCategoryByOption('Палатки', 'Область применения', 'Для рыбалки', 'Палатки для рыбалки');
         $this->setCategoryByOption('Спальные мешки', 'Тип спального мешка', 'Одеяло', 'Одеяло');
         $this->setCategoryByOption('Спальные мешки', 'Тип спального мешка', 'Кокон', 'Кокон');
+        $this->setCategoryByOption('Рюкзаки', 'Тип рюкзака', 'Городской', 'Городские рюкзаки');
+        $this->setCategoryByOption('Рюкзаки', 'Тип рюкзака', 'Туристический', 'Туристические рюкзаки');
+        $this->setCategoryByOption('Рюкзаки', 'Тип рюкзака', 'Велосипедный', 'Велосипедные рюкзаки');
+        $this->setCategoryByOption('Рюкзаки', 'Тип рюкзака', 'Велосипедный', 'Велосипедные рюкзаки');
     }
 
     private function setCategoryByOption(string $whereCategory, string $attributeTitle, string $attributeValue, string $categoryTitle): void
