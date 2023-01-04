@@ -11,7 +11,7 @@
         @endif
         <x-product-params :$product class="text-xs px-4" />
     </div>
-    <div class="p-4 flex justify-between items-center bg-gray-100">
+    <div class="p-2 md:p-4 flex justify-between items-center bg-gray-100">
         <div class="text-xs">
             @if($product->quantity > 0 && $product->old_price && $product->old_price > $product->price)
             <del class="block line-through leading-none mb-1">@money($product->old_price)</del>
@@ -28,7 +28,7 @@
             </button>
         </form>
         @else
-        <button class="addtocart-not-in-stock">Нет в наличии</button>
+        <button class="addtocart-not-in-stock">скоро</button>
         @endif
     </div>
 </div>

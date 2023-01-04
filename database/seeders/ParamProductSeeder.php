@@ -60,6 +60,8 @@ class ParamProductSeeder extends Seeder
         $this->setCategoryByOption('Палатки', 'Область применения', 'Трекинг', 'Трекинговые палатки');
         $this->setCategoryByOption('Палатки', 'Область применения', 'Экстрим', 'Экстремальные палатки');
         $this->setCategoryByOption('Палатки', 'Область применения', 'Для рыбалки', 'Палатки для рыбалки');
+        $this->setCategoryByOption('Спальные мешки', 'Тип спального мешка', 'Одеяло', 'Одеяло');
+        $this->setCategoryByOption('Спальные мешки', 'Тип спального мешка', 'Кокон', 'Кокон');
     }
 
     private function setCategoryByOption(string $whereCategory, string $attributeTitle, string $attributeValue, string $categoryTitle): void
