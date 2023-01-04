@@ -5,7 +5,7 @@ namespace App\View\Components;
 use App\Models\Product;
 use Illuminate\View\Component;
 
-class ProductAttributes extends Component
+class ProductParams extends Component
 {
     /**
      * The properties / methods that should not be exposed to the component template.
@@ -32,7 +32,7 @@ class ProductAttributes extends Component
     {
         $paramsParsed = $this->product->paramsParsed();
 
-        return view('components.product-attributes', [
+        return view('components.product-params', [
             'paramsParsed' => $paramsParsed,
         ]);
     }
