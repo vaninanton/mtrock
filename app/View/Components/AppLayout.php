@@ -20,12 +20,16 @@ class AppLayout extends Component
             ->get();
 
         $ids = array_reverse(array_unique(session()->get('products.recently_viewed', [])));
-        $recentlyViewed = Product::query()
-                ->forProductCard()
-                ->whereIn('id', $ids)
-                ->orderByRaw('FIELD(id, '.implode(', ', $ids).')')
-                ->take(4)
-                ->get();
+        if (count($ids)) {
+            $recentlyViewed = Product::query()
+                    ->forProductCard()
+                    ->whereIn('id', $ids)
+                    ->orderByRaw('FIELD(id, '.implode(', ', $ids).')')
+                    ->take(4)
+                    ->get();
+        } else {
+            $recentlyViewed = [];
+        }
 
         return view('layouts.app', compact('categories', 'recentlyViewed'));
     }
