@@ -52,5 +52,14 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
+      - name: Cache npm dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Run npm
+        run: npm && npm run build
+
       - name: Execute tests
         run: vendor/bin/phpunit
