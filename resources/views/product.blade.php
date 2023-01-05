@@ -74,7 +74,7 @@
                 @if ($product->brand)
                 <div>
                     <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
-                        <img src="https://mountain-rock.ru/uploads/thumbs/store/producer/300x300_{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4" loading="lazy">
+                        <img src="https://mountain-rock.ru/uploads/thumbs/store/producer/300x300_{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4">
                         {{ $product->brand->title }}
                     </a>
                 </div>
