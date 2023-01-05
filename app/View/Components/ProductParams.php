@@ -30,7 +30,7 @@ class ProductParams extends Component
      */
     public function render()
     {
-        $paramsParsed = $this->product->paramsParsed;
+        $paramsParsed = $this->product->params_parsed;
 
         return view('components.product-params', [
             'paramsParsed' => $paramsParsed,

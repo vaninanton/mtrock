@@ -23,9 +23,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $brand_id
  * @property int|null $type_id
  * @property int $quantity
- * @property int $in_stock
- * @property int $availability_preorder
- * @property int $status
+ * @property bool $in_stock
+ * @property bool $availability_preorder
+ * @property bool $status
  * @property float $price
  * @property float|null $old_price
  * @property string|null $type_prefix
@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $video1
  * @property string|null $video2
  * @property string|null $video3
- * @property int $flag_special
+ * @property bool $flag_special
  * @property bool $flag_new
  * @property bool $flag_hit
  * @property float|null $length
@@ -84,14 +84,20 @@ class Product extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'quantity' => 'int',
+        'in_stock' => 'boolean',
+        'availability_preorder' => 'boolean',
+        'status' => 'boolean',
         'price' => 'double',
         'old_price' => 'double',
+        'flag_special' => 'boolean',
+        'flag_new' => 'boolean',
+        'flag_hit' => 'boolean',
         'length' => 'double',
         'width' => 'double',
         'height' => 'double',
         'weight' => 'double',
-        'flag_new' => 'boolean',
-        'flag_hit' => 'boolean',
+        'position' => 'int',
     ];
 
     protected $perPage = 51;
@@ -136,6 +142,7 @@ class Product extends Model
         return $query
             ->orderBy('availability_preorder', 'asc')
             ->orderBy('in_stock', 'desc')
+            ->orderBy('price', 'desc')
             ->orderBy('position', 'asc');
     }
 
@@ -173,7 +180,7 @@ class Product extends Model
     public function paramsParsed(): Attribute
     {
         return Attribute::make(
-            get: function ($value, $attributes): array {
+            get: function (): array {
                 $values = [];
                 $attributeGroups = $this->params->groupBy('title');
                 foreach ($attributeGroups as $attributeGroup) {

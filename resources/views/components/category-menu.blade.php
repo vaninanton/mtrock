@@ -5,7 +5,7 @@ $classes = ($hasHeader ?? false) ? '-mt-14' : '';
 @endphp
 
 <div {{ $attributes->merge(['class' => $classes]) }}>
-    <h3 class="font-bold text-xl mb-4">Категории</h3>
+    <div class="font-bold text-xl mb-4">Категории</div>
     <ul id="accordion-collapse" data-accordion="collapse">
         @foreach ($categories as $category)
         <li>
@@ -16,7 +16,7 @@ $classes = ($hasHeader ?? false) ? '-mt-14' : '';
                 </svg>
             </div>
 
-            <ul class="ml-4 mr-2 mb-4">
+            <ul class="ml-4 mr-2 mb-2 text-xs">
                 <li>
                     <div class="flex justify-between items-center">
                         <a href="{{ route('category', $category) }}" class="hover:text-primary-dark">Показать все</a>
