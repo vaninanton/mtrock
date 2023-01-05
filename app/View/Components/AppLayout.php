@@ -28,7 +28,7 @@ class AppLayout extends Component
                     ->take(4)
                     ->get();
         } else {
-            $recentlyViewed = [];
+            $recentlyViewed = collect();
         }
 
         return view('layouts.app', compact('categories', 'recentlyViewed'));
