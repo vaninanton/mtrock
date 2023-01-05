@@ -64,6 +64,7 @@
                         </button>
                         <div><small>Нет в наличии</small></div>
                         @endif
+                        @endif
                     </div>
                 </div>
             </div>
