@@ -42,7 +42,8 @@
                         <div class="text-2xl font-bold text-blue-900">@money($product->price)</div>
                     </div>
                     <div class="flex-0 text-right">
-                        @if ($product->quantity > 0)
+
+                        @if ($product->price > 0 && $product->in_stock && $product->quantity > 0)
                         <form action="{{ route('cart.add', $product) }}" method="post">
                             @csrf
                             @method('put')
@@ -52,8 +53,14 @@
                         </form>
                         <div><small>Товар в наличии</small></div>
                         @else
+                        @if ($product->availability_preorder)
+                            <button type="button" class="addtocart">
+                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                                Предзаказ
+                            </button>
+                        @else
                         <button class="text-slate-800 bg-slate-300 hover:bg-slate-300 font-medium rounded-lg text-2xl px-6 py-3.5 text-center">
-                            Купить
+                            Нет в наличии
                         </button>
                         <div><small>Нет в наличии</small></div>
                         @endif

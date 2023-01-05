@@ -19,12 +19,6 @@
             <div class="text-base font-bold text-blue-900 leading-none">@money($product->price)</div>
         </div>
         @if ($product->price > 0 && $product->in_stock && $product->quantity > 0)
-        @if ($product->availability_preorder = 1)
-            <button type="button" class="addtocart">
-                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                Предзаказ
-            </button>
-        @else
         <form action="{{ route('cart.add', $product) }}" method="post">
             @csrf
             @method('put')
@@ -33,9 +27,15 @@
                 Купить
             </button>
         </form>
-        @endif
+        @else
+        @if ($product->availability_preorder)
+            <button type="button" class="addtocart">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                Предзаказ
+            </button>
         @else
         <button class="addtocart-not-in-stock text-sm">Нет в наличии</button>
+        @endif
         @endif
     </div>
 </div>
