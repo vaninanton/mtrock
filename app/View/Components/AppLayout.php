@@ -23,7 +23,7 @@ class AppLayout extends Component
         $recentlyViewed = Product::query()
                 ->forProductCard()
                 ->whereIn('id', $ids)
-                ->orderByRaw('FIELD(id, '.join(', ', $ids).')')
+                ->orderByRaw('FIELD(id, '.implode(', ', $ids).')')
                 ->take(4)
                 ->get();
 
