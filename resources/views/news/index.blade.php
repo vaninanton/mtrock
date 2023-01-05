@@ -33,7 +33,7 @@
             @foreach($news as $item)
             <div class="bg-white border rounded shadow-sm mb-2 flex flex-col">
                 <a href="{{ route('news.show', $item) }}" class="block">
-                    <img src="https://mountain-rock.ru/uploads/thumbs/news/348x174_{{ $item->image }}" alt="" class="mx-auto">
+                    <img src="{{ config('app.uploads_url') }}/thumbs/news/348x174_{{ $item->image }}" alt="" class="mx-auto">
                     <div class="font-bold px-4">{{ $item->title }}</div>
                 </a>
                 <div class="text-sm p-4">{{ $item->short_description }}</div>

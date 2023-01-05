@@ -55,6 +55,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'uploads_url' => env('UPLOADS_URL', 'https://mountain-rock.ru/uploads'),
 
     'asset_url' => env('ASSET_URL'),
 
