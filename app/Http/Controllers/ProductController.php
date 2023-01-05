@@ -16,7 +16,10 @@ class ProductController extends Controller
             'brand',
             'type',
             'images',
-            'params',
+            'params' => [
+                'param',
+                'paramsOption',
+            ],
             'linked' => fn ($query) => $query->forProductCard(),
         ]);
 

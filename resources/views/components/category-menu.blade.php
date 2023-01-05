@@ -18,8 +18,14 @@ $classes = ($hasHeader ?? false) ? '-mt-14' : '';
 
             <ul class="ml-4 mr-2 mb-2 text-xs">
                 <li>
+                    <li>
+                        <div class="flex justify-between items-center">
+                            <a href="{{ route('category', [$category, 'all' => true]) }}" class="hover:text-primary-dark">Показать все</a>
+                            <div class="text-xs">{{ $category->products_count }}</div>
+                        </div>
+                    </li>
                     <div class="flex justify-between items-center">
-                        <a href="{{ route('category', $category) }}" class="hover:text-primary-dark">Показать все</a>
+                        <a href="{{ route('category', $category) }}" class="hover:text-primary-dark">Без подкатегории (уберу)</a>
                         <div class="text-xs">{{ $category->products_count }}</div>
                     </div>
                 </li>

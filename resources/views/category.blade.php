@@ -28,6 +28,24 @@
         </x-top-header>
     </x-slot:header>
 
+    @isset($filters)
+    <div class="bg-white p-4 mb-4 shadow-lg">
+        <form action="" method="get">
+            <div class="grid lg:grid-cols-4 gap-4">
+                @foreach ($filters as $item)
+                <div class="mb-4">
+                    <x-input-label :for="$item['param']" :value="$item['title']" />
+                    <x-select-input :id="$item['param']" class="block mt-1 w-full" :name="$item['param']" :options="$item['options']" :value="old($item['param'], request()->input($item['param']))" nullable />
+                </div>
+                @endforeach
+            </div>
+
+
+            <input type="hidden" name="all" value="{{ request()->get('all') }}">
+            <x-primary-button>Применить</x-primary-button>
+        </form>
+    </div>
+    @endisset
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         @foreach($products as $index => $product)

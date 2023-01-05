@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Param
@@ -26,8 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Param extends Model
 {
-    public function products()
+    public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'params_product', 'param_id', 'product_id', 'params.id', 'products.id');
     }
 }

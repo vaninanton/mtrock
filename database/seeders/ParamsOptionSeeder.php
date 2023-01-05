@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ParamOptionSeeder extends Seeder
+class ParamsOptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class ParamOptionSeeder extends Seeder
      */
     public function run()
     {
-        DB::insert('INSERT IGNORE INTO `param_options` (
+        DB::insert('INSERT IGNORE INTO `params_options` (
             `id`,
             `param_id`,
             `value`,

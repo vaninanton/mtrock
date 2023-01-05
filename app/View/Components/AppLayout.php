@@ -19,9 +19,11 @@ class AppLayout extends Component
             ->whereNull('parent_id')
             ->get();
 
+        $ids = array_reverse(array_unique(session()->get('products.recently_viewed', [])));
         $recentlyViewed = Product::query()
                 ->forProductCard()
-                ->whereIn('id', array_unique(session()->get('products.recently_viewed', [])))
+                ->whereIn('id', $ids)
+                ->orderByRaw('FIELD(id, '.join(', ', $ids).')')
                 ->take(4)
                 ->get();
 

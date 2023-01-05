@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Product
@@ -52,11 +53,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Category|null $category
  * @property-read string $human_size
  * @property-read string $human_weight
+ * @property-read string $image_size
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductImage[] $images
  * @property-read int|null $images_count
  * @property-read \Illuminate\Database\Eloquent\Collection|Product[] $linked
  * @property-read int|null $linked_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Param[] $params
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ParamsProduct[] $params
  * @property-read int|null $params_count
  * @property-read array $params_parsed
  * @property-read string $route
@@ -122,9 +124,9 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function params()
+    public function params(): HasMany
     {
-        return $this->belongsToMany(Param::class)->withPivot('value', 'param_option_id')->using(ParamProduct::class);
+        return $this->hasMany(ParamsProduct::class);
     }
 
     public function linked(): BelongsToMany
@@ -134,7 +136,15 @@ class Product extends Model
 
     public function scopeForProductCard(Builder $query): Builder
     {
-        return $query->with(['brand', 'category', 'type', 'params']);
+        return $query->with([
+            'brand',
+            'category',
+            'type',
+            'params' => [
+                'param',
+                'paramsOption',
+            ],
+        ]);
     }
 
     public function scopeOrdered($query)
@@ -165,6 +175,24 @@ class Product extends Model
     /**
      * @return Attribute
      */
+    public function imageSize(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value, $attributes): string {
+                try {
+                    [$width, $height, $type, $attr] = getimagesize(Storage::disk('uploads')->path('store/product/'.$attributes['image']));
+
+                    return $attr;
+                } catch (\Throwable $th) {
+                    return '';
+                }
+            }
+        )->shouldCache();
+    }
+
+    /**
+     * @return Attribute
+     */
     public function route(): Attribute
     {
         return Attribute::make(
@@ -182,19 +210,13 @@ class Product extends Model
         return Attribute::make(
             get: function (): array {
                 $values = [];
-                $attributeGroups = $this->params->groupBy('title');
-                foreach ($attributeGroups as $attributeGroup) {
-                    $key = $attributeGroup->first()->title;
-                    $value = [];
-                    foreach ($attributeGroup as $attribute) {
-                        // @phpstan-ignore-next-line
-                        $value[] = $attribute->pivot->paramOption?->value ?? $attribute->pivot->value;
-                    }
-                    $values[$key] = implode(', ', $value);
-                    if ($values[$key] === 'Зима, Весна, Лето, Осень') {
-                        $values[$key] = 'Всесезонная';
-                    } elseif ($values[$key] === 'Весна, Лето, Осень') {
-                        $values[$key] = 'Весна-осень';
+
+                $attributeGroups = $this->params->groupBy('param.title');
+                foreach ($attributeGroups as $key => $attributeGroup) {
+                    if (is_null($attributeGroup->first()->value)) {
+                        $values[$key] = $attributeGroup->pluck('paramsOption.value')->join(', ');
+                    } else {
+                        $values[$key] = $attributeGroup->pluck('value')->join(', ');
                     }
                 }
 

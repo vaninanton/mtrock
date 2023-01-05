@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\ParamOption
+ * App\Models\ParamsOption
  *
  * @property int $id
  * @property int $param_id
@@ -16,13 +16,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Param $param
  *
- * @method static \Illuminate\Database\Eloquent\Builder|ParamOption newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ParamOption newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ParamOption query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ParamsOption newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ParamsOption newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ParamsOption query()
  *
  * @mixin \Eloquent
  */
-class ParamOption extends Model
+class ParamsOption extends Model
 {
     public function param(): BelongsTo
     {

@@ -51,49 +51,6 @@
                         <img src="/img/logo.svg" class="mr-3 h-6 sm:h-10" alt="" />
                         Mountain-Rock.ru
                     </a>
-                    <button data-collapse-toggle="mega-menu-full" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mega-menu-full" aria-expanded="false">
-                        <span class="sr-only">Открыть меню</span>
-                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                    <div id="mega-menu-full" class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1">
-                        <ul class="flex flex-col mt-4 text-sm font-medium md:flex-row md:space-x-8 md:mt-0">
-                            <li>
-                                <button id="mega-menu-full-dropdown-button" data-collapse-toggle="mega-menu-full-dropdown" class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0">Товары для&nbsp;спорта и&nbsp;туризма
-                                    <svg class="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                            <li>
-                                <a href="{{ route('news.index') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" aria-current="page">Новости</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('page', 'oplata-i-dostavka-po-moskve-i-rossii') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Оплата и&nbsp;доставка</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('page', 'obmen-i-vozvrat') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Обмен и&nbsp;возврат</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('page', 'contact') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Контакты</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('cart.index') }}" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Корзина</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="mega-menu-full-dropdown" class="mt-1 bg-white border-gray-200 shadow-sm border-y hidden">
-                    <ul aria-labelledby="mega-menu-full-dropdown-button" class="grid py-5 px-4 mx-auto max-w-screen-xl text-gray-900 sm:grid-cols-2 md:grid-cols-3 md:px-6">
-                        @foreach ($categories as $category)
-                        <li>
-                            <a href="{{ route('category', $category) }}" class="block p-3 rounded-lg hover:bg-gray-50">
-                                <div class="font-semibold">{{ $category->title }}</div>
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
                 </div>
             </nav>
 
@@ -105,7 +62,7 @@
                 <div class="hidden lg:block lg:col-span-3">
                     <x-category-menu class="bg-white border rounded-xl shadow p-8 sticky -top-4 mb-20 z-20" :hasHeader="isset($header)"></x-category-menu>
                 </div>
-                <div class="col-span-12 lg:col-span-9 lg:pl-10 bg-white">
+                <div class="col-span-12 lg:col-span-9 lg:pl-10">
                     {{ $slot }}
                 </div>
             </main>

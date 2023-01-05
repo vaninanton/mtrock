@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call(BrandSeeder::class);
         $this->call(TypeSeeder::class);
         $this->call(ParamSeeder::class);
-        $this->call(ParamOptionSeeder::class);
+        $this->call(ParamsOptionSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(ProductImageSeeder::class);
-        $this->call(ParamProductSeeder::class);
+        $this->call(ParamsProductSeeder::class);
         $this->call(ProductProductSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(PageSeeder::class);

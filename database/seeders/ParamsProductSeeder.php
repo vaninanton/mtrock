@@ -4,13 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Param;
-use App\Models\ParamOption;
+use App\Models\ParamsOption;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ParamProductSeeder extends Seeder
+class ParamsProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,7 @@ class ParamProductSeeder extends Seeder
      */
     public function run()
     {
-        DB::insert('INSERT IGNORE INTO `param_product` (
+        DB::insert('INSERT INTO `params_product` (
             `product_id`,
             `param_id`,
             `value`
@@ -29,9 +29,11 @@ class ParamProductSeeder extends Seeder
             `attribute_id`,
             `number_value`
         FROM `mtrock`.`mr_store_product_attribute_value`
-        WHERE `number_value`
+        WHERE
+            `number_value` IS NOT NULL AND
+            `product_id` IN (SELECT id FROM products)
         ');
-        DB::insert('INSERT IGNORE INTO `param_product` (
+        DB::insert('INSERT INTO `params_product` (
             `product_id`,
             `param_id`,
             `value`
@@ -41,19 +43,23 @@ class ParamProductSeeder extends Seeder
             `attribute_id`,
             `string_value`
         FROM `mtrock`.`mr_store_product_attribute_value`
-        WHERE `string_value`
+        WHERE
+            `string_value` IS NOT NULL AND
+            `product_id` IN (SELECT id FROM products)
         ');
-        DB::insert('INSERT IGNORE INTO `param_product` (
+        DB::insert('INSERT INTO `params_product` (
             `product_id`,
             `param_id`,
-            `param_option_id`
+            `params_option_id`
         )
         SELECT
             `product_id`,
             `attribute_id`,
             `option_value`
         FROM `mtrock`.`mr_store_product_attribute_value`
-        WHERE `option_value`
+        WHERE
+            `option_value` IS NOT NULL AND
+            `product_id` IN (SELECT id FROM products)
         ');
 
         $this->setCategoryByOption('Палатки', 'Область применения', 'Кемпинг', 'Кемпинговые палатки');
@@ -75,8 +81,8 @@ class ParamProductSeeder extends Seeder
             ->whereHas(
                 'params',
                 fn (Builder $query) => $query
-                    ->where('param_product.param_id', '=', $this->getParam($attributeTitle))
-                    ->where('param_product.param_option_id', '=', $this->getParamOption($attributeValue))
+                    ->where('params_product.param_id', '=', $this->getParam($attributeTitle))
+                    ->where('params_product.params_option_id', '=', $this->getParamsOption($attributeValue))
             )
             ->update(['category_id' => $this->getCategory($categoryTitle)]);
     }
@@ -86,9 +92,9 @@ class ParamProductSeeder extends Seeder
         return Param::where('title', '=', $title)->first()->id;
     }
 
-    private function getParamOption(string $title): int
+    private function getParamsOption(string $title): int
     {
-        return ParamOption::where('value', '=', $title)->first()->id;
+        return ParamsOption::where('value', '=', $title)->first()->id;
     }
 
     private function getCategory(string $title): int

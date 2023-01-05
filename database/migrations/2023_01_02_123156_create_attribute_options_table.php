@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('param_options', function (Blueprint $table) {
+        Schema::create('params_options', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Param::class)->constrained()->cascadeOnDelete();
             $table->string('value');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('param_options');
+        Schema::dropIfExists('params_options');
     }
 };
