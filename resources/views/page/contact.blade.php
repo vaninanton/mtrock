@@ -66,11 +66,9 @@
                     </div>
                 </div>
             </div>
-            <div class="h-80 md:h-full w-full -mx-0 rounded-t-xl overflow-hidden shadow-lg">
-            </div>
+            <div id="contact_us_map" class="h-80 md:h-full w-full -mx-0 rounded-t-xl overflow-hidden shadow-lg"></div>
         </div>
         <div class="p-4">
-            <div id="contact_us_map" class="h-96 w-full"></div>
             <p>О наличии товара на складе можно узнать по телефону: <a href="tel:+74993918019">8(499)391-80-19</a> или e-mail: <a href="mailto:admin@mountain-rock.ru">admin@mountain-rock.ru</a></p>
             <p>Большая просьба, перед тем как приезжать в пункт самовывоза, уточняйте о наличии товара у менеджера по телефону или по электронной почте <a href="mailto:admin@mountain-rock.ru">admin@mountain-rock.ru</a>. Оплатить товар в ПВЗ возможно только наличными. В пункте самовывоза выдается только тот товар, который предварительно был заказан через интернет или по телефону. </p>
 
@@ -82,20 +80,7 @@
             <p>Генеральный директор: Волков С. В. <a href="https://tochka.com/my/mountain-rock" target="_blank">https://tochka.com/my/mountain-rock</a></p>
         </div>
     </div>
-    <script src="https://api-maps.yandex.ru/3.0/?apikey=3cd5d586-6560-42fe-a387-74906dfc84b2&lang=ru_RU"></script>
-    <script>
-        ymaps3.ready.then(init);
 
-        function init() {
-            const map = new ymaps3.YMap(document.getElementById('contact_us_map'), {
-                location: {
-                center: [55.61026100966122, 37.60977549999999],
-                zoom: 15.5
-                }
-            });
-        }
-    </script>
-    {{--
     <script>
         window.ymapsonload = () => {
         const ways = {
@@ -184,5 +169,4 @@
     };
     </script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=3cd5d586-6560-42fe-a387-74906dfc84b2&onload=ymapsonload" async></script>
-    --}}
 </x-app-layout>
