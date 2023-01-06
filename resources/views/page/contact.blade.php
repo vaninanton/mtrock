@@ -67,10 +67,10 @@
                 </div>
             </div>
             <div class="h-80 md:h-full w-full -mx-0 rounded-t-xl overflow-hidden shadow-lg">
-                <div id="contact_us_map" class="h-96 w-full"></div>
             </div>
         </div>
         <div class="p-4">
+            <div id="contact_us_map" class="h-96 w-full"></div>
             <p>О наличии товара на складе можно узнать по телефону: <a href="tel:+74993918019">8(499)391-80-19</a> или e-mail: <a href="mailto:admin@mountain-rock.ru">admin@mountain-rock.ru</a></p>
             <p>Большая просьба, перед тем как приезжать в пункт самовывоза, уточняйте о наличии товара у менеджера по телефону или по электронной почте <a href="mailto:admin@mountain-rock.ru">admin@mountain-rock.ru</a>. Оплатить товар в ПВЗ возможно только наличными. В пункте самовывоза выдается только тот товар, который предварительно был заказан через интернет или по телефону. </p>
 
