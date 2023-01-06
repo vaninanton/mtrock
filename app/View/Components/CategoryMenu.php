@@ -14,13 +14,14 @@ class CategoryMenu extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return \Illuminate\Contracts\View\View
      */
     public function render(): View
     {
-        /** @var Collection<Category>|Category[] */
+        /** @var Collection<Category> */
         $categories = Cache::remember('categorymenu', now()->addMinutes(10), fn () => $this->loadCategories());
 
+        /** @var \Illuminate\Contracts\View\View */
         return view('components.category-menu', [
             'categories' => $categories,
         ]);
@@ -29,7 +30,7 @@ class CategoryMenu extends Component
     /**
      * Получает дерево категорий для меню
      *
-     * @return Collection<Category>|Category[]
+     * @return Collection<Category>
      */
     private function loadCategories(): Collection
     {
