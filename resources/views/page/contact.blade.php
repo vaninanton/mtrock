@@ -80,7 +80,20 @@
             <p>Генеральный директор: Волков С. В. <a href="https://tochka.com/my/mountain-rock" target="_blank">https://tochka.com/my/mountain-rock</a></p>
         </div>
     </div>
+    <script src="https://api-maps.yandex.ru/3.0/?apikey=3cd5d586-6560-42fe-a387-74906dfc84b2&lang=ru_RU"></script>
+    <script>
+        ymaps3.ready.then(init);
 
+        function init() {
+            const map = new ymaps3.YMap(document.getElementById('#contact_us_map'), {
+                location: {
+                center: [55.61026100966122, 37.60977549999999],
+                zoom: 15.5
+                }
+            });
+        }
+    </script>
+    {{--
     <script>
         window.ymapsonload = () => {
         const ways = {
@@ -169,4 +182,5 @@
     };
     </script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=3cd5d586-6560-42fe-a387-74906dfc84b2&onload=ymapsonload" async></script>
+    --}}
 </x-app-layout>
