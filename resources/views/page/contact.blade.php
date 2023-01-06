@@ -85,7 +85,7 @@
         ymaps3.ready.then(init);
 
         function init() {
-            const map = new ymaps3.YMap(document.getElementById('#contact_us_map'), {
+            const map = new ymaps3.YMap(document.getElementById('contact_us_map'), {
                 location: {
                 center: [55.61026100966122, 37.60977549999999],
                 zoom: 15.5
