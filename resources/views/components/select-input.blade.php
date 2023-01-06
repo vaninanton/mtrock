@@ -5,6 +5,6 @@
     <option value="">[выберите вариант]</option>
     @endif
     @foreach ($options as $key => $option)
-    <option value="{{ $key }}" @selected($key==$value)>{{ $option }}</option>
+    <option value="{{ $key }}" @selected($key == $value)>{{ $option }}</option>
     @endforeach
 </select>

@@ -40,7 +40,7 @@ Route::prefix('/store')->group(function () {
     Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
     Route::get('/brand/{brand}', [BrandController::class, 'show'])->name('brand.show');
     Route::get('/{product}.html', ProductController::class)->name('product');
-    Route::get('/{category}', CategoryController::class)->name('category');
+    Route::get('/{category}', CategoryController::class)->name('category')->middleware('stripemptyparams');
 
     Route::get('/{category_name}/{category}', [RedirectController::class, 'subCategoryExists']);
     Route::get('/{cateogy}/{subcategory_name}', [RedirectController::class, 'subCategory']);

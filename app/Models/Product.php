@@ -211,13 +211,9 @@ class Product extends Model
             get: function (): array {
                 $values = [];
 
-                $attributeGroups = $this->params->groupBy('param.title');
-                foreach ($attributeGroups as $key => $attributeGroup) {
-                    if (is_null($attributeGroup->first()->value)) {
-                        $values[$key] = $attributeGroup->pluck('paramsOption.value')->join(', ');
-                    } else {
-                        $values[$key] = $attributeGroup->pluck('value')->join(', ');
-                    }
+                $paramGrouped = $this->params->groupBy('param.title');
+                foreach ($paramGrouped as $key => $params) {
+                    $values[$key] = $params->pluck('valueParsed')->join(', ');
                 }
 
                 return $values;

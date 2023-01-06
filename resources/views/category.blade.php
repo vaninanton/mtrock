@@ -30,12 +30,12 @@
 
     @isset($filters)
     <div class="bg-white p-4 mb-4 shadow-lg">
-        <form action="" method="get">
-            <div class="grid lg:grid-cols-4 gap-4">
+        <form id="js-filter-form">
+            <div class="grid lg:grid-cols-4 gap-4 mb-4">
                 @foreach ($filters as $item)
-                <div class="mb-4">
-                    <x-input-label :for="$item['param']" :value="$item['title']" />
-                    <x-select-input :id="$item['param']" class="block mt-1 w-full" :name="$item['param']" :options="$item['options']" :value="old($item['param'], request()->input($item['param']))" nullable />
+                <div class="text-xs">
+                    <x-input-label class="text-xs" :for="$item['param']" :value="$item['title']" />
+                    <x-select-input :id="$item['param']" class="text-xs w-full" :name="$item['name']" :options="$item['options']" :value="old($item['param'], request()->input($item['param']))" nullable />
                 </div>
                 @endforeach
             </div>

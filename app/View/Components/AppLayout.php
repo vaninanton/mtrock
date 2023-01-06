@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\View\Component;
 
@@ -15,10 +14,6 @@ class AppLayout extends Component
      */
     public function render()
     {
-        $categories = Category::query()
-            ->whereNull('parent_id')
-            ->get();
-
         $ids = array_reverse(array_unique(session()->get('products.recently_viewed', [])));
         if (count($ids)) {
             $recentlyViewed = Product::query()
@@ -31,6 +26,6 @@ class AppLayout extends Component
             $recentlyViewed = collect();
         }
 
-        return view('layouts.app', compact('categories', 'recentlyViewed'));
+        return view('layouts.app', compact('recentlyViewed'));
     }
 }
