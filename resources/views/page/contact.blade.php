@@ -66,7 +66,9 @@
                     </div>
                 </div>
             </div>
-            <div id="contact_us_map" class="h-80 md:h-full w-full -mx-0 rounded-t-xl overflow-hidden shadow-lg"></div>
+            <div class="h-80 md:h-full w-full -mx-0 rounded-t-xl overflow-hidden shadow-lg">
+                <div id="contact_us_map" class="h-96 w-full"></div>
+            </div>
         </div>
         <div class="p-4">
             <p>О наличии товара на складе можно узнать по телефону: <a href="tel:+74993918019">8(499)391-80-19</a> или e-mail: <a href="mailto:admin@mountain-rock.ru">admin@mountain-rock.ru</a></p>
