@@ -50,7 +50,7 @@ class ParamsProduct extends Pivot
     {
         return Attribute::make(
             get: function (): string {
-                $result = match($this->param->type) {
+                $result = match ($this->param->type) {
                     ParamType::TYPE_TEXT => (string) $this->value,
                     ParamType::TYPE_SHORT_TEXT => (string) $this->value,
                     ParamType::TYPE_DROPDOWN => (string) $this->paramsOption->value,
