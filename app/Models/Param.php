@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ParamType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -27,6 +28,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Param extends Model
 {
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'type' => ParamType::class,
+    ];
+
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'params_product', 'param_id', 'product_id', 'params.id', 'products.id');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ParamType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -49,23 +50,20 @@ class ParamsProduct extends Pivot
     {
         return Attribute::make(
             get: function (): string {
-                if ($this->paramsOption) {
-                    if (! is_null($this->param->unit)) {
-                        return $this->paramsOption->value.' '.$this->param->unit;
-                    }
+                $result = match($this->param->type) {
+                    ParamType::TYPE_TEXT => (string) $this->value,
+                    ParamType::TYPE_SHORT_TEXT => (string) $this->value,
+                    ParamType::TYPE_DROPDOWN => (string) $this->paramsOption->value,
+                    ParamType::TYPE_CHECKBOX => ($this->value == 1) ? 'Да' : 'Нет',
+                    ParamType::TYPE_CHECKBOX_LIST => (string) $this->paramsOption->value,
+                    ParamType::TYPE_NUMBER => $this->value,
+                };
 
-                    return $this->paramsOption->value;
+                if ($this->param->unit) {
+                    return $result.' '.$this->param->unit;
                 }
 
-                if ($this->param->type == 3) {
-                    return ($this->value == 1) ? 'Да' : 'Нет';
-                }
-
-                if (! is_null($this->param->unit)) {
-                    return $this->value.' '.$this->param->unit;
-                }
-
-                return $this->value;
+                return $result;
             }
         )->shouldCache();
     }

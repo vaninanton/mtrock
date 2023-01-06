@@ -9,7 +9,9 @@
         @if ($product->relationLoaded('type'))
         <div class="text-xs px-4">Тип: {{ strip_tags($product->type?->title) }}</div>
         @endif
+        @if ($product->relationLoaded('params'))
         <x-product-params :$product class="text-xs px-4" />
+        @endif
     </div>
     <div class="p-2 md:p-4 flex justify-between items-center bg-gray-100">
         <div class="text-xs">
@@ -34,7 +36,7 @@
                 Предзаказ
             </button>
         @else
-        <button class="addtocart-not-in-stock text-sm">Нет в наличии</button>
+        <button type="button" class="addtocart-not-in-stock text-sm">Нет в наличии</button>
         @endif
         @endif
     </div>

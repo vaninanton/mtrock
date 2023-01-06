@@ -213,7 +213,27 @@ class Product extends Model
 
                 $paramGrouped = $this->params->groupBy('param.title');
                 foreach ($paramGrouped as $key => $params) {
-                    $values[$key] = $params->pluck('valueParsed')->join(', ');
+                    $val = $params->pluck('valueParsed')->join(', ');
+                    $replace = [
+                        'Область применения' => 'Подходит для',
+                        'Зима, Весна, Лето, Осень' => 'Всесезонная',
+                        'Тип рюкзака' => 'Тип',
+                        'Для сноуборда, Для горных лыж' => 'Горнолыжный',
+                        'Для ноутбука' => 'с отделением для ноутбука',
+                        'Назначение самоката' => 'Назначение',
+                        'Городской самокат' => 'городской',
+                        'Самокат для взрослых' => 'для взрослых',
+                        'Самокат для трюков' => 'для трюков',
+                        'Детский самокат' => 'детский',
+                        'Тип крепления кошки' => 'Тип крепления',
+                        'Вид сумки' => 'Вид',
+                        'Тип деки' => 'Дека',
+                        'Назначение горных лыж' => 'Тип',
+                        'мм водяного столба' => 'мм',
+                    ];
+                    $key = str_replace(array_keys($replace), array_values($replace), $key);
+                    $val = str_replace(array_keys($replace), array_values($replace), $val);
+                    $values[$key] = $val;
                 }
 
                 return $values;

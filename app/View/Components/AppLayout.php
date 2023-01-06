@@ -15,15 +15,15 @@ class AppLayout extends Component
     public function render()
     {
         $ids = array_reverse(array_unique(session()->get('products.recently_viewed', [])));
+
+        $recentlyViewed = collect();
         if (count($ids)) {
             $recentlyViewed = Product::query()
-                    ->forProductCard()
-                    ->whereIn('id', $ids)
-                    ->orderByRaw('FIELD(id, '.implode(', ', $ids).')')
-                    ->take(4)
-                    ->get();
-        } else {
-            $recentlyViewed = collect();
+                ->with('brand')
+                ->with('type')
+                ->whereIn('id', $ids)
+                ->take(4)
+                ->get();
         }
 
         return view('layouts.app', compact('recentlyViewed'));

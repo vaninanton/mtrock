@@ -21,7 +21,7 @@ $classes = ($hasHeader ?? false) ? '-mt-14' : '';
                     <li>
                         <div class="flex justify-between items-center">
                             <a href="{{ route('category', [$category, 'all' => true]) }}" class="hover:text-primary-dark">Показать все</a>
-                            <div class="text-xs">{{ $category->products_count }}</div>
+                            <div class="text-xs">{{ $category->products_count + $category->children->sum('products_count') }}</div>
                         </div>
                     </li>
                     <div class="flex justify-between items-center">

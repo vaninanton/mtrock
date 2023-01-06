@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ParamType;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Param;
@@ -110,7 +111,7 @@ class CategoryController extends Controller
             ->get();
 
         foreach ($params as $param) {
-            if ($param->type == 1) {
+            if ($param->type == ParamType::TYPE_SHORT_TEXT) {
                 $filter[] = [
                     'title' => $param->title,
                     'name' => 'params_value['.$param->id.']',
@@ -123,7 +124,7 @@ class CategoryController extends Controller
                         ->unique()
                         ->sort(),
                 ];
-            } elseif ($param->type == 2 || $param->type == 4) {
+            } elseif ($param->type == ParamType::TYPE_DROPDOWN || $param->type == ParamType::TYPE_CHECKBOX_LIST) {
                 $filter[] = [
                     'title' => $param->title,
                     'name' => 'params_option['.$param->id.']',
@@ -137,7 +138,7 @@ class CategoryController extends Controller
                         ->unique()
                         ->sort(),
                 ];
-            } elseif ($param->type == 3) {
+            } elseif ($param->type == ParamType::TYPE_CHECKBOX) {
                 $filter[] = [
                     'title' => $param->title,
                     'name' => 'params_checkbox['.$param->id.']',

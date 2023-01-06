@@ -1,5 +1,5 @@
 <div {{ $attributes }}>
-    @foreach ($paramsParsed as $key => $value)
+    @foreach ($product->params_parsed as $key => $value)
     <div>{{ $key }}: {{ $value }}</div>
     @endforeach
 </div>

@@ -8,13 +8,6 @@ use Illuminate\View\Component;
 class ProductParams extends Component
 {
     /**
-     * The properties / methods that should not be exposed to the component template.
-     *
-     * @var array
-     */
-    protected $except = ['product'];
-
-    /**
      * Create a new component instance.
      *
      * @return void
@@ -30,10 +23,6 @@ class ProductParams extends Component
      */
     public function render()
     {
-        $paramsParsed = $this->product->params_parsed;
-
-        return view('components.product-params', [
-            'paramsParsed' => $paramsParsed,
-        ]);
+        return view('components.product-params');
     }
 }
