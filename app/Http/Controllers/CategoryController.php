@@ -74,7 +74,6 @@ class CategoryController extends Controller
             })
             ->paginate()
             ->withQueryString();
-        // dd($request->filled('params.*'));
 
         return response()->view('category', [
             'category' => $category,
@@ -111,7 +110,6 @@ class CategoryController extends Controller
             ->get();
 
         foreach ($params as $param) {
-            $options = [];
             if ($param->type == 1) {
                 $filter[] = [
                     'title' => $param->title,
@@ -120,9 +118,10 @@ class CategoryController extends Controller
                     'options' => ParamsProduct::query()
                         ->where('param_id', '=', $param->id)
                         ->whereHas('product', fn (Builder $query) => $query->whereIn('id', $productIds))
-                        ->pluck('value', 'id')
+                        ->pluck('value', 'value')
                         ->filter()
-                        ->unique(),
+                        ->unique()
+                        ->sort(),
                 ];
             } elseif ($param->type == 2 || $param->type == 4) {
                 $filter[] = [
