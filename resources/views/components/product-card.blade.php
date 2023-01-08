@@ -9,6 +9,12 @@
         @if ($product->relationLoaded('type'))
         <div class="text-xs px-4">Тип: {{ strip_tags($product->type?->title) }}</div>
         @endif
+        @if ($product->weight)
+        <div>Вес: {{ $product->humanWeight }}</div>
+        @endif
+        @if ($product->length || $product->width || $product->height)
+        <div>Размер: {{ $product->humanSize }}</div>
+        @endif
         @if ($product->relationLoaded('params'))
         <x-product-params :$product class="text-xs px-4" />
         @endif
