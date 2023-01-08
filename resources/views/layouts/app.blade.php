@@ -62,7 +62,7 @@
             {{ $header }}
             @endisset
 
-            <main class="container mx-auto px-4 py-8 grid grid-cols-12">
+            <main class="container mx-auto py-8 grid grid-cols-12">
                 <x-category-menu class="bg-white border rounded-xl shadow p-8 sticky -top-4 mb-20 z-20" :hasHeader="isset($header)"></x-category-menu>
                 <div class="col-span-12 lg:col-span-9 lg:pl-10">
                     {{ $slot }}

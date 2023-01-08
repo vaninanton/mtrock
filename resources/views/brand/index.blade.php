@@ -11,7 +11,7 @@
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
                                 </svg>
-                                Главная
+                                Mountain-Rock.ru
                             </a>
                         </li>
                         <li aria-current="page">
@@ -28,21 +28,19 @@
         </x-top-header>
     </x-slot:header>
 
-    <div class="p-4">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            @foreach($brands as $item)
-            <div class="bg-white border rounded shadow-sm mb-2 flex flex-col justify-between">
-                <a href="{{ route('brand.show', $item) }}" class="flex flex-col items-center justify-center p-4">
-                    <img src="{{ config('app.uploads_url') }}/thumbs/store/producer/250x250_{{ $item->image }}" alt="" class="object-contain lg:h-40 w-auto" loading="lazy">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-2 lg:gap-4 p-4">
+        @foreach($brands as $item)
+        <div class="bg-white border rounded shadow-sm mb-2 flex flex-col justify-between">
+            <a href="{{ route('brand.show', $item) }}" class="flex flex-col items-center justify-center p-4">
+                <img src="{{ config('app.uploads_url') }}/thumbs/store/producer/250x250_{{ $item->image }}" alt="" class="object-contain lg:h-40 w-auto" loading="lazy">
+            </a>
+            <div>
+                <a href="{{ route('brand.show', $item) }}">
+                    <div class="font-bold px-4">{{ $item->title }}</div>
                 </a>
-                <div>
-                    <a href="{{ route('brand.show', $item) }}">
-                        <div class="font-bold px-4">{{ $item->title }}</div>
-                    </a>
-                    <div class="text-xs p-4">{{ strip_tags($item->short_description) }}</div>
-                </div>
+                <div class="text-xs p-4">{{ strip_tags($item->short_description) }}</div>
             </div>
-            @endforeach
         </div>
+        @endforeach
     </div>
 </x-app-layout>
