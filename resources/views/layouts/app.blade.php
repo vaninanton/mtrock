@@ -32,7 +32,7 @@
     <div class="bg-slate-800 text-white">
         <div class="container px-4 mx-auto flex justify-between items-center">
             <div>
-                <div>+7 (499) 391-80-19 <button type="button">Перезвоните мне!</button></div>
+                <div>+7 (499) 391-80-19 <button type="button">Обратный звонок</button></div>
             </div>
             <div class="hidden md:flex">
                 <x-nav-link href="{{ route('news.index') }}" :active="request()->routeIs('news.*')">Новости</x-nav-link>
@@ -45,17 +45,33 @@
     </div>
     <div class="flex flex-col bg-gray-50 min-h-screen justify-between">
         <div>
-            <nav class="bg-white border-gray-200">
-                <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
-                    <a href="/" class="flex items-center">
-                        <img src="/img/logo.svg" class="mr-3 h-6 sm:h-10" alt="" />
-                        <span class="whitespace-nowrap">Mountain-Rock.ru</span>
+            <nav class="container flex justify-between items-center mx-auto px-4 py-2.5">
+                <div>
+                    <a href="/" class="flex items-center min-w-[200px]">
+                        <img src="/img/logo.svg" class="mr-3 h-6 sm:h-10" alt="Mountain-Rock.ru" />
+                        <div class="inline-flex whitespace-nowrap">Mountain-Rock.ru</div>
                     </a>
-                    <button type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation" aria-controls="drawer-navigation">
-                        <span class="sr-only">Open main menu</span>
-                        <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                    </button>
                 </div>
+                <div class="hidden sm:block">
+                    <form action="{{ route('search') }}" method="get">
+                        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Поиск</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                            <input type="search" name="query" id="default-search" class="block w-full min-w-[300px] p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary" placeholder="Поиск по сайту" required>
+                            <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-primary hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-lg text-sm px-4 py-2">Найти</button>
+                        </div>
+                    </form>
+                </div>
+                <button type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation" aria-controls="drawer-navigation">
+                    <span class="sr-only">Open main menu</span>
+                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
             </nav>
 
             @isset($header)

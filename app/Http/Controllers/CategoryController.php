@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductFilter\ProductFilterService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -15,9 +15,9 @@ class CategoryController extends Controller
      * Handle the incoming request.
      *
      * @param  Category  $category
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function __invoke(Category $category, Request $request, ProductFilterService $productFilterService): Response
+    public function __invoke(Category $category, Request $request, ProductFilterService $productFilterService): View
     {
         $categoryIds = [$category->id];
         if ($request->exists('all')) {
@@ -75,7 +75,7 @@ class CategoryController extends Controller
             ->paginate()
             ->withQueryString();
 
-        return response()->view('category', [
+        return view('category', [
             'category' => $category,
             'products' => $products,
             'filters' => $filters,

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class WelcomeController extends Controller
 {
@@ -12,9 +12,9 @@ class WelcomeController extends Controller
      * Handle the incoming request.
      *
      * @param  Request  $request
-     * @return Response
+     * @return View
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): View
     {
         $products = Product::query()
             ->whereNull('category_id')
@@ -22,6 +22,6 @@ class WelcomeController extends Controller
             ->ordered()
             ->paginate(100);
 
-        return response()->view('welcome', compact('products'));
+        return view('welcome', compact('products'));
     }
 }

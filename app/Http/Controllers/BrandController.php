@@ -3,30 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\View\View;
 
 class BrandController extends Controller
 {
     /**
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index(): Response
+    public function index(): View
     {
         $brands = Brand::query()->get();
 
-        return response()->view('brand.index', compact('brands'));
+        return view('brand.index', compact('brands'));
     }
 
     /**
      * @param  Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function show(Brand $brand): Response
+    public function show(Brand $brand): View
     {
         $brand->load([
             'products' => fn ($query) => $query->forProductCard()->ordered()->get(),
         ]);
 
-        return response()->view('brand.show', compact('brand'));
+        return view('brand.show', compact('brand'));
     }
 }

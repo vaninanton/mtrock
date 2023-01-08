@@ -79,7 +79,7 @@ class CartController extends Controller
         return response()->redirectToRoute('cart.index')->withStatus('ok!');
     }
 
-    private function getCart()
+    private function getCart(): void
     {
         $cartId = request()->cookie('cart_id');
         $this->cart = Cart::firstOrCreate(['id' => $cartId]);
