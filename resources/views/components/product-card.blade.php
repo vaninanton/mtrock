@@ -16,7 +16,7 @@
         <div class="text-xs px-4">Размер: {{ $product->humanSize }}</div>
         @endif
         @if ($product->relationLoaded('params'))
-        <x-product-params :$product class="text-xs px-4" />
+        <x-product-params :$product class="hidden sm: block text-xs px-4" />
         @endif
     </div>
     <div class="p-4 flex justify-between items-center bg-gray-100">
