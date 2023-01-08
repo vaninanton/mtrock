@@ -40,7 +40,7 @@
     <div class="container mx-auto p-4">
         @if ($brand->description)
         <div class="content max-w-4xl mx-auto">
-            <img src="{{ config('app.uploads_url') }}/thumbs/store/producer/300x300_{{ $brand->image }}" alt="" class="float-right" loading="lazy">
+            <img src="{{ config('app.uploads_url') }}/store/brand/{{ $brand->image }}" alt="" class="float-right" loading="lazy">
             {!! $brand->description !!}
         </div>
         @endif

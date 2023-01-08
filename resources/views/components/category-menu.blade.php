@@ -18,29 +18,33 @@ $classes = ($hasHeader ?? false) ? '-mt-14' : '';
                 </div>
 
                 <ul class="ml-4 mr-2 mb-2 text-xs">
-                    <li>
+                    @if ($category->products_count + $category->children->sum('products_count') > 0)
                     <li>
                         <div class="flex justify-between items-center">
                             <a href="{{ route('category', [$category, 'all' => true]) }}" class="hover:text-primary-dark">Показать все</a>
                             <div class="text-xs">{{ $category->products_count + $category->children->sum('products_count') }}</div>
                         </div>
                     </li>
-                    <div class="flex justify-between items-center">
-                        <a href="{{ route('category', $category) }}" class="hover:text-primary-dark">Без подкатегории (уберу)</a>
-                        <div class="text-xs">{{ $category->products_count }}</div>
-                    </div>
-            </li>
-            @foreach ($category->children as $childCategory)
-            <li>
-                <div class="flex justify-between items-center">
-                    <a href="{{ route('category', $childCategory) }}" class="hover:text-primary-dark">{{ $childCategory->title }}</a>
-                    <div class="text-xs">{{ $childCategory->products_count }}</div>
-                </div>
+                    @endif
+                    @if ($category->products_count > 0)
+                    <li>
+                        <div class="flex justify-between items-center">
+                            <a href="{{ route('category', $category) }}" class="hover:text-primary-dark">Без подкатегории <span class="text-red-600">разобрать!</span></a>
+                            <div class="text-xs">{{ $category->products_count }}</div>
+                        </div>
+                    </li>
+                    @endif
+                    @foreach ($category->children as $childCategory)
+                    <li>
+                        <div class="flex justify-between items-center">
+                            <a href="{{ route('category', $childCategory) }}" class="hover:text-primary-dark">{{ $childCategory->title }}</a>
+                            <div class="text-xs">{{ $childCategory->products_count }}</div>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
             </li>
             @endforeach
-        </ul>
-        </li>
-        @endforeach
         </ul>
     </div>
 </div>

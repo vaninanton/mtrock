@@ -82,7 +82,7 @@
                 @if ($product->brand)
                 <div>
                     <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
-                        <img src="{{ config('app.uploads_url') }}/thumbs/store/producer/300x300_{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4">
+                        <img src="{{ config('app.uploads_url') }}/store/brand/{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4">
                         {{ $product->brand->title }}
                     </a>
                 </div>
