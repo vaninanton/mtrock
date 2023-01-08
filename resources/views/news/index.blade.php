@@ -31,14 +31,16 @@
     <div class="container mx-auto py-4 px-6">
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
             @foreach($news as $item)
-            <div class="bg-white border rounded shadow-sm mb-2 flex flex-col">
-                <a href="{{ route('news.show', $item) }}" class="block">
-                    <img src="{{ config('app.uploads_url') }}/thumbs/news/348x174_{{ $item->image }}" alt="" class="mx-auto">
-                    <div class="font-bold px-4">{{ $item->title }}</div>
-                </a>
-                <div class="text-sm p-4">{{ $item->short_description }}</div>
-                <div class="text-sm p-4">
-                    <time datetime="{{ $item->created_at->format('Y-m-d') }}" pubdate>{{ $item->created_at->format('d.m.Y') }}</time>
+            <div class="bg-white border rounded shadow-sm mb-2 flex flex-col justify-between pt-4">
+                <div>
+                    <a href="{{ route('news.show', $item) }}" class="block">
+                        <img src="{{ config('app.uploads_url') }}/thumbs/news/348x174_{{ $item->image }}" alt="" class="mx-auto">
+                        <div class="font-bold px-4">{{ $item->title }}</div>
+                    </a>
+                    <div class="text-xs p-4">{{ strip_tags($item->short_text) }}</div>
+                </div>
+                <div class="text-sm p-4 text-right">
+                    <time class="small" datetime="{{ $item->created_at->format('Y-m-d') }}" pubdate>{{ $item->created_at->locale('ru_RU')->translatedFormat('d F Y') }}</time>
                 </div>
             </div>
             @endforeach

@@ -18,6 +18,7 @@ class ProductFilterService
     public function handle(): array
     {
         $key = 'productFilter::'.md5(json_encode($this->productsQueryBuilder->getBindings()));
+
         return Cache::remember($key, 10, fn () => $this->getFilterData());
     }
 

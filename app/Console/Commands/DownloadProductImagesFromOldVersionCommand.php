@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\Response;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class DownloadImagesFromOldVersionCommand extends Command
+class DownloadProductImagesFromOldVersionCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -54,8 +54,6 @@ class DownloadImagesFromOldVersionCommand extends Command
                 };
             }
         };
-
-        // $exception = new \GuzzleHttp\Exception\ConnectException();
 
         $pool = new Pool($client, $requests(100), [
             'concurrency' => 3,

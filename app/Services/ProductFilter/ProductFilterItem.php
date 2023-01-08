@@ -7,8 +7,11 @@ use Illuminate\Support\Collection;
 class ProductFilterItem
 {
     public string $title;
+
     public string $name;
+
     public string $param;
+
     public Collection $options;
 
     public function setTitle(string $title): self

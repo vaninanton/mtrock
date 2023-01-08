@@ -18,13 +18,15 @@ class PageSeeder extends Seeder
             `id`,
             `title`,
             `slug`,
-            `body`
+            `body`,
+            `meta_description`
         )
         SELECT
             `id`,
             `title`,
             `slug`,
-            `body`
+            `body`,
+            `meta_description`
         FROM `mtrock`.`mr_page_page`
         WHERE `status` = 1');
     }
