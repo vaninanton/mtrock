@@ -49,7 +49,7 @@
                 <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
                     <a href="/" class="flex items-center">
                         <img src="/img/logo.svg" class="mr-3 h-6 sm:h-10" alt="" />
-                        Mountain-Rock.ru
+                        <span class="whitespace-nowrap">Mountain-Rock.ru</span>
                     </a>
                     <button type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation" aria-controls="drawer-navigation">
                         <span class="sr-only">Open main menu</span>
