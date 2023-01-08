@@ -29,4 +29,14 @@ class BrandFactory extends Factory
             'position' => 0,
         ];
     }
+
+    /**
+     * @return static
+     */
+    public function deleted()
+    {
+        return $this->state(fn (array $attributes) => [
+            'deleted_at' => now(),
+        ]);
+    }
 }

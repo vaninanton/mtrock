@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::redirect('/store/palatki/palatki-msr', '/store/brand/msr');
+
 Route::get('/', WelcomeController::class)->name('index');
 
 // Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
