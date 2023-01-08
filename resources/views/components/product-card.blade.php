@@ -19,7 +19,7 @@
         <x-product-params :$product class="text-xs px-4" />
         @endif
     </div>
-    <div class="p-2 md:p-4 flex justify-between items-center bg-gray-100">
+    <div class="p-4 flex justify-between items-center bg-gray-100">
         <div class="text-xs">
             @if($product->quantity > 0 && $product->old_price && $product->old_price > $product->price)
             <del class="block line-through leading-none mb-1">@money($product->old_price)</del>
