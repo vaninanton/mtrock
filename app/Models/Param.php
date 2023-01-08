@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * App\Models\Param
  *
  * @property int $id
- * @property string $type
+ * @property ParamType $type
  * @property string $title
  * @property string $slug
  * @property string|null $unit
