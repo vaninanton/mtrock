@@ -9,15 +9,20 @@ $classes = ($hasHeader ?? false) ? '-mt-14' : '';
         <div class="font-bold text-xl mb-4">Категории</div>
         <ul id="accordion-collapse" data-accordion="collapse">
             @foreach ($categories as $category)
+            @php
+                $active = request()->routeIs('category') && in_array(request()->route('category.slug'), [$category->slug, ...$category->children->pluck('slug')]);
+            @endphp
             <li>
-                <div class="flex justify-between items-start">
-                    <button type="button" class="text-left hover:text-primary-dark">{{ $category->title }}</button>
-                    <svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <div class="flex justify-between items-start" id="accordion-collapse-heading-{{ $loop->index }}" data-accordion-target="#accordion-collapse-body-{{ $loop->index }}" aria-expanded="{{ $active ? 'true' : 'false' }}" aria-controls="accordion-collapse-body-{{ $loop->index }}">
+                    <button type="button" class="text-left hover:text-primary-dark">
+                        {{ $category->title }}
+                    </button>
+                    <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                 </div>
 
-                <ul class="ml-4 mr-2 mb-2 text-xs">
+                <ul id="accordion-collapse-body-{{ $loop->index }}" aria-labelledby="accordion-collapse-heading-{{ $loop->index }}" class="{{ $active ? '' : 'hidden' }} ml-4 mr-2 mb-2 text-xs">
                     @if ($category->products_count + $category->children->sum('products_count') > 0)
                     <li>
                         <div class="flex justify-between items-center">
@@ -56,7 +61,7 @@ $classes = ($hasHeader ?? false) ? '-mt-14' : '';
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
         </svg>
-        <span class="sr-only">Close menu</span>
+        <span class="sr-only">Закрыть меню</span>
     </button>
     <div class="py-4 overflow-y-auto">
         <ul class="space-y-2">
