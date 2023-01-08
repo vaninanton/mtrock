@@ -90,19 +90,19 @@ class CategoryController extends Controller
                 'title' => 'Категория',
                 'name' => 'category_id',
                 'param' => 'category_id',
-                'options' => Category::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->pluck('title', 'id'),
+                'options' => Category::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->orderBy('title')->pluck('title', 'id'),
             ],
             [
                 'title' => 'Бренд',
                 'name' => 'brand_id',
                 'param' => 'brand_id',
-                'options' => Brand::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->pluck('title', 'id'),
+                'options' => Brand::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->orderBy('title')->pluck('title', 'id'),
             ],
             [
                 'title' => 'Тип',
                 'name' => 'type_id',
                 'param' => 'type_id',
-                'options' => Type::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->pluck('title', 'id'),
+                'options' => Type::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->orderBy('title')->pluck('title', 'id'),
             ],
         ];
 

@@ -1,7 +1,4 @@
 import 'flowbite';
-import omitBy from 'lodash/omitBy';
-import isEmpty from 'lodash/isEmpty';
-
 
 let jsFilterForm = document.getElementById('js-filter-form');
 jsFilterForm.addEventListener('submit', function (e) {
