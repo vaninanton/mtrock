@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Brand;
-use App\Models\Product;
 use GuzzleHttp\Client;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Response;
