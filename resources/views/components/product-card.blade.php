@@ -6,7 +6,7 @@
             <div class="px-4">{{ $product->type_prefix }} {{ $product->brand?->title }} <span class="font-bold">{{ $product->model }}</span></div>
         </a>
         <div class="text-xs px-4 mb-2">{{ strip_tags($product->short_description) }}</div>
-        @if ($product->relationLoaded('type'))
+        @if ($product->relationLoaded('type') && $product->type?->title)
         <div class="text-xs px-4">Тип: {{ strip_tags($product->type?->title) }}</div>
         @endif
         @if ($product->weight)

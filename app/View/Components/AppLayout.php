@@ -23,7 +23,19 @@ class AppLayout extends Component
                 ->with('type')
                 ->whereIn('id', $ids)
                 ->take(4)
-                ->get();
+                ->get([
+                    'slug',
+                    'brand_id',
+                    'type_id',
+                    'image',
+                    'model',
+                    'type_prefix',
+                    'short_description',
+                    'quantity',
+                    'old_price',
+                    'price',
+                    'availability_preorder',
+                ]);
         }
 
         return view('layouts.app', compact('recentlyViewed'));

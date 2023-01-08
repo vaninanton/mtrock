@@ -33,14 +33,13 @@
         <form id="js-filter-form">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                 @foreach ($filters as $item)
-                @continue(count($item['options']) == 1)
+                @continue(count($item->options) == 1)
                 <div class="text-xs">
-                    <x-input-label class="text-xs" :for="$item['param']" :value="$item['title']" />
-                    <x-select-input :id="$item['param']" :name="$item['name']" :options="$item['options']" :value="old($item['param'], request()->input($item['param']))" nullable />
+                    <x-input-label class="text-xs" :for="$item->param" :value="$item->title" />
+                    <x-select-input :id="$item->param" :name="$item->name" :options="$item->options" :value="old($item->param, request()->input($item->param))" nullable />
                 </div>
                 @endforeach
             </div>
-
 
             <input type="hidden" name="all" value="{{ request()->get('all') }}">
             <x-primary-button>Применить</x-primary-button>

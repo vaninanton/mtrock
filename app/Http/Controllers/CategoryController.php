@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ParamType;
-use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Param;
-use App\Models\ParamsProduct;
 use App\Models\Product;
-use App\Models\Type;
+use App\Services\ProductFilter\ProductFilterService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,7 +17,7 @@ class CategoryController extends Controller
      * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Category $category, Request $request): Response
+    public function __invoke(Category $category, Request $request, ProductFilterService $productFilterService): Response
     {
         $categoryIds = [$category->id];
         if ($request->exists('all')) {
@@ -29,8 +25,11 @@ class CategoryController extends Controller
             $categoryIds += $category->children->pluck('id')->toArray();
         }
 
+        sort($categoryIds);
         $productIds = Product::select('products.id')->whereIn('products.category_id', $categoryIds);
-        $filters = $this->getFilterData($productIds);
+
+        $productFilterService->setProductsQueryBuilder($productIds);
+        $filters = $productFilterService->handle();
 
         $products = Product::query()
             ->forProductCard()
@@ -81,76 +80,5 @@ class CategoryController extends Controller
             'products' => $products,
             'filters' => $filters,
         ]);
-    }
-
-    private function getFilterData(Builder $productIds): array
-    {
-        $filter = [
-            [
-                'title' => 'Категория',
-                'name' => 'category_id',
-                'param' => 'category_id',
-                'options' => Category::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->orderBy('title')->pluck('title', 'id'),
-            ],
-            [
-                'title' => 'Бренд',
-                'name' => 'brand_id',
-                'param' => 'brand_id',
-                'options' => Brand::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->orderBy('title')->pluck('title', 'id'),
-            ],
-            [
-                'title' => 'Тип',
-                'name' => 'type_id',
-                'param' => 'type_id',
-                'options' => Type::whereHas('products', fn (Builder $query) => $query->whereIn('id', $productIds))->orderBy('title')->pluck('title', 'id'),
-            ],
-        ];
-
-        $params = Param::query()
-            ->whereHas('products', fn (Builder $query) => $query->whereIn('products.id', $productIds))
-            ->get();
-
-        foreach ($params as $param) {
-            if ($param->type == ParamType::TYPE_SHORT_TEXT) {
-                $filter[] = [
-                    'title' => $param->title,
-                    'name' => 'params_value['.$param->id.']',
-                    'param' => 'params_value.'.$param->id,
-                    'options' => ParamsProduct::query()
-                        ->where('param_id', '=', $param->id)
-                        ->whereHas('product', fn (Builder $query) => $query->whereIn('id', $productIds))
-                        ->pluck('value', 'value')
-                        ->filter()
-                        ->unique()
-                        ->sort(),
-                ];
-            } elseif ($param->type == ParamType::TYPE_DROPDOWN || $param->type == ParamType::TYPE_CHECKBOX_LIST) {
-                $filter[] = [
-                    'title' => $param->title,
-                    'name' => 'params_option['.$param->id.']',
-                    'param' => 'params_option.'.$param->id,
-                    'options' => ParamsProduct::query()
-                        ->where('param_id', '=', $param->id)
-                        ->whereHas('product', fn (Builder $query) => $query->whereIn('id', $productIds))
-                        ->with('paramsOption')
-                        ->get()
-                        ->pluck('paramsOption.value', 'paramsOption.id')
-                        ->unique()
-                        ->sort(),
-                ];
-            } elseif ($param->type == ParamType::TYPE_CHECKBOX) {
-                $filter[] = [
-                    'title' => $param->title,
-                    'name' => 'params_checkbox['.$param->id.']',
-                    'param' => 'params_checkbox.'.$param->id,
-                    'options' => [
-                        'true' => 'Да',
-                        'false' => 'Нет',
-                    ],
-                ];
-            }
-        }
-
-        return $filter;
     }
 }

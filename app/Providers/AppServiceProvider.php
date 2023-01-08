@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, 'Russian');
 
         Model::preventLazyLoading();
+        Model::preventAccessingMissingAttributes();
         Paginator::useTailwind();
 
         Blade::directive('money', function ($expression) {
