@@ -2,7 +2,7 @@
 <div {{ $attributes->merge(['class' => 'bg-white border rounded shadow-lg mb-2 flex flex-col justify-between']) }}>
     <div>
         <a href="{{ $product->route }}">
-            <img src="{{ Storage::disk('uploads')->url('store/product/'.$product->image) }}" alt="{{ $product->brand?->title }} {{ $product->model }}" class="m-auto object-contain h-32" loading="lazy" {!! $product->imageSize !!}>
+            <img src="{{ Storage::disk('uploads')->url('store/product/'.$product->image) }}" alt="{{ $product->brand?->title }} {{ $product->model }}" class="lg:-mt-4 lg:mix-blend-multiply m-auto object-contain h-32" loading="lazy" {!! $product->imageSize !!}>
             <div class="px-4">{{ $product->type_prefix }} {{ $product->brand?->title }} <span class="font-bold">{{ $product->model }}</span></div>
         </a>
         <div class="text-xs px-4 mb-2">{{ strip_tags($product->short_description) }}</div>
@@ -42,7 +42,7 @@
                 Предзаказ
             </button>
         @else
-        <button type="button" class="addtocart-not-in-stock text-sm">Нет в наличии</button>
+        <button type="button" class="addtocart-not-in-stock">Нет в наличии</button>
         @endif
         @endif
     </div>

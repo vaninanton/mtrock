@@ -28,7 +28,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased" itemscope itemtype="http://schema.org/WebPage">
+<body class="font-sans antialiased">
     <div class="bg-slate-800 text-white">
         <div class="container px-4 mx-auto flex justify-between items-center">
             <div>

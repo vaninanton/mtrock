@@ -8,7 +8,8 @@ use App\Models\Category;
 use App\Models\Param;
 use App\Models\ParamsProduct;
 use App\Models\Type;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Cache;
 
 class ProductFilterService
@@ -22,7 +23,7 @@ class ProductFilterService
         return Cache::remember($key, 10, fn () => $this->getFilterData());
     }
 
-    public function setProductsQueryBuilder(Builder $builder): void
+    public function setProductsQueryBuilder(QueryBuilder $builder): void
     {
         $this->productsQueryBuilder = $builder;
     }

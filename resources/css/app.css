@@ -159,6 +159,6 @@
         @apply px-4 py-1 rounded-sm transition-colors bg-primary text-center text-white hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium;
     }
     button.addtocart-not-in-stock {
-        @apply px-4 py-1 rounded-sm transition-colors bg-gray-400 text-center text-black hover:bg-gray-400 focus:ring-0 focus:outline-none focus:ring-blue-300 font-medium cursor-default;
+        @apply px-4 py-1 rounded-sm transition-colors bg-gray-300 text-center text-black font-medium cursor-default;
     }
 }

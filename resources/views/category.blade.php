@@ -47,7 +47,7 @@
     </div>
     @endisset
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
         @foreach($products as $index => $product)
         @if ($product->price > 0 && $product->in_stock && $product->quantity > 0)
         <x-product-card :product="$product" />

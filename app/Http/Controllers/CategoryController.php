@@ -14,7 +14,9 @@ class CategoryController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  Category  $category
+     * @param Category $category
+     * @param Request $request
+     * @param ProductFilterService $productFilterService
      * @return View
      */
     public function __invoke(Category $category, Request $request, ProductFilterService $productFilterService): View
@@ -65,10 +67,9 @@ class CategoryController extends Controller
             })
             ->when($request->filled('params_checkbox'), function (Builder $query) use ($request) {
                 foreach ($request->input('params_checkbox') as $param_id => $value) {
-                    $value = ($value === 'true') ? 1 : 0;
                     $query->whereHas(
                         'params',
-                        fn (Builder $query) => $query->where('param_id', '=', $param_id)->where('value', '=', (int) $value)
+                        fn (Builder $query) => $query->where('param_id', '=', $param_id)->where('value', '=', $value === 'true')
                     );
                 }
             })

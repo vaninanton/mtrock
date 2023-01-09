@@ -50,7 +50,7 @@
                 @foreach($brand->products->groupBy('type') as $type)
                 <div class="mb-8">
                     <h2 class="h2" id="{{ Str::slug($type->first()->type?->title_plural) }}">{{ $type->first()->type?->title_plural }}</h2>
-                    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
                         @foreach ($type as $product)
                         <x-product-card :product="$product" />
                         @endforeach
