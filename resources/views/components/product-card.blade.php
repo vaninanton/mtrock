@@ -1,21 +1,28 @@
-@props(['product'])
+@props(['product', 'hideparams'])
 <div {{ $attributes->merge(['class' => 'bg-white border rounded shadow-lg mb-2 flex flex-col justify-between']) }}>
     <div>
         <a href="{{ $product->route }}">
-            <img src="{{ Storage::disk('uploads')->url('store/product/'.$product->image) }}" alt="{{ $product->brand?->title }} {{ $product->model }}" class="lg:-mt-4 lg:mix-blend-multiply m-auto object-contain h-32" loading="lazy" {!! $product->imageSize !!}>
+            <img
+                src="{{ Storage::disk('uploads')->url('store/product/'.$product->image) }}"
+                alt="{{ $product->brand?->title }} {{ $product->model }}"
+                class="m-auto object-contain h-32 transition-transform lg:mix-blend-multiply lg:hover:scale-110 lg:origin-bottom"
+                loading="lazy" {!! $product->imageSize !!}
+            >
             <div class="px-4">{{ $product->type_prefix }} {{ $product->brand?->title }} <span class="font-bold">{{ $product->model }}</span></div>
         </a>
         <div class="text-xs px-4 mb-2">{{ strip_tags($product->short_description) }}</div>
+        {{--
         @if ($product->relationLoaded('type') && $product->type?->title)
         <div class="text-xs px-4">Тип: {{ strip_tags($product->type?->title) }}</div>
         @endif
+        --}}
         @if ($product->weight)
         <div class="text-xs px-4">Вес: {{ $product->humanWeight }}</div>
         @endif
         @if ($product->length || $product->width || $product->height)
         <div class="text-xs px-4">Размер: {{ $product->humanSize }}</div>
         @endif
-        @if ($product->relationLoaded('params'))
+        @if (!isset($hideparams) && $product->relationLoaded('params'))
         <x-product-params :$product class="hidden sm:block text-xs px-4" />
         @endif
     </div>

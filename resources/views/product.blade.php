@@ -32,9 +32,29 @@
     </x-slot:header>
 
     <div class="container mx-auto">
-        <div class="grid md:grid-cols-3">
-            <div class="p-4 md:order-3">
-                <div class="flex gap-4">
+        <div class="grid md:grid-cols-2">
+            <div class="p-4 md:order-2">
+                <div class="h3">
+                    {{ $product->title }}
+                </div>
+                @if ($product->category)
+                <div>
+                    <a href="{{ route('category', $product->category) }}" class="text-blue-600 hover:text-blue-800">
+                        {{ $product->category->title }}
+                    </a>
+                </div>
+                @endif
+                @if ($product->brand)
+                <div>
+                    <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
+                        <img src="{{ config('app.uploads_url') }}/store/producer/{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4">
+                        {{ $product->brand->title }}
+                    </a>
+                </div>
+                @endif
+                <div class="text-lg pb-4 mb-6 border-b">{{ strip_tags($product->short_description) }}</div>
+
+                <div class="flex gap-4 mb-6">
                     <div class="flex-1 text-right">
                         @if($product->old_price && $product->old_price > $product->price)
                         <del class="block line-through decoration-red-300">@money($product->old_price)</del>
@@ -47,7 +67,7 @@
                         <form action="{{ route('cart.add', $product) }}" method="post">
                             @csrf
                             @method('put')
-                            <button type="submit" class="text-2xl px-6 py-3.5 bg-blue-700 addtocart">
+                            <button type="submit" class="addtocart text-2xl px-6 py-3.5 bg-blue-700 rounded-3xl">
                                 Купить
                             </button>
                         </form>
@@ -68,50 +88,25 @@
                     </div>
                 </div>
             </div>
-            <div class="p-4 md:order-2">
-                <div class="h1">
-                    {{ $product->title }}
-                </div>
-                @if ($product->category)
-                <div>
-                    <a href="{{ route('category', $product->category) }}" class="text-blue-600 hover:text-blue-800">
-                        {{ $product->category->title }}
-                    </a>
-                </div>
-                @endif
-                @if ($product->brand)
-                <div>
-                    <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
-                        <img src="{{ config('app.uploads_url') }}/store/brand/{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4">
-                        {{ $product->brand->title }}
-                    </a>
-                </div>
-                @endif
-                <div class="text-lg pb-4 mb-6 border-b">{{ strip_tags($product->short_description) }}</div>
-                <div>Артикул: {{ $product->sku }}</div>
-                @if ($product->weight)
-                <div>Вес: {{ $product->humanWeight }}</div>
-                @endif
-                @if ($product->length || $product->width || $product->height)
-                <div>Размер: {{ $product->humanSize }}</div>
-                @endif
-                <x-product-params :$product />
-            </div>
-            <div class="bg-white md:order-1 p-4">
+            <div class="md:order-1 p-4">
                 <div id="myTabContent">
                     <div class="hidden" id="image_main">
-                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $product->image }}" alt="" class="block h-auto w-full" loading="lazy">
+                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $product->image }}" alt="" class="block h-auto w-full lg:mix-blend-multiply" loading="lazy">
                     </div>
                     @foreach ($product->images as $image)
                     <div class="hidden" id="image_{{ $image->id }}">
-                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $image->path }}" alt="" class="transition-transform transform-gpu" loading="eager">
+                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $image->path }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply" loading="eager">
                     </div>
                     @endforeach
                 </div>
                 <div class="flex justify-center items-center gap-4 mt-4" data-tabs-toggle="#myTabContent" role="tablist">
-                    <button data-tabs-target="#image_main" type="button" role="tab" aria-controls="contacts" aria-selected="false"><img src="{{ config('app.uploads_url') }}/thumbs/store/product/64x64_{{ $product->image }}" alt="" class="transition-transform transform-gpu" loading="lazy"></button>
+                    <button data-tabs-target="#image_main" type="button" role="tab" aria-controls="contacts" aria-selected="false">
+                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $product->image }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
+                    </button>
                     @foreach ($product->images as $image)
-                    <button data-tabs-target="#image_{{ $image->id }}" type="button" role="tab" aria-controls="contacts" aria-selected="false"><img src="{{ config('app.uploads_url') }}/thumbs/store/product/64x64_{{ $image->path }}" alt="" class="transition-transform transform-gpu" loading="lazy"></button>
+                    <button data-tabs-target="#image_{{ $image->id }}" type="button" role="tab" aria-controls="contacts" aria-selected="false">
+                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $image->path }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
+                    </button>
                     @endforeach
                 </div>
             </div>
@@ -156,8 +151,22 @@
             </div>
         </div>
         <div class="lg:h-[200px]"></div>
-        <div class="content p-4 pt-8 mx-auto prose dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600">
-            {!! $product->description !!}
+        <div class="flex">
+            <div class="content p-4 pt-8 mx-auto prose dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600">
+                {!! $product->description !!}
+            </div>
+            <div class="p-4 pt-8 bg-white">
+                <div class="sticky top-4">
+                    <div>Артикул: {{ $product->sku }}</div>
+                    @if ($product->weight)
+                    <div>Вес: {{ $product->humanWeight }}</div>
+                    @endif
+                    @if ($product->length || $product->width || $product->height)
+                    <div>Размер: {{ $product->humanSize }}</div>
+                    @endif
+                    <x-product-params :$product />
+                </div>
+            </div>
         </div>
 
         @if ($product->linked->count())

@@ -31,29 +31,27 @@
     @isset($filters)
     <div class="bg-white p-4 mb-4 shadow-lg">
         <form id="js-filter-form">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <input type="hidden" name="all" value="{{ request()->get('all') }}">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4 text-xs items-end">
                 @foreach ($filters as $item)
                 @continue(count($item->options) == 1)
-                <div class="text-xs">
+                <div>
                     <x-input-label class="text-xs" :for="$item->param" :value="$item->title" />
                     <x-select-input :id="$item->param" :name="$item->name" :options="$item->options" :value="old($item->param, request()->input($item->param))" nullable />
                 </div>
                 @endforeach
+                <div>
+                    <x-primary-button class="w-full text-center">Применить</x-primary-button>
+                </div>
             </div>
 
-            <input type="hidden" name="all" value="{{ request()->get('all') }}">
-            <x-primary-button>Применить</x-primary-button>
         </form>
     </div>
     @endisset
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-0">
         @foreach($products as $index => $product)
-        @if ($product->price > 0 && $product->in_stock && $product->quantity > 0)
         <x-product-card :product="$product" />
-        @else
-        <x-product-card :product="$product" class="opacity-70" />
-        @endif
         @endforeach
     </div>
     <div class="mt-10">

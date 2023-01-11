@@ -17,9 +17,11 @@ class WelcomeController extends Controller
     public function __invoke(Request $request): View
     {
         $products = Product::query()
-            ->whereNull('category_id')
+            // ->whereNotNull('category_id')
+            ->where('flag_hit', '=', 1)
+            ->inStock()
             ->forProductCard()
-            ->ordered()
+            // ->ordered()
             ->paginate(100);
 
         return view('welcome', compact('products'));

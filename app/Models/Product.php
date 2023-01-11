@@ -147,6 +147,13 @@ class Product extends Model
         ]);
     }
 
+    public function scopeInStock($query)
+    {
+        return $query
+            ->where('in_stock', '=', 1)
+            ->where('price', '>', 0);
+    }
+
     public function scopeOrdered($query)
     {
         return $query

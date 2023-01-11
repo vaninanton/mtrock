@@ -30,11 +30,7 @@
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         @foreach($products as $index => $product)
-        @if ($product->price > 0 && $product->in_stock && $product->quantity > 0)
         <x-product-card :product="$product" />
-        @else
-        <x-product-card :product="$product" class="opacity-70" />
-        @endif
         @endforeach
     </div>
     <div class="mt-10">
