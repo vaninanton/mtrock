@@ -5,13 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductImage;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Pool;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class DownloadProductImagesFromOldVersionCommand extends Command
@@ -59,7 +53,7 @@ class DownloadProductImagesFromOldVersionCommand extends Command
 
             try {
                 $downloaded = file_put_contents($path, file_get_contents($url));
-                $this->line('downloaded: '.(int)$downloaded);
+                $this->line('downloaded: '.(int) $downloaded);
             } catch (\ErrorException $th) {
                 $this->error($th->getMessage());
             }
