@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ProductFilterService
 {
-    private Builder $productsQueryBuilder;
+    private QueryBuilder $productsQueryBuilder;
 
     public function handle(): array
     {
