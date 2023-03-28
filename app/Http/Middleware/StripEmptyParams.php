@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -28,7 +30,7 @@ class StripEmptyParams
         }
 
         if ($old_query !== $query) {
-            $path = url()->current().(! empty($query) ? '/?'.http_build_query($query) : '');
+            $path = url()->current().(!empty($query) ? '/?'.http_build_query($query) : '');
 
             return redirect($path, 301, []);
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /** @noinspection PhpUnused */
 
 use Illuminate\Database\Migrations\Migration;

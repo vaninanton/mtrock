@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Models\Category;
@@ -46,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
             $parent = null;
             foreach ($slugs as $slug) {
                 $category = $categories->get($slug);
-                if (! $category) {
+                if (!$category) {
                     throw (new ModelNotFoundException())->setModel(Category::class);
                 }
                 if ($parent && $category->parent_id != $parent->getKey()) {
