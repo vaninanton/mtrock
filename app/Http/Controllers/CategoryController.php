@@ -13,11 +13,6 @@ class CategoryController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @param  Category  $category
-     * @param  Request  $request
-     * @param  ProductFilterService  $productFilterService
-     * @return View
      */
     public function __invoke(Category $category, Request $request, ProductFilterService $productFilterService): View
     {

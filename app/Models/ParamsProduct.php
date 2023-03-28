@@ -43,9 +43,6 @@ class ParamsProduct extends Pivot
         return $this->belongsTo(ParamsOption::class);
     }
 
-    /**
-     * @return Attribute
-     */
     public function valueParsed(): Attribute
     {
         return Attribute::make(

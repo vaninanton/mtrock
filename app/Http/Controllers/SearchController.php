@@ -10,9 +10,6 @@ class SearchController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @param  SearchRequest  $request
-     * @return View
      */
     public function __invoke(SearchRequest $request): View
     {

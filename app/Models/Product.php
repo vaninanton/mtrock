@@ -163,9 +163,6 @@ class Product extends Model
             ->orderBy('position', 'asc');
     }
 
-    /**
-     * @return Attribute
-     */
     public function title(): Attribute
     {
         return Attribute::make(
@@ -179,9 +176,6 @@ class Product extends Model
         )->shouldCache();
     }
 
-    /**
-     * @return Attribute
-     */
     public function imageSize(): Attribute
     {
         return Attribute::make(
@@ -197,9 +191,6 @@ class Product extends Model
         )->shouldCache();
     }
 
-    /**
-     * @return Attribute
-     */
     public function route(): Attribute
     {
         return Attribute::make(
@@ -209,9 +200,6 @@ class Product extends Model
         )->shouldCache();
     }
 
-    /**
-     * @return Attribute
-     */
     public function paramsParsed(): Attribute
     {
         return Attribute::make(
@@ -248,9 +236,6 @@ class Product extends Model
         )->shouldCache();
     }
 
-    /**
-     * @return Attribute
-     */
     public function humanWeight(): Attribute
     {
         return Attribute::make(
@@ -267,9 +252,6 @@ class Product extends Model
         )->shouldCache();
     }
 
-    /**
-     * @return Attribute
-     */
     public function humanSize(): Attribute
     {
         return Attribute::make(
