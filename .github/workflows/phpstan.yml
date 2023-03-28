@@ -1,10 +1,6 @@
 name: PHPStan
 
-on:
-  push:
-    paths:
-      - '**.php'
-      - 'phpstan.neon.dist'
+on: ["push", "pull_request"]
 
 jobs:
   phpstan:
@@ -16,11 +12,18 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: "8.1"
           coverage: none
 
       - name: Install composer dependencies
         uses: ramsey/composer-install@v2
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: storage/framework/phpstan
+          key: ${{ runner.os }}-phpstan
+          restore-keys: ${{ runner.os }}-phpstan
 
       - name: Run PHPStan
         run: ./vendor/bin/phpstan --error-format=github

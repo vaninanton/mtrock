@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
@@ -13,11 +15,6 @@ class CategoryController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @param  Category  $category
-     * @param  Request  $request
-     * @param  ProductFilterService  $productFilterService
-     * @return View
      */
     public function __invoke(Category $category, Request $request, ProductFilterService $productFilterService): View
     {

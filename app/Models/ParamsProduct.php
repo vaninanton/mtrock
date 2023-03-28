@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\ParamType;
@@ -43,9 +45,6 @@ class ParamsProduct extends Pivot
         return $this->belongsTo(ParamsOption::class);
     }
 
-    /**
-     * @return Attribute
-     */
     public function valueParsed(): Attribute
     {
         return Attribute::make(

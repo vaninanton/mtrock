@@ -1,5 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -10,9 +15,6 @@
 | need to change it using the "uses()" function to bind a different classes or traits.
 |
 */
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class)->in('Feature');
 

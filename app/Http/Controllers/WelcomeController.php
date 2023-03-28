@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
@@ -10,9 +12,6 @@ class WelcomeController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @param  Request  $request
-     * @return View
      */
     public function __invoke(Request $request): View
     {

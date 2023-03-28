@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -10,7 +12,6 @@ class StripEmptyParams
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
@@ -29,7 +30,7 @@ class StripEmptyParams
         }
 
         if ($old_query !== $query) {
-            $path = url()->current().(! empty($query) ? '/?'.http_build_query($query) : '');
+            $path = url()->current().(!empty($query) ? '/?'.http_build_query($query) : '');
 
             return redirect($path, 301, []);
         }

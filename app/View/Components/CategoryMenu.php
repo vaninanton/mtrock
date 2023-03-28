@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components;
 
 use App\Models\Category;
@@ -13,8 +15,6 @@ class CategoryMenu extends Component
 {
     /**
      * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
     public function render(): View
     {

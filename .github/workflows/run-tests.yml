@@ -1,37 +1,33 @@
-name: run-tests
+name: Static Tests
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: ["push", "pull_request"]
 
 jobs:
-  test:
+  ci:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
         php: [8.1]
-        laravel: [9.*]
+        laravel: [10.*]
         stability: [prefer-stable]
         include:
-          - laravel: 9.*
-            testbench: 7.*
+          - laravel: 10.*
+            testbench: 8.*
             carbon: ^2.63
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: curl, mbstring, zip, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, exif, imagick, fileinfo
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
       - name: Setup problem matchers
@@ -44,22 +40,25 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      # - name: List Installed Dependencies
-      #   run: composer show -D
-
       - name: Prepare Laravel Application
         run: |
           cp .env.example .env
           php artisan key:generate
 
       - name: Cache npm dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: npm-${{ hashFiles('package-lock.json') }}
 
       - name: Run npm
         run: npm install && npm run build
+
+      - name: Static Type Tests
+        run: ./vendor/bin/phpstan
+
+      - name: Static Lint Tests
+        run: ./vendor/bin/pint --test
 
       - name: Execute tests
         run: vendor/bin/pest
