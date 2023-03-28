@@ -15,7 +15,7 @@ class CategoryFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $title = fake()->company();
         $slug = Str::slug($title, '-');
