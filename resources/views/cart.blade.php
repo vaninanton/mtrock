@@ -35,7 +35,7 @@
             <thead class="thead-inverse">
                 <tr>
                     <th class="border border-slate-400 p-1 hidden md:table-cell"></th>
-                    <th class="border border-slate-400 p-1 ">Товар</th>
+                    <th class="border border-slate-400 p-1">Товар</th>
                     <th class="border border-slate-400 p-1 hidden md:table-cell text-center">Цена</th>
                     <th class="border border-slate-400 p-1 text-center">Количество</th>
                     <th class="border border-slate-400 p-1 text-center">Сумма</th>
