@@ -1,13 +1,9 @@
-name: run-tests
+name: Static Tests
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: ["push", "pull_request"]
 
 jobs:
-  test:
+  ci:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
@@ -24,7 +20,7 @@ jobs:
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup PHP
@@ -58,5 +54,11 @@ jobs:
       - name: Run npm
         run: npm install && npm run build
 
+      - name: Static Type Tests
+        run: ./vendor/bin/phpstan
+
+      - name: Static Lint Tests
+        run: ./vendor/bin/pint --test
+
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/pest
