@@ -1,9 +1,7 @@
 name: PHP Linting (Pint)
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+
+on: ["push", "pull_request"]
+
 jobs:
   phplint:
     runs-on: ubuntu-latest
