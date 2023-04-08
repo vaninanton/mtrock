@@ -153,9 +153,7 @@ return [
     |
     */
 
-    'ignored_models' => [
-
-    ],
+    'ignored_models' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +167,7 @@ return [
     */
 
     'model_hooks' => [
-        // App\Support\IdeHelper\MyModelHook::class
+        App\Support\IdeHelper\MyModelHook::class,
     ],
 
     /*
@@ -198,9 +196,7 @@ return [
     |
     */
 
-    'interfaces' => [
-
-    ],
+    'interfaces' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -228,9 +224,7 @@ return [
     |  ),
     |
     */
-    'custom_db_types' => [
-
-    ],
+    'custom_db_types' => [],
 
     /*
      |--------------------------------------------------------------------------
@@ -296,6 +290,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Use generics syntax
+    |--------------------------------------------------------------------------
+    |
+    | Use generics syntax within DocBlocks,
+    | e.g. `Collection<User>` instead of `Collection|User[]`.
+    |
+    */
+    'use_generics_annotations' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Additional relation types
     |--------------------------------------------------------------------------
     |
@@ -305,6 +310,19 @@ return [
     |
     */
     'additional_relation_types' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Additional relation return types
+    |--------------------------------------------------------------------------
+    |
+    | When using custom relation types its possible for the class name to not contain
+    | the proper return type of the relation. The key of the array is the relationship
+    | method name. The value of the array is the return type of the relation.
+    | e.g. `'relationName' => 'many'`.
+    |
+    */
+    'additional_relation_return_types' => [],
 
     /*
     |--------------------------------------------------------------------------

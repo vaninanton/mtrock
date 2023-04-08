@@ -140,16 +140,25 @@
             </svg>
             <span class="sr-only">Close menu</span>
         </button>
-        <form action="#" class="mb-6">
+        <form action="{{ route('callback.store') }}" method="post" class="mb-6">
+            <x-auth-session-status class="mb-4" :status="session('status')" />
+            @csrf
+            <input type="hidden" name="timezone" id="callbackTimezone" value="">
             <div class="mb-6">
                 <label for="tel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваш телефон</label>
-                <input type="tel" id="tel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+7 (___) ___-__-__" required>
+                <input type="tel" name="phone" id="tel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+7 (___) ___-__-__" required>
             </div>
             <div class="mb-6">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваше имя</label>
-                <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ваше имя" required>
+                <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ваше имя" required>
             </div>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 block">Перезвоните мне!</button>
+
+            <script>
+                let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                let elem = document.getElementById('callbackTimezone');
+                elem.value = timezone;
+            </script>
         </form>
         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
             <a href="mailto:admin@mountain-rock.ru" class="hover:underline">admin@mountain-rock.ru</a>

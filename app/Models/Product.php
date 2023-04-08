@@ -56,25 +56,26 @@ use Illuminate\Support\Facades\Storage;
  * @property-read string $human_size
  * @property-read string $human_weight
  * @property-read string $image_size
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductImage[] $images
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductImage> $images
  * @property-read int|null $images_count
- * @property-read \Illuminate\Database\Eloquent\Collection|Product[] $linked
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Product> $linked
  * @property-read int|null $linked_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ParamsProduct[] $params
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ParamsProduct> $params
  * @property-read int|null $params_count
  * @property-read array $params_parsed
  * @property-read string $route
  * @property-read \App\Models\Type|null $type
  *
- * @method static \Database\Factories\ProductFactory factory(...$parameters)
+ * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static Builder|Product forProductCard()
+ * @method static Builder|Product inStock()
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
- * @method static \Illuminate\Database\Query\Builder|Product onlyTrashed()
+ * @method static Builder|Product onlyTrashed()
  * @method static Builder|Product ordered()
  * @method static Builder|Product query()
- * @method static \Illuminate\Database\Query\Builder|Product withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Product withoutTrashed()
+ * @method static Builder|Product withTrashed()
+ * @method static Builder|Product withoutTrashed()
  *
  * @mixin \Eloquent
  */

@@ -18,16 +18,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
  *
- * @method static \Database\Factories\TypeFactory factory(...$parameters)
+ * @method static \Database\Factories\TypeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Type newQuery()
- * @method static \Illuminate\Database\Query\Builder|Type onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Type query()
- * @method static \Illuminate\Database\Query\Builder|Type withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Type withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type withoutTrashed()
  *
  * @mixin \Eloquent
  */

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Backend\IndexController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
@@ -31,6 +32,8 @@ Route::redirect('/store/palatki/palatki-msr', '/store/brand/msr');
 Route::get('/', WelcomeController::class)->name('index');
 
 // Route::view('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::post('callback', CallbackController::class)->name('callback.store');
 
 Route::name('cart.')->prefix('/cart')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');

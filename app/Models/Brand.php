@@ -23,16 +23,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
  *
- * @method static \Database\Factories\BrandFactory factory(...$parameters)
+ * @method static \Database\Factories\BrandFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Brand newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Brand newQuery()
- * @method static \Illuminate\Database\Query\Builder|Brand onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Brand onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Brand query()
- * @method static \Illuminate\Database\Query\Builder|Brand withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Brand withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Brand withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Brand withoutTrashed()
  *
  * @mixin \Eloquent
  */

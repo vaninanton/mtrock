@@ -21,13 +21,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
- * @method static \Database\Factories\PageFactory factory(...$parameters)
+ * @method static \Database\Factories\PageFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Page newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Page newQuery()
- * @method static \Illuminate\Database\Query\Builder|Page onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Page onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Page query()
- * @method static \Illuminate\Database\Query\Builder|Page withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Page withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Page withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Page withoutTrashed()
  *
  * @mixin \Eloquent
  */

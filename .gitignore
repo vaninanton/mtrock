@@ -5,10 +5,12 @@
 /public/uploads
 /storage/*.key
 /vendor
+_ide_helper.php
 .env
 .env.backup
 .env.production
 .phpunit.result.cache
+.phpstorm.meta.php
 Homestead.json
 Homestead.yaml
 auth.json
