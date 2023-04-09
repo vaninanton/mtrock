@@ -38,12 +38,12 @@ class DownloadBrandImagesFromOldVersionCommand extends Command
             ->whereNotNull('image')
             ->get(['id', 'image'])
             ->each(function (Brand $item) use ($import_path) {
-                if (is_file($import_path . '/' . $item->image)) {
+                if (is_file($import_path.'/'.$item->image)) {
                     return true;
                 }
 
-                $data = file_get_contents('https://mountain-rock.ru/uploads/store/producer/' . $item->image);
-                file_put_contents($import_path . '/' . $item->image, $data);
+                $data = file_get_contents('https://mountain-rock.ru/uploads/store/producer/'.$item->image);
+                file_put_contents($import_path.'/'.$item->image, $data);
             });
 
         return Command::SUCCESS;

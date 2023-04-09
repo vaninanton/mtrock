@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\ProductImageResource\Pages;
 
 use App\Filament\Resources\ProductImageResource;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateProductImage extends CreateRecord

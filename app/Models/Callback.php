@@ -33,7 +33,7 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 class Callback extends Model
 {
     protected $casts = [
-        'phone' => E164PhoneNumberCast::class . ':RU',
+        'phone' => E164PhoneNumberCast::class.':RU',
         'price' => 'float',
     ];
 
