@@ -33,8 +33,8 @@ class DownloadProductImagesFromOldVersionCommand extends Command
      */
     public function handle()
     {
-        Storage::disk('uploads')->makeDirectory('store/product');
-        Storage::disk('uploads')->makeDirectory('store/producer');
+        Storage::makeDirectory('store/product');
+        Storage::makeDirectory('store/producer');
 
         $files = [
             ...$this->getProductImages(),
@@ -44,8 +44,8 @@ class DownloadProductImagesFromOldVersionCommand extends Command
 
         foreach ($files as $file) {
             $folder = str_replace(basename($file), '', $file);
-            $url = 'https://mountain-rock.ru/uploads/'.$folder.rawurlencode(basename($file));
-            $path = Storage::disk('uploads')->path($file);
+            $url = 'https://mountain-rock.ru/uploads/' . $folder . rawurlencode(basename($file));
+            $path = Storage::path($file);
             $exists = is_file($path);
 
             if ($exists) {
@@ -55,7 +55,7 @@ class DownloadProductImagesFromOldVersionCommand extends Command
 
             try {
                 $downloaded = file_put_contents($path, file_get_contents($url));
-                $this->line('downloaded: '.(int) $downloaded);
+                $this->line('downloaded: ' . (int) $downloaded);
             } catch (\ErrorException $th) {
                 $this->error($th->getMessage());
             }
@@ -71,7 +71,7 @@ class DownloadProductImagesFromOldVersionCommand extends Command
             ->where('image', '<>', '')
             ->get('image')
             ->map(function (Brand $item) {
-                return 'store/producer/'.$item->image;
+                return 'store/producer/' . $item->image;
             })
             ->toArray();
     }
@@ -83,7 +83,7 @@ class DownloadProductImagesFromOldVersionCommand extends Command
             ->where('image', '<>', '')
             ->get('image')
             ->map(function (Product $item) {
-                return 'store/product/'.$item->image;
+                return 'store/product/' . $item->image;
             })
             ->toArray();
     }
@@ -95,7 +95,7 @@ class DownloadProductImagesFromOldVersionCommand extends Command
             ->where('path', '<>', '')
             ->get('path')
             ->map(function (ProductImage $item) {
-                return 'store/product/'.$item->path;
+                return 'store/product/' . $item->path;
             })
             ->toArray();
     }

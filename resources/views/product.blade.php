@@ -47,7 +47,7 @@
                 @if ($product->brand)
                 <div>
                     <a href="{{ route('brand.show', $product->brand) }}" class="text-blue-600 hover:text-blue-800">
-                        <img src="{{ config('app.uploads_url') }}/store/producer/{{ $product->brand->image }}" alt="{{ $product->brand->title }}" class="inline h-4">
+                        <img src="{{ Storage::url($product->brand->image) }}" alt="{{ $product->brand->title }}" class="inline h-4">
                         {{ $product->brand->title }}
                     </a>
                 </div>
@@ -91,21 +91,21 @@
             <div class="md:order-1 p-4">
                 <div id="myTabContent">
                     <div class="hidden" id="image_main">
-                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $product->image }}" alt="" class="block h-auto w-full lg:mix-blend-multiply" loading="lazy">
+                        <img src="{{ Storage::url($product->image) }}" alt="" class="block h-auto w-full lg:mix-blend-multiply" loading="lazy">
                     </div>
                     @foreach ($product->images as $image)
                     <div class="hidden" id="image_{{ $image->id }}">
-                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $image->path }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply" loading="eager">
+                        <img src="{{ Storage::url($image->path) }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply" loading="eager">
                     </div>
                     @endforeach
                 </div>
                 <div class="flex justify-center items-center gap-4 mt-4" data-tabs-toggle="#myTabContent" role="tablist">
                     <button data-tabs-target="#image_main" type="button" role="tab" aria-controls="contacts" aria-selected="false">
-                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $product->image }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
+                        <img src="{{ Storage::url($product->image) }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
                     </button>
                     @foreach ($product->images as $image)
                     <button data-tabs-target="#image_{{ $image->id }}" type="button" role="tab" aria-controls="contacts" aria-selected="false">
-                        <img src="{{ config('app.uploads_url') }}/store/product/{{ $image->path }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
+                        <img src="{{ Storage::url($image->path) }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
                     </button>
                     @endforeach
                 </div>

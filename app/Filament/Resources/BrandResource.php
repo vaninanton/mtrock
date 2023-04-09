@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PageResource\Pages;
-use App\Filament\Resources\PageResource\RelationManagers;
-use App\Models\Page;
+use App\Filament\Resources\BrandResource\Pages;
+use App\Filament\Resources\BrandResource\RelationManagers;
+use App\Models\Brand;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,28 +13,33 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PageResource extends Resource
+class BrandResource extends Resource
 {
-    protected static ?string $model = Page::class;
+    protected static ?string $model = Brand::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $navigationLabel = 'Страницы';
+    protected static ?string $navigationGroup = 'Магазин';
+
+    protected static ?string $navigationLabel = 'Бренды';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('body')
-                    ->required(),
-                Forms\Components\TextInput::make('meta_description')
+                Forms\Components\TextInput::make('title')
+                    ->required()
                     ->maxLength(255),
+                Forms\Components\FileUpload::make('image')
+                    ->directory('store/brand'),
+                Forms\Components\Textarea::make('short_description')
+                    ->maxLength(65535),
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(65535),
+                Forms\Components\TextInput::make('position'),
             ]);
     }
 
@@ -43,15 +48,7 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('slug'),
-                Tables\Columns\TextColumn::make('body'),
-                Tables\Columns\TextColumn::make('meta_description'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
+                Tables\Columns\ImageColumn::make('image'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -76,9 +73,9 @@ class PageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
+            'index' => Pages\ListBrands::route('/'),
+            'create' => Pages\CreateBrand::route('/create'),
+            'edit' => Pages\EditBrand::route('/{record}/edit'),
         ];
     }
 

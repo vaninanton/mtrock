@@ -19,6 +19,10 @@ class ProductImageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationGroup = 'Магазин';
+
+    protected static ?string $navigationLabel = 'Изображения товаров';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -59,14 +63,14 @@ class ProductImageResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -74,5 +78,5 @@ class ProductImageResource extends Resource
             'create' => Pages\CreateProductImage::route('/create'),
             'edit' => Pages\EditProductImage::route('/{record}/edit'),
         ];
-    }    
+    }
 }

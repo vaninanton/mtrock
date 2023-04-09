@@ -32,7 +32,7 @@
         @foreach($brands as $item)
         <div class="bg-white border rounded shadow-sm mb-2 flex flex-col justify-between">
             <a href="{{ route('brand.show', $item) }}" class="flex flex-col items-center justify-center p-4">
-                <img src="{{ config('app.uploads_url') }}/store/producer/{{ $item->image }}" alt="" class="object-contain lg:h-40 w-auto" loading="lazy">
+                <img src="{{ Storage::url($item->image) }}" alt="" class="object-contain lg:h-40 w-auto" loading="lazy">
             </a>
             <div>
                 <a href="{{ route('brand.show', $item) }}">

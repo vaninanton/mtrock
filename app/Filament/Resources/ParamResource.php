@@ -19,6 +19,10 @@ class ParamResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationGroup = 'Магазин';
+
+    protected static ?string $navigationLabel = 'Параметры';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -63,14 +67,14 @@ class ParamResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -78,5 +82,5 @@ class ParamResource extends Resource
             'create' => Pages\CreateParam::route('/create'),
             'edit' => Pages\EditParam::route('/{record}/edit'),
         ];
-    }    
+    }
 }

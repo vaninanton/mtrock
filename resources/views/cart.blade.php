@@ -55,8 +55,8 @@
                 @endphp
                 <tr class="">
                     <td class="border border-slate-400 p-1 hidden md:table-cell">
-                        <a href="{{ config('app.uploads_url') }}/store/product/{{ $product->image }}">
-                            <img src="{{ config('app.uploads_url') }}/store/product/{{ $product->image }}" alt="" loading="lazy" class="h-4">
+                        <a href="{{ Storage::url($product->image) }}">
+                            <img src="{{ Storage::url($product->image) }}" alt="" loading="lazy" class="h-4">
                         </a>
                     </td>
                     <td class="border border-slate-400 p-1">

@@ -23,9 +23,14 @@ class CallbackResource extends Resource
 
     protected static ?string $navigationLabel = 'Обратный звонок';
 
-    public static function getEloquentQuery(): Builder
+    protected static function getNavigationBadge(): ?string
     {
-        return parent::getEloquentQuery()->latest('id');
+        return static::getModel()::whereNull('answered_at')->count();
+    }
+
+    protected static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::whereNull('answered_at')->count() > 10 ? 'warning' : 'primary';
     }
 
     public static function form(Form $form): Form
@@ -55,8 +60,10 @@ class CallbackResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -64,12 +71,13 @@ class CallbackResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->sortable()
                     ->dateTime('d.m.Y H:i'),
                 Tables\Columns\TextColumn::make('answered_at')
-                    ->dateTime()
+                    ->sortable()
                     ->dateTime('d.m.Y H:i'),
             ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 Tables\Filters\Filter::make('Просмотренные')
                     ->query(fn (Builder $query): Builder => $query->whereNotNull('answered_at')),
@@ -78,6 +86,18 @@ class CallbackResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Готов')
+                    ->action(function (Callback $record) {
+                        $record->answered_at = now();
+                        $record->save();
+                    })
+                    ->icon('heroicon-o-check')
+                    ->disabled(function (Callback $record) {
+                        return !is_null($record->answered_at);
+                    })
+                    ->requiresConfirmation()
+                    ->color('success'),
+
             ])
             ->bulkActions([
                 // Tables\Actions\DeleteBulkAction::make(),
