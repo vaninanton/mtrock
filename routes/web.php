@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Backend\IndexController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\CartController;
@@ -68,10 +67,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::name('backend.')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/backend', IndexController::class)->name('index');
 });
 
 Route::get('/{page}.html', PageController::class)->name('page');
