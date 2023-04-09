@@ -112,7 +112,7 @@ class ProductSeeder extends Seeder
                 $category_id = Category::whereTitle($category)->first()->id;
                 Product::whereBelongsTo(Type::whereIn('title', $types)->get())->update(['category_id' => $category_id]);
             } catch (\Throwable $th) {
-                dump($category . ' not found');
+                dump($category.' not found');
                 throw $th;
             }
         }

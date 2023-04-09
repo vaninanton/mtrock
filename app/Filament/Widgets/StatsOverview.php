@@ -40,7 +40,7 @@ class StatsOverview extends BaseWidget
 
         $avgOrder = 0;
         if ($countOrder > 0) {
-            $avgOrder = number_format($sumOrder / $countOrder, 0, '', ' ') . ' ₽';
+            $avgOrder = number_format($sumOrder / $countOrder, 0, '', ' ').' ₽';
         }
 
         return [

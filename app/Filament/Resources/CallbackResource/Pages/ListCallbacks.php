@@ -26,7 +26,7 @@ class ListCallbacks extends ListRecords
     //         CallbackOverview::class,
     //     ];
     // }
-    protected function getHeaderWidgetsColumns(): int | array
+    protected function getHeaderWidgetsColumns(): int|array
     {
         return 1;
     }
