@@ -13,7 +13,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\TelegramWebhookController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +75,5 @@ Route::name('backend.')->middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('/{page}.html', PageController::class)->name('page');
-Route::any('telegram/rJcbo4QLyS6r22poz4wQjAuTdtAbVTub/webhook', TelegramWebhookController::class);
 
 require __DIR__.'/auth.php';
