@@ -24,7 +24,7 @@ class StoreCallbackRequest extends FormRequest
             'phone' => [
                 'string',
                 'required',
-                (new Phone)->international()->country(['RU', 'KZ']),
+                (new Phone)->international()->country(['RU', 'KZ', 'BY']),
             ],
             'timezone' => [
                 'string',

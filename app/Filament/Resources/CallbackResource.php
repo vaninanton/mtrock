@@ -17,20 +17,19 @@ class CallbackResource extends Resource
 {
     protected static ?string $model = Callback::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-phone-outgoing';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?string $navigationGroup = 'Клиенты';
 
     protected static ?string $navigationLabel = 'Обратный звонок';
 
     protected static function getNavigationBadge(): ?string
     {
-        return (string) static::getModel()::whereNull('answered_at')->count();
-    }
+        $count = static::getModel()::whereNull('answered_at')->count();
 
-    protected static function getNavigationBadgeColor(): ?string
-    {
-        return static::getModel()::whereNull('answered_at')->count() > 10 ? 'warning' : 'primary';
+        return $count ? (string) $count : null;
     }
 
     public static function form(Form $form): Form
@@ -86,21 +85,19 @@ class CallbackResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('Готов')
+                Tables\Actions\Action::make('Прочитано')
                     ->action(function (Callback $record) {
-                        $record->answered_at = now();
+                        $record->answered_at = $record->answered_at ? null : now();
                         $record->save();
                     })
                     ->icon('heroicon-o-check')
-                    ->disabled(function (Callback $record) {
-                        return !is_null($record->answered_at);
-                    })
-                    ->requiresConfirmation()
-                    ->color('success'),
+                    // ->disabled(fn (Callback $record) => !is_null($record->answered_at))
+                    ->requiresConfirmation(fn (Callback $record) => !is_null($record->answered_at)),
+                // ->color('success'),
 
             ])
             ->bulkActions([
-                // Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

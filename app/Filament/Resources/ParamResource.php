@@ -16,7 +16,7 @@ class ParamResource extends Resource
 {
     protected static ?string $model = Param::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-report';
 
     protected static ?string $navigationGroup = 'Магазин';
 

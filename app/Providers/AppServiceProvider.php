@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Category;
+use Filament\Facades\Filament;
+use Filament\Navigation\NavigationGroup;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\Paginator;
@@ -58,6 +60,18 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return $category;
+        });
+
+        Filament::serving(function () {
+            Filament::registerNavigationGroups([
+                NavigationGroup::make()
+                    ->label('Клиенты')
+                    ->icon('heroicon-s-users')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Магазин')
+                    ->icon('heroicon-s-shopping-cart'),
+            ]);
         });
     }
 }

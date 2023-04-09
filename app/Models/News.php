@@ -23,12 +23,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $product_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method static \Database\Factories\NewsFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|News newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|News newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|News onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|News query()
+ * @method static \Illuminate\Database\Eloquent\Builder|News withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|News withoutTrashed()
  *
  * @mixin \Eloquent
  */
