@@ -31,8 +31,8 @@ class DownloadBrandImagesFromOldVersionCommand extends Command
      */
     public function handle()
     {
-        Storage::disk('uploads')->makeDirectory('store/brand');
-        $import_path = Storage::disk('uploads')->path('store/brand');
+        Storage::makeDirectory('store/brand');
+        $import_path = Storage::path('store/brand');
 
         Brand::query()
             ->whereNotNull('image')

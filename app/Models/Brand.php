@@ -40,6 +40,20 @@ class Brand extends Model
 {
     use HasFactory, HasSlug, SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'slug',
+        'title',
+        'image',
+        'short_description',
+        'description',
+        'position',
+    ];
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

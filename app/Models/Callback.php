@@ -37,6 +37,12 @@ class Callback extends Model
         'price' => 'float',
     ];
 
+    protected $fillable = [
+        'name',
+        'phone',
+        'answered_at',
+    ];
+
     public function viewedProducts(): BelongsToMany
     {
         return $this->belongsToMany(Product::class)

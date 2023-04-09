@@ -25,7 +25,7 @@ class CallbackSeeder extends Seeder
             $callback->comment = $item->comment ?: null;
             $callback->created_at = $item->create_time;
             $callback->updated_at = $item->create_time;
-            $callback->answered_at = $item->create_time;
+            $callback->answered_at = $item->status != 0 ? $item->create_time : null;
             $callback->save();
         }
     }

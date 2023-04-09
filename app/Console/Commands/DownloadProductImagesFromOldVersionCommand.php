@@ -33,8 +33,8 @@ class DownloadProductImagesFromOldVersionCommand extends Command
      */
     public function handle()
     {
-        Storage::disk('uploads')->makeDirectory('store/product');
-        Storage::disk('uploads')->makeDirectory('store/producer');
+        Storage::makeDirectory('store/product');
+        Storage::makeDirectory('store/producer');
 
         $files = [
             ...$this->getProductImages(),
@@ -45,7 +45,7 @@ class DownloadProductImagesFromOldVersionCommand extends Command
         foreach ($files as $file) {
             $folder = str_replace(basename($file), '', $file);
             $url = 'https://mountain-rock.ru/uploads/'.$folder.rawurlencode(basename($file));
-            $path = Storage::disk('uploads')->path($file);
+            $path = Storage::path($file);
             $exists = is_file($path);
 
             if ($exists) {
