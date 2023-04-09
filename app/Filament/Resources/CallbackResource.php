@@ -25,7 +25,7 @@ class CallbackResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        return static::getModel()::whereNull('answered_at')->count();
+        return (string) static::getModel()::whereNull('answered_at')->count();
     }
 
     protected static function getNavigationBadgeColor(): ?string
