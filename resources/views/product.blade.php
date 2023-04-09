@@ -74,10 +74,10 @@
                         <div><small>Товар в наличии</small></div>
                         @else
                         @if ($product->availability_preorder)
-                            <button type="button" class="addtocart">
-                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                                Предзаказ
-                            </button>
+                        <button type="button" class="addtocart">
+                            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                            Предзаказ
+                        </button>
                         @else
                         <button class="text-slate-800 bg-slate-300 hover:bg-slate-300 font-medium rounded-lg text-2xl px-6 py-3.5 text-center">
                             Нет в наличии
@@ -171,10 +171,10 @@
 
         @if ($product->linked->count())
         <hr class="my-8">
-        <h2 class="h2">SET:</h2>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+        <h2 class="h2">Связанные товары:</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($product->linked as $product)
-            <x-product-card :product="$product" />
+            <x-product-card :product="$product" hideparams />
             @endforeach
         </div>
         @endif

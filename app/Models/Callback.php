@@ -17,6 +17,7 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
  * @property string|null $timezone
  * @property string|null $url
  * @property string|null $comment
+ * @property int|null $telegram_message_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $answered_at

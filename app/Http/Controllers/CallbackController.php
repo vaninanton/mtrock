@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Events\CallbackCreated;
 use App\Http\Requests\StoreCallbackRequest;
 use App\Models\Callback;
 use App\Models\Product;
@@ -24,6 +25,8 @@ class CallbackController extends Controller
         $callback->timezone = $request->get('timezone');
         $callback->save();
         $callback->viewedProducts()->attach($k);
+
+        CallbackCreated::dispatch($callback);
 
         return Response::noContent();
     }

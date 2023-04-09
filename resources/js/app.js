@@ -1,6 +1,6 @@
 import 'flowbite';
 
-let jsFilterForm = document.getElementById('js-filter-form');
+let jsFilterForm = document.querySelector('#js-filter-form');
 if (jsFilterForm) {
     jsFilterForm.addEventListener('submit', function (e) {
         e.preventDefault();

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('timezone')->nullable();
             $table->string('url')->nullable();
             $table->text('comment')->nullable();
+            $table->integer('telegram_message_id')->nullable();
             $table->timestamps();
             $table->timestamp('answered_at')->nullable();
         });
