@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Filament\Resources\CallbackResource\Widgets;
 
 use App\Models\Callback;
-use Filament\Widgets\BarChartWidget;
+use Filament\Widgets\LineChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-class CallbackOverview extends BarChartWidget
+class CallbackOverview extends LineChartWidget
 {
     protected static ?string $heading = 'Количество обратных звонков';
+
+    protected static ?string $maxHeight = '300px';
 
     protected static ?array $options = [
         'plugins' => [
@@ -25,10 +27,10 @@ class CallbackOverview extends BarChartWidget
     {
         $data = Trend::model(Callback::class)
             ->between(
-                start: now()->subYear(1),
+                start: now()->subDays(90),
                 end: now(),
             )
-            ->perMonth()
+            ->perDay()
             ->count();
 
         return [

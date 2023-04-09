@@ -38,7 +38,10 @@ class StatsOverview extends BaseWidget
             ->where('paid_at')
             ->count();
 
-        $avgOrder = number_format($sumOrder / $countOrder, 0, '', ' ').' ₽';
+        $avgOrder = 0;
+        if ($countOrder > 0) {
+            $avgOrder = number_format($sumOrder / $countOrder, 0, '', ' ') . ' ₽';
+        }
 
         return [
             Card::make('Количество заказов', Order::count())

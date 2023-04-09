@@ -16,6 +16,8 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
+    protected static ?string $recordTitleAttribute = 'id';
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     protected static ?string $navigationGroup = 'Клиенты';
@@ -75,61 +77,63 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('ФИО'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->label('Статус')
+                    ->getStateUsing(fn (Order $record): string => $record->status->toLocalizedString())
+                    ->color(fn (Order $record): string => $record->status->getColor()),
                 Tables\Columns\TextColumn::make('delivery.title')
                     ->label('Способ доставки')
-                    ->html()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Tables\Columns\TextColumn::make('slug')
                 //     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('delivery_price')
-                //     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('pay_method')
                     ->label('Способ оплаты')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('total_price')
                     ->label('Сумма заказа')
                     ->money('RUB'),
+                Tables\Columns\TextColumn::make('delivery_price')
+                    ->label('Стоимость доставки')
+                    ->money('RUB'),
                 // Tables\Columns\TextColumn::make('coupon_discount')
                 //     ->toggleable(isToggledHiddenByDefault: true),
                 // Tables\Columns\IconColumn::make('separate_delivery')
                 //     ->toggleable(isToggledHiddenByDefault: true)
                 //     ->boolean(),
-                Tables\Columns\BadgeColumn::make('status')
-                    ->label('Статус')
-                    ->getStateUsing(fn (Order $record): string => $record->status->toLocalizedString())
-                    ->color(fn (Order $record): string => $record->status->getColor()),
-                Tables\Columns\TextColumn::make('name')
-                    ->label('ФИО'),
-                Tables\Columns\TextColumn::make('country')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('city')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('street')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('house')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('apartment')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('phone')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('phone_country')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('email')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('comment')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('note')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('payment_link')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('ip_address')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('paid_at')
-                    ->dateTime()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('country')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('city')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('street')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('house')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('apartment')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('phone')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('phone_country')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('email')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('comment')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('note')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('payment_link')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('ip_address')
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('paid_at')
+                //     ->dateTime()
+                //     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime('d.m.Y H:i'),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->toggleable(isToggledHiddenByDefault: true),

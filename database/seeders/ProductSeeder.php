@@ -66,7 +66,7 @@ class ProductSeeder extends Seeder
             `old_price`,
             `type_prefix`,
             `model`,
-            `image`,
+            CONCAT("store/product/", `image`),
             `short_description`,
             `description`,
             IFNULL(`is_new`, 0),
@@ -112,7 +112,7 @@ class ProductSeeder extends Seeder
                 $category_id = Category::whereTitle($category)->first()->id;
                 Product::whereBelongsTo(Type::whereIn('title', $types)->get())->update(['category_id' => $category_id]);
             } catch (\Throwable $th) {
-                dump($category.' not found');
+                dump($category . ' not found');
                 throw $th;
             }
         }

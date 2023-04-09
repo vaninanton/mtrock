@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Delivery;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DeliverySeeder extends Seeder
 {
@@ -15,12 +16,13 @@ class DeliverySeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
         $old = DB::table('mtrock.mr_store_delivery')->get();
         Delivery::query()->truncate();
         foreach ($old as $item) {
             $delivery = new Delivery();
             $delivery->id = $item->id;
-            $delivery->title = $item->name;
+            $delivery->title = strip_tags($item->name);
             $delivery->short_name = $item->short_name ?: null;
             $delivery->description = $item->description;
             $delivery->price = $item->price;
@@ -31,5 +33,6 @@ class DeliverySeeder extends Seeder
             $delivery->deleted_at = $item->status == 1 ? null : now();
             $delivery->save();
         }
+        Schema::enableForeignKeyConstraints();
     }
 }

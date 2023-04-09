@@ -37,7 +37,8 @@ class NewsResource extends Resource
                     ->maxLength(65535),
                 Forms\Components\Textarea::make('full_text')
                     ->maxLength(65535),
-                Forms\Components\FileUpload::make('image'),
+                Forms\Components\FileUpload::make('image')
+                    ->directory('store/news'),
                 Forms\Components\TextInput::make('link')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('video')

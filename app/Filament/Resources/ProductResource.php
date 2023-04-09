@@ -57,8 +57,8 @@ class ProductResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('model')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('image')
-                    ->maxLength(255),
+                Forms\Components\FileUpload::make('image')
+                    ->directory('store/product'),
                 Forms\Components\TextInput::make('short_description')
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
@@ -107,7 +107,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('old_price'),
                 Tables\Columns\TextColumn::make('type_prefix'),
                 Tables\Columns\TextColumn::make('model'),
-                Tables\Columns\TextColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('short_description'),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('sales_notes'),

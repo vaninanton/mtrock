@@ -20,11 +20,15 @@ class ListCallbacks extends ListRecords
         ];
     }
 
-    public static function getWidgets(): array
+    // public static function getWidgets(): array
+    // {
+    //     return [
+    //         CallbackOverview::class,
+    //     ];
+    // }
+    protected function getHeaderWidgetsColumns(): int | array
     {
-        return [
-            CallbackOverview::class,
-        ];
+        return 1;
     }
 
     protected function getHeaderWidgets(): array

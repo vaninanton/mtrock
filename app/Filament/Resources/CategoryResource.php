@@ -36,8 +36,8 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('image')
-                    ->maxLength(255),
+                Forms\Components\FileUpload::make('image')
+                    ->directory('store/category'),
                 Forms\Components\Textarea::make('short_description')
                     ->maxLength(65535),
                 Forms\Components\Textarea::make('description')
@@ -57,7 +57,7 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('parent.title'),
                 Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('short_description'),
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('meta_title'),
