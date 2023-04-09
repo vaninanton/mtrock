@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "filament/filament": "^2.17",
         "guzzlehttp/guzzle": "^7.5",
         "intervention/image": "^2.7",
         "irazasyed/telegram-bot-sdk": "^3.10",
@@ -22,6 +23,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
         "barryvdh/laravel-ide-helper": "^2.13",
+        "doctrine/dbal": "^3.6",
         "fakerphp/faker": "^1.21",
         "laravel/breeze": "^1.20",
         "laravel/pint": "^1.8",
@@ -53,7 +55,8 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta"
+            "@php artisan ide-helper:meta",
+            "@php artisan filament:upgrade"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
