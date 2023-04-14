@@ -24,6 +24,10 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationLabel = 'Категории';
 
+    protected static ?string $modelLabel = 'Категории';
+
+    protected static ?string $pluralModelLabel = 'Категории';
+
     public static function form(Form $form): Form
     {
         return $form

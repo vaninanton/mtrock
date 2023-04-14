@@ -22,6 +22,10 @@ class ParamsOptionResource extends Resource
 
     protected static ?string $navigationLabel = 'Параметры/Варианты';
 
+    protected static ?string $modelLabel = 'Вариант';
+
+    protected static ?string $pluralModelLabel = 'Варианты';
+
     public static function form(Form $form): Form
     {
         return $form

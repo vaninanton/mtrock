@@ -7,6 +7,7 @@ namespace App\Filament\Resources\ClientResource\Pages;
 use App\Filament\Resources\ClientResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListClients extends ListRecords
 {
@@ -17,5 +18,20 @@ class ListClients extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+    public function isTableSearchable(): bool
+    {
+        return true;
+    }
+
+    protected function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()->withCount('orders', 'callbacks')->withoutGlobalScopes();
+    }
+
+    protected function getTableRecordsPerPageSelectOptions(): array
+    {
+        return [25, 50, 100];
     }
 }

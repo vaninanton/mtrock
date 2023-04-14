@@ -27,6 +27,17 @@ class OrderResource extends Resource
 
     protected static ?string $navigationLabel = 'Заказы';
 
+    protected static ?string $modelLabel = 'Заказ';
+
+    protected static ?string $pluralModelLabel = 'Заказы';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::where('status', '=', OrderStatus::NEW)->count();
+
+        return $count ? (string) $count : null;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -130,8 +141,8 @@ class OrderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID'),
-                Tables\Columns\TextColumn::make('name')
-                    ->label('ФИО'),
+                Tables\Columns\TextColumn::make('client.name')
+                    ->label('Клиент'),
                 Tables\Columns\BadgeColumn::make('status')
                     ->label('Статус')
                     ->getStateUsing(fn (Order $record): string => $record->status->toLocalizedString())
@@ -184,7 +195,7 @@ class OrderResource extends Resource
                 //     ->dateTime()
                 //     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime('d.m.Y H:i'),
+                    ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->toggleable(isToggledHiddenByDefault: true),

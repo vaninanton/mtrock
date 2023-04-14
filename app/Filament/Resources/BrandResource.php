@@ -31,6 +31,10 @@ class BrandResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
+    protected static ?string $modelLabel = 'Бренд';
+
+    protected static ?string $pluralModelLabel = 'Бренды';
+
     public static function form(Form $form): Form
     {
         return $form

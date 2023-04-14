@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientResource\Pages;
+use App\Filament\Resources\ClientResource\RelationManagers\CallbacksRelationManager;
+use App\Filament\Resources\ClientResource\RelationManagers\OrdersRelationManager;
 use App\Models\Client;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -16,7 +18,24 @@ class ClientResource extends Resource
 {
     protected static ?string $model = Client::class;
 
+    protected static ?string $recordTitleAttribute = 'id';
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static ?string $navigationGroup = 'Клиенты';
+
+    protected static ?string $navigationLabel = 'Клиенты';
+
+    protected static ?string $modelLabel = 'Клиенты';
+
+    protected static ?string $pluralModelLabel = 'Клиенты';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::count();
+
+        return $count ? (string) $count : null;
+    }
 
     public static function form(Form $form): Form
     {
@@ -44,16 +63,33 @@ class ClientResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('phone_country'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('country'),
-                Tables\Columns\TextColumn::make('city'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Имя'),
+                Tables\Columns\TextColumn::make('phone')
+                    ->label('Телефон')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\BadgeColumn::make('orders_count')
+                    ->sortable()
+                    ->label('Количество заказов'),
+                Tables\Columns\BadgeColumn::make('callbacks_count')
+                    ->sortable()
+                    ->label('Количество обратных звонков'),
+                // Tables\Columns\TextColumn::make('phone_country')
+                //     ->label(''),
+                Tables\Columns\TextColumn::make('email')
+                    ->label('E-mail')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('country')
+                    ->label('Страна')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('city')
+                    ->label('Город')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->label('Дата создания'),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime(),
             ])
             ->filters([
                 //
@@ -69,7 +105,8 @@ class ClientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            OrdersRelationManager::class,
+            CallbacksRelationManager::class,
         ];
     }
 

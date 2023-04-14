@@ -7,7 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
+use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 
 /**
  * App\Models\Client
@@ -23,7 +23,7 @@ use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Callback> $callbacks
  * @property-read int|null $callbacks_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Callback> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  * @property-read int|null $orders_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Client newModelQuery()
@@ -36,8 +36,10 @@ class Client extends Model
 {
     use HasFactory;
 
+    protected $perPage = 100;
+
     protected $casts = [
-        'phone' => RawPhoneNumberCast::class,
+        'phone' => E164PhoneNumberCast::class,
     ];
 
     public function callbacks(): HasMany
@@ -47,6 +49,6 @@ class Client extends Model
 
     public function orders(): HasMany
     {
-        return $this->hasMany(Callback::class);
+        return $this->hasMany(Order::class);
     }
 }

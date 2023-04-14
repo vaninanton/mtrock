@@ -8,6 +8,7 @@ use App\Models\Order;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Propaganistas\LaravelPhone\Exceptions\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
 class OrderSeeder extends Seeder
@@ -17,83 +18,54 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
+        $oldOrders = DB::table('mtrock.mr_store_order')->get();
+
+        $result = $oldOrders->map(fn ($item) => [
+            'id' => $item->id,
+            'slug' => $item->url,
+            'delivery_id' => $item->delivery_id ?: null,
+            'delivery_price' => $item->delivery_price ?: null,
+            'pay_method' => $item->payment_method_id ?: null,
+            'total_price' => $item->total_price ?: null,
+            'coupon_discount' => $item->coupon_discount ?: null,
+            'separate_delivery' => $item->separate_delivery ?: false,
+            'status' => $item->status_id,
+            'name' => $item->name ?: null,
+            'country' => $item->country ?: null,
+            'city' => $item->city ?: null,
+            'street' => $item->street ?: null,
+            'house' => $item->house ?: null,
+            'apartment' => $item->apartment ?: null,
+            'email' => $item->email ?: null,
+            'comment' => $item->comment ?: null,
+            'note' => $item->note ?: null,
+            'payment_link' => $item->payment_link ?: null,
+            'ip_address' => $item->ip ?: null,
+            'paid_at' => $item->paid ? $item->modified : null,
+            'created_at' => $item->date,
+            'updated_at' => $item->modified,
+            'phone' => $this->phoneFormat($item->phone),
+        ]);
+
         Schema::disableForeignKeyConstraints();
-        $old = DB::table('mtrock.mr_store_order')->get();
         Order::query()->truncate();
-        DB::beginTransaction();
-        foreach ($old as $item) {
-            $order = new Order();
-            $order->id = $item->id;
-            $order->slug = $item->url;
-            $order->delivery_id = $item->delivery_id ?: null;
-            $order->delivery_price = $item->delivery_price ?: null;
-            $order->pay_method = $item->payment_method_id ?: null;
-            $order->total_price = $item->total_price ?: null;
-            $order->coupon_discount = $item->coupon_discount ?: null;
-            $order->separate_delivery = $item->separate_delivery ?: false;
-            $order->status = $item->status_id;
-            $order->name = $item->name ?: null;
-            $order->country = $item->country ?: null;
-            $order->city = $item->city ?: null;
-            $order->street = $item->street ?: null;
-            $order->house = $item->house ?: null;
-            $order->apartment = $item->apartment ?: null;
-            $order->email = $item->email ?: null;
-            $order->comment = $item->comment ?: null;
-            $order->note = $item->note ?: null;
-            $order->payment_link = $item->payment_link ?: null;
-            $order->ip_address = $item->ip ?: null;
-            $order->paid_at = $item->paid ? $item->modified : null;
-            $order->created_at = $item->date;
-            $order->updated_at = $item->modified;
-
-            try {
-                $phone = $this->phone_format($item->phone);
-                $phone = new PhoneNumber($phone);
-                if (is_null($phone->getCountry())) {
-                    throw new \Exception('Error Processing Request');
-                }
-                $order->phone = $phone->getRawNumber();
-                $order->phone_country = $phone->getCountry();
-            } catch (\Throwable $th) {
-                logger()->channel('stderr')->alert($th->getMessage().' '.$item->phone);
-                if (is_null($order->note)) {
-                    $order->note = $th->getMessage().' '.$item->phone;
-                } else {
-                    $order->note .= PHP_EOL.$th->getMessage().' '.$item->phone;
-                }
-            }
-
-            $order->save();
+        foreach (array_chunk($result->toArray(), 1000) as $values) {
+            Order::query()->insert($values);
         }
-        DB::commit();
+        // DB::update('UPDATE `orders` LEFT JOIN `clients` ON `clients`.`phone` = `orders`.`phone` SET `orders`.`client_id` = `clients`.`id`');
+        DB::update('UPDATE `orders` LEFT JOIN `clients` ON `clients`.`email` = `orders`.`email` SET `orders`.`client_id` = `clients`.`id`');
         Schema::enableForeignKeyConstraints();
     }
 
-    private function phone_format($phone)
+    private function phoneFormat($phone): ?string
     {
-        $phone = trim($phone);
+        try {
+            $phone = new PhoneNumber($phone, ['RU', 'UK', 'BY']);
 
-        $res = preg_replace(
-            [
-                '/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{3})[-|\s]?\)[-|\s]?(\d{3})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
-                '/[\+]?([7|8])[-|\s]?(\d{3})[-|\s]?(\d{3})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
-                '/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
-                '/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
-                '/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{3})[-|\s]?(\d{3})/',
-                '/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{3})[-|\s]?(\d{3})/',
-            ],
-            [
-                '+7 $2 $3-$4-$5',
-                '+7 $2 $3-$4-$5',
-                '+7 $2 $3-$4-$5',
-                '+7 $2 $3-$4-$5',
-                '+7 $2 $3-$4',
-                '+7 $2 $3-$4',
-            ],
-            $phone
-        );
+            return $phone->formatE164();
+        } catch (NumberParseException) {
+        }
 
-        return $res;
+        return null;
     }
 }

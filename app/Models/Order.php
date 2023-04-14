@@ -8,12 +8,13 @@ use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
+use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 
 /**
  * App\Models\Order
  *
  * @property int $id
+ * @property int|null $client_id
  * @property string|null $slug
  * @property int|null $delivery_id
  * @property string|null $delivery_price
@@ -38,6 +39,7 @@ use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
  * @property \Illuminate\Support\Carbon|null $paid_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Client|null $client
  * @property-read \App\Models\Delivery|null $delivery
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderProduct> $products
  * @property-read int|null $products_count
@@ -57,8 +59,13 @@ class Order extends Model
         'separate_delivery' => 'boolean',
         'paid_at' => 'datetime',
         'status' => OrderStatus::class,
-        'phone' => RawPhoneNumberCast::class,
+        'phone' => E164PhoneNumberCast::class,
     ];
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
 
     public function delivery(): BelongsTo
     {

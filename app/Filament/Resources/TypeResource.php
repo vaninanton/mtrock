@@ -24,6 +24,10 @@ class TypeResource extends Resource
 
     protected static ?string $navigationLabel = 'Типы товаров';
 
+    protected static ?string $modelLabel = 'Тип товара';
+
+    protected static ?string $pluralModelLabel = 'Типы товара';
+
     public static function form(Form $form): Form
     {
         return $form

@@ -7,6 +7,9 @@ namespace Database\Seeders;
 use App\Models\Callback;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Propaganistas\LaravelPhone\Exceptions\NumberParseException;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class CallbackSeeder extends Seeder
 {
@@ -15,18 +18,41 @@ class CallbackSeeder extends Seeder
      */
     public function run(): void
     {
-        $old = DB::table('mtrock.mr_callback')->get();
+        $oldCallbacks = DB::table('mtrock.mr_callback')->get([
+            'id',
+            'name',
+            'phone',
+            'comment',
+            'create_time',
+            'status',
+        ]);
+
+        $result = $oldCallbacks->map(fn ($oldCallback) => [
+            'id' => $oldCallback->id,
+            'name' => $oldCallback->name,
+            'phone' => $this->phoneFormat($oldCallback->phone),
+            'comment' => $oldCallback->comment ?: null,
+            'created_at' => $oldCallback->create_time,
+            'updated_at' => $oldCallback->create_time,
+            'answered_at' => $oldCallback->status != 0 ? $oldCallback->create_time : null,
+        ]);
+
+        Schema::disableForeignKeyConstraints();
         Callback::query()->truncate();
-        foreach ($old as $item) {
-            $callback = new Callback();
-            $callback->id = $item->id;
-            $callback->name = $item->name;
-            $callback->phone = $item->phone;
-            $callback->comment = $item->comment ?: null;
-            $callback->created_at = $item->create_time;
-            $callback->updated_at = $item->create_time;
-            $callback->answered_at = $item->status != 0 ? $item->create_time : null;
-            $callback->save();
+        Callback::insert($result->toArray());
+        DB::update('UPDATE `callbacks` LEFT JOIN `clients` ON `clients`.`phone` = `callbacks`.`phone` SET `callbacks`.`client_id` = `clients`.`id`');
+        Schema::enableForeignKeyConstraints();
+    }
+
+    private function phoneFormat($phone): ?string
+    {
+        try {
+            $phone = new PhoneNumber($phone, ['RU', 'UK', 'BY']);
+
+            return $phone->formatE164();
+        } catch (NumberParseException) {
         }
+
+        return null;
     }
 }

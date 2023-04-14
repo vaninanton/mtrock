@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\Client;
 use App\Models\Delivery;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,6 +17,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Client::class)->nullable()->constrained();
             $table->string('slug')->nullable()->unique();
             $table->foreignIdFor(Delivery::class)->nullable()->constrained();
             $table->decimal('delivery_price')->nullable();

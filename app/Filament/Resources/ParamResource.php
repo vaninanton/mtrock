@@ -22,6 +22,10 @@ class ParamResource extends Resource
 
     protected static ?string $navigationLabel = 'Параметры';
 
+    protected static ?string $modelLabel = 'Параметр';
+
+    protected static ?string $pluralModelLabel = 'Параметры';
+
     public static function form(Form $form): Form
     {
         return $form

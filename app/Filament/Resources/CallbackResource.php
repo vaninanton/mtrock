@@ -25,6 +25,10 @@ class CallbackResource extends Resource
 
     protected static ?string $navigationLabel = 'Обратный звонок';
 
+    protected static ?string $modelLabel = 'Обратный звонок';
+
+    protected static ?string $pluralModelLabel = 'Обратные звонки';
+
     protected static function getNavigationBadge(): ?string
     {
         $count = static::getModel()::whereNull('answered_at')->count();
@@ -71,10 +75,10 @@ class CallbackResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->sortable()
-                    ->dateTime('d.m.Y H:i'),
+                    ->dateTime(),
                 Tables\Columns\TextColumn::make('answered_at')
                     ->sortable()
-                    ->dateTime('d.m.Y H:i'),
+                    ->dateTime(),
             ])
             ->defaultSort('id', 'desc')
             ->filters([
