@@ -30,23 +30,33 @@ class NewsResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('product_id'),
                 Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('title')
+                    ->label('Название новости')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('short_text')
-                    ->maxLength(65535),
-                Forms\Components\Textarea::make('full_text')
-                    ->maxLength(65535),
                 Forms\Components\FileUpload::make('image')
+                    ->label('Фотография')
                     ->directory('store/news'),
+                Forms\Components\TextInput::make('short_text')
+                    ->label('Краткое описание')
+                    ->maxLength(65535),
+                Forms\Components\RichEditor::make('full_text')
+                    ->label('Текст новости')
+                    ->maxLength(65535),
+                Forms\Components\Select::make('product_id')
+                    ->label('Привязать продукт')
+                    ->relationship('product', 'title'),
                 Forms\Components\TextInput::make('link')
+                    ->url()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('video')
+                    ->url()
                     ->maxLength(255),
+                Forms\Components\DateTimePicker::make('created_at'),
             ]);
     }
 

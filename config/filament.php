@@ -234,12 +234,12 @@ return [
         'forms' => [
             'actions' => [
                 'alignment' => 'left',
-                'are_sticky' => false,
+                'are_sticky' => true,
             ],
             'have_inline_labels' => false,
         ],
         'footer' => [
-            'should_show_logo' => true,
+            'should_show_logo' => false,
         ],
         'max_content_width' => null,
         'notifications' => [
@@ -247,9 +247,9 @@ return [
             'alignment' => 'right',
         ],
         'sidebar' => [
-            'is_collapsible_on_desktop' => false,
+            'is_collapsible_on_desktop' => true,
             'groups' => [
-                'are_collapsible' => true,
+                'are_collapsible' => false,
             ],
             'width' => null,
             'collapsed_width' => null,

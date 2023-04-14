@@ -152,7 +152,6 @@ class OrderResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Tables\Columns\TextColumn::make('slug')
                 //     ->toggleable(isToggledHiddenByDefault: true),
-
                 Tables\Columns\TextColumn::make('pay_method')
                     ->label('Способ оплаты')
                     ->toggleable(isToggledHiddenByDefault: true),

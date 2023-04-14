@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Product|null $product
  *
  * @method static \Database\Factories\NewsFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|News newModelQuery()
@@ -40,4 +42,9 @@ class News extends Model
     use HasFactory;
     use SoftDeletes;
     use HasSlug;
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

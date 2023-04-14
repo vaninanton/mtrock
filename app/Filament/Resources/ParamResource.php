@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\ParamType;
 use App\Filament\Resources\ParamResource\Pages;
 use App\Models\Param;
 use Filament\Forms;
@@ -30,9 +31,9 @@ class ParamResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('type')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Select::make('type')
+                    ->options(ParamType::toLocalizedArray())
+                    ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
@@ -41,7 +42,7 @@ class ParamResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('unit')
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->maxLength(65535),
             ]);
     }
@@ -50,15 +51,10 @@ class ParamResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\BadgeColumn::make('type')
+                    ->label('Тип')
+                    ->getStateUsing(fn (Param $record): string => $record->type->toLocalizedString()),
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('slug'),
-                Tables\Columns\TextColumn::make('unit'),
-                Tables\Columns\TextColumn::make('description'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
             ])
             ->filters([
                 //

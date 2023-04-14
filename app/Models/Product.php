@@ -29,8 +29,8 @@ use Illuminate\Support\Facades\Storage;
  * @property bool $in_stock
  * @property bool $availability_preorder
  * @property bool $status
- * @property float $price
- * @property float|null $old_price
+ * @property string $price
+ * @property string|null $old_price
  * @property string|null $type_prefix
  * @property string|null $model
  * @property string|null $image
@@ -43,10 +43,10 @@ use Illuminate\Support\Facades\Storage;
  * @property bool $flag_special
  * @property bool $flag_new
  * @property bool $flag_hit
- * @property float|null $length
- * @property float|null $width
- * @property float|null $height
- * @property float|null $weight
+ * @property string|null $length
+ * @property string|null $width
+ * @property string|null $height
+ * @property string|null $weight
  * @property int $position
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -93,15 +93,15 @@ class Product extends Model
         'in_stock' => 'boolean',
         'availability_preorder' => 'boolean',
         'status' => 'boolean',
-        'price' => 'double',
-        'old_price' => 'double',
+        'price' => 'decimal:2',
+        'old_price' => 'decimal:2',
         'flag_special' => 'boolean',
         'flag_new' => 'boolean',
         'flag_hit' => 'boolean',
-        'length' => 'double',
-        'width' => 'double',
-        'height' => 'double',
-        'weight' => 'double',
+        'length' => 'decimal:2',
+        'width' => 'decimal:2',
+        'height' => 'decimal:2',
+        'weight' => 'decimal:2',
         'position' => 'int',
     ];
 
