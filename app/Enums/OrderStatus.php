@@ -58,4 +58,17 @@ enum OrderStatus: int implements Htmlable
             self::PAYMENT_SUCCESS => 'Оплачен',
         };
     }
+
+    /**
+     * Возвращает массив в формате ключ-значение.
+     */
+    public static function toLocalizedArray(): array
+    {
+        $items = [];
+        foreach (self::cases() as $case) {
+            $items[$case->value] = $case->toLocalizedString();
+        }
+
+        return $items;
+    }
 }

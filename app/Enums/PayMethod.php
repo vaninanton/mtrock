@@ -26,4 +26,17 @@ enum PayMethod: int
             self::BANK_ACCOUNT => 'Оплата в банке по счету',
         };
     }
+
+    /**
+     * Возвращает массив в формате ключ-значение.
+     */
+    public static function toLocalizedArray(): array
+    {
+        $items = [];
+        foreach (self::cases() as $case) {
+            $items[$case->value] = $case->toLocalizedString();
+        }
+
+        return $items;
+    }
 }

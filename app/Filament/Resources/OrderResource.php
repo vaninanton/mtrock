@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\OrderStatus;
+use App\Enums\PayMethod;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
 use Filament\Forms;
@@ -11,6 +13,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Support\Str;
 
 class OrderResource extends Resource
 {
@@ -28,49 +31,97 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('delivery_id')
-                    ->relationship('delivery', 'title'),
-                Forms\Components\TextInput::make('slug')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('delivery_price'),
-                Forms\Components\TextInput::make('pay_method')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('total_price'),
-                Forms\Components\TextInput::make('coupon_discount'),
-                Forms\Components\Toggle::make('separate_delivery'),
-                Forms\Components\TextInput::make('status')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('name')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('country')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('city')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('street')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('house')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('apartment')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone_country')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('comment')
-                    ->maxLength(1000),
-                Forms\Components\TextInput::make('note')
-                    ->maxLength(1000),
-                Forms\Components\TextInput::make('payment_link')
-                    ->maxLength(1000),
-                Forms\Components\TextInput::make('ip_address')
-                    ->maxLength(45),
-                Forms\Components\DateTimePicker::make('paid_at'),
-            ]);
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Grid::make()
+                            ->schema([
+                                Forms\Components\Select::make('delivery_id')
+                                    ->relationship('delivery', 'title')
+                                    ->label('Способ доставки')
+                                    ->required()
+                                    ->lazy()
+                                    ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+
+                                Forms\Components\TextInput::make('slug')
+                                    ->label('Ссылка на заказ')
+                                    ->disabled()
+                                    ->required()
+                                    ->unique(Order::class, 'slug', ignoreRecord: true),
+                            ]),
+
+                        Forms\Components\Grid::make()
+                            ->schema([
+                                Forms\Components\Select::make('status')
+                                    ->label('Статус заказа')
+                                    ->options(OrderStatus::toLocalizedArray()),
+                                Forms\Components\Select::make('pay_method')
+                                    ->label('Метод оплаты')
+                                    ->options(PayMethod::toLocalizedArray()),
+                            ]),
+
+                        Forms\Components\Grid::make(3)
+                            ->schema([
+                                Forms\Components\TextInput::make('total_price')
+                                    ->numeric()
+                                    ->label('Стоимость заказа'),
+                                Forms\Components\TextInput::make('coupon_discount')
+                                    ->numeric()
+                                    ->label('Скидка по купону'),
+                                Forms\Components\TextInput::make('delivery_price')
+                                    ->numeric()
+                                    ->label('Стоимость доставки'),
+                                Forms\Components\Toggle::make('separate_delivery')
+                                    ->label('Доставка оплачивается отдельно'),
+                            ]),
+                        Forms\Components\TextInput::make('name')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->email()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('phone')
+                            ->tel()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('phone_country')
+                            ->tel()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('country')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('city')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('street')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('house')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('apartment')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('comment')
+                            ->maxLength(1000),
+                        Forms\Components\TextInput::make('note')
+                            ->maxLength(1000),
+                        Forms\Components\TextInput::make('payment_link')
+                            ->maxLength(1000),
+                        Forms\Components\TextInput::make('ip_address')
+                            ->maxLength(45),
+                        Forms\Components\DateTimePicker::make('paid_at'),
+                    ])
+                    ->columnSpan(['lg' => fn (?Order $record) => $record === null ? 3 : 2]),
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Placeholder::make('created_at')
+                            ->label('Создан:')
+                            ->content(fn (Order $record): ?string => $record->created_at?->diffForHumans()),
+
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->label('Обновлен:')
+                            ->content(fn (Order $record): ?string => $record->updated_at?->diffForHumans()),
+                        Forms\Components\Placeholder::make('paid_at')
+                            ->label('Оплачен:')
+                            ->content(fn (Order $record): ?string => $record->paid_at?->diffForHumans()),
+                    ])
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?Order $record) => $record === null),
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table

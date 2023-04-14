@@ -6,7 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
+use Propaganistas\LaravelPhone\Casts\RawPhoneNumberCast;
 
 /**
  * App\Models\Callback
@@ -33,7 +33,7 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 class Callback extends Model
 {
     protected $casts = [
-        'phone' => E164PhoneNumberCast::class,
+        'phone' => RawPhoneNumberCast::class,
         'price' => 'float',
     ];
 

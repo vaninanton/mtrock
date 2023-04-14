@@ -38,16 +38,6 @@ class OrderSeeder extends Seeder
             $order->street = $item->street ?: null;
             $order->house = $item->house ?: null;
             $order->apartment = $item->apartment ?: null;
-            try {
-                $phone = new PhoneNumber($item->phone);
-                if (is_null($phone->getCountry())) {
-                    throw new \Exception('Error Processing Request');
-                }
-                $order->phone = $phone->getRawNumber();
-                $order->phone_country = $phone->getCountry();
-            } catch (\Throwable $th) {
-                logger()->channel('stderr')->alert($th->getMessage().' '.$item->phone);
-            }
             $order->email = $item->email ?: null;
             $order->comment = $item->comment ?: null;
             $order->note = $item->note ?: null;
@@ -57,9 +47,53 @@ class OrderSeeder extends Seeder
             $order->created_at = $item->date;
             $order->updated_at = $item->modified;
 
+            try {
+                $phone = $this->phone_format($item->phone);
+                $phone = new PhoneNumber($phone);
+                if (is_null($phone->getCountry())) {
+                    throw new \Exception('Error Processing Request');
+                }
+                $order->phone = $phone->getRawNumber();
+                $order->phone_country = $phone->getCountry();
+            } catch (\Throwable $th) {
+                logger()->channel('stderr')->alert($th->getMessage().' '.$item->phone);
+                if (is_null($order->note)) {
+                    $order->note = $th->getMessage().' '.$item->phone;
+                } else {
+                    $order->note .= PHP_EOL.$th->getMessage().' '.$item->phone;
+                }
+            }
+
             $order->save();
         }
         DB::commit();
         Schema::enableForeignKeyConstraints();
+    }
+
+    private function phone_format($phone)
+    {
+        $phone = trim($phone);
+
+        $res = preg_replace(
+            [
+                '/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{3})[-|\s]?\)[-|\s]?(\d{3})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+                '/[\+]?([7|8])[-|\s]?(\d{3})[-|\s]?(\d{3})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+                '/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+                '/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+                '/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{3})[-|\s]?(\d{3})/',
+                '/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{3})[-|\s]?(\d{3})/',
+            ],
+            [
+                '+7 $2 $3-$4-$5',
+                '+7 $2 $3-$4-$5',
+                '+7 $2 $3-$4-$5',
+                '+7 $2 $3-$4-$5',
+                '+7 $2 $3-$4',
+                '+7 $2 $3-$4',
+            ],
+            $phone
+        );
+
+        return $res;
     }
 }
