@@ -16,6 +16,12 @@ class CallbacksRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'id';
 
+    protected static ?string $modelLabel = 'Коллбек';
+
+    protected static ?string $pluralModelLabel = 'Коллбеки';
+
+    protected static ?string $title = 'Коллбек';
+
     public static function form(Form $form): Form
     {
         return $form

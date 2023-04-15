@@ -16,17 +16,41 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TypeResource extends Resource
 {
-    protected static ?string $model = Type::class;
+    protected static ?string $breadcrumb = 'Магазин / Товары / Типы товаров';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
-
-    protected static ?string $navigationGroup = 'Магазин';
-
-    protected static ?string $navigationLabel = 'Типы товаров';
+    protected static bool $isGloballySearchable = true;
 
     protected static ?string $modelLabel = 'Тип товара';
 
-    protected static ?string $pluralModelLabel = 'Типы товара';
+    protected static ?string $model = Type::class;
+
+    protected static ?string $navigationGroup = 'Магазин';
+
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static ?string $activeNavigationIcon = null;
+
+    protected static ?string $navigationLabel = 'Типы товаров';
+
+    protected static ?int $navigationSort = 99;
+
+    protected static ?string $recordRouteKeyName = null;
+
+    protected static bool $shouldRegisterNavigation = true;
+
+    protected static ?string $pluralModelLabel = 'Типы товаров';
+
+    protected static ?string $recordTitleAttribute = 'title';
+
+    protected static ?string $slug = 'product-types';
+
+    protected static string|array $middlewares = [];
+
+    protected static int $globalSearchResultsLimit = 50;
+
+    protected static bool $shouldAuthorizeWithGate = false;
+
+    protected static bool $shouldIgnorePolicies = false;
 
     public static function form(Form $form): Form
     {

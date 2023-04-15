@@ -41,6 +41,7 @@ return new class extends Migration
             $table->ipAddress()->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

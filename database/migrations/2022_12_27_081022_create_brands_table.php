@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('image')->nullable();
-            $table->text('short_description')->nullable();
+            $table->string('short_description', 500)->nullable();
             $table->text('description')->nullable();
             $table->unsignedInteger('position')->nullable();
             $table->timestamps();

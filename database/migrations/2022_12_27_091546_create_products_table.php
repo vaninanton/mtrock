@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('type_prefix')->nullable();
             $table->string('model')->nullable();
             $table->string('image')->nullable();
-            $table->string('short_description')->nullable();
+            $table->string('short_description', 1000)->nullable();
             $table->text('description')->nullable();
             $table->string('sales_notes')->nullable();
             $table->string('video1')->nullable();

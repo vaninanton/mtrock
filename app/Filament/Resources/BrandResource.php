@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Filament\RelationManagers\ProductRelationManager;
 use App\Filament\Resources\BrandResource\Pages;
 use App\Models\Brand;
 use Filament\Forms;
@@ -59,7 +60,7 @@ class BrandResource extends Resource
                             ->label('Изображение')
                             ->directory('store/brand'),
 
-                        Forms\Components\RichEditor::make('short_description')
+                        Forms\Components\TextInput::make('short_description')
                             ->label('Краткое описание'),
                         Forms\Components\RichEditor::make('description')
                             ->label('Описание'),
@@ -84,19 +85,22 @@ class BrandResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->reorderable('position')
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('Название')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image')
-                    ->label('Изображение'),
-                Tables\Columns\TextColumn::make('position')
-                    ->label('Позиция')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Последнее обновление')
-                    ->date()
+                // Tables\Columns\ImageColumn::make('image')
+                //     ->label('Изображение'),
+                Tables\Columns\BadgeColumn::make('products_count')
+                    ->sortable()
+                    ->label('Позиций'),
+                Tables\Columns\BadgeColumn::make('products_active')
+                    ->sortable()
+                    ->label('В наличии'),
+                Tables\Columns\BadgeColumn::make('products_quantity')
+                    ->label('На складе')
                     ->sortable(),
             ])
             ->defaultSort('position', 'asc')
@@ -116,7 +120,7 @@ class BrandResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ProductRelationManager::class,
         ];
     }
 

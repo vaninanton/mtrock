@@ -43,10 +43,10 @@ use Illuminate\Support\Facades\Storage;
  * @property bool $flag_special
  * @property bool $flag_new
  * @property bool $flag_hit
- * @property string|null $length
- * @property string|null $width
- * @property string|null $height
- * @property string|null $weight
+ * @property float|null $length
+ * @property float|null $width
+ * @property float|null $height
+ * @property float|null $weight
  * @property int $position
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -98,10 +98,10 @@ class Product extends Model
         'flag_special' => 'boolean',
         'flag_new' => 'boolean',
         'flag_hit' => 'boolean',
-        'length' => 'decimal:2',
-        'width' => 'decimal:2',
-        'height' => 'decimal:2',
-        'weight' => 'decimal:2',
+        'length' => 'double',
+        'width' => 'double',
+        'height' => 'double',
+        'weight' => 'double',
         'position' => 'int',
     ];
 
@@ -166,18 +166,18 @@ class Product extends Model
             ->orderBy('position', 'asc');
     }
 
-    public function title(): Attribute
-    {
-        return Attribute::make(
-            get: function (): string {
-                if (empty($this->type_prefix) || empty($this->brand) || empty($this->model)) {
-                    return $this->attributes['title'];
-                }
+    // public function title(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: function (): string {
+    //             if (empty($this->type_prefix) || empty($this->brand) || empty($this->model)) {
+    //                 return $this->attributes['title'];
+    //             }
 
-                return $this->type_prefix.' '.$this->brand->title.' '.$this->model;
-            }
-        )->shouldCache();
-    }
+    //             return $this->type_prefix . ' ' . $this->brand->title . ' ' . $this->model;
+    //         }
+    //     )->shouldCache();
+    // }
 
     public function imageSize(): Attribute
     {

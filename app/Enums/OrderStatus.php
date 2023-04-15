@@ -71,4 +71,19 @@ enum OrderStatus: int implements Htmlable
 
         return $items;
     }
+
+    /**
+     * Возвращает массив с выполненными заказами
+     */
+    public static function onlySuccess(): array
+    {
+        return [
+            self::SUCCESS,
+            self::SENT_TO_DELIVERY,
+            self::SENT_TO_PICKUP,
+            self::SENT,
+            self::PAYMENT_SUCCESS_WAITING,
+            self::PAYMENT_SUCCESS,
+        ];
+    }
 }

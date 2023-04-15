@@ -112,6 +112,11 @@ class CallbackResource extends Resource
         ];
     }
 
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['phone'];
+    }
+
     public static function getPages(): array
     {
         return [

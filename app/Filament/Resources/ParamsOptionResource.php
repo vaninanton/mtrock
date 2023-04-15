@@ -44,6 +44,9 @@ class ParamsOptionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->reorderable('position')
+            ->defaultSort('param_id', 'asc')
+            ->defaultSort('position', 'asc')
             ->columns([
                 Tables\Columns\TextColumn::make('param.title'),
                 Tables\Columns\TextColumn::make('value'),

@@ -14,8 +14,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductResource extends Resource
 {
@@ -151,8 +150,10 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('sku')
                     ->label('Артикул')
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('title')
+                    ->searchable()
                     ->label('Наименование'),
                 Tables\Columns\TextColumn::make('category.title')
                     ->label('Категория')
@@ -195,6 +196,16 @@ class ProductResource extends Resource
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\SelectFilter::make('brand')
+                    ->relationship('brand', 'title')
+                    ->multiple()
+                    ->label('Бренд'),
+                Tables\Filters\SelectFilter::make('category')
+                    ->relationship('category', 'title')
+                    ->multiple()
+                    ->label('Категория'),
+                Tables\Filters\TernaryFilter::make('in_stock')
+                    ->label('Статус'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -222,12 +233,13 @@ class ProductResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getGlobalSearchResultTitle(Model $record): string
     {
-        return parent::getEloquentQuery()
-            ->with('brand')
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+        return $record->title;
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['sku', 'title'];
     }
 }

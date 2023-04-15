@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\ClientResource\RelationManagers;
+namespace App\Filament\RelationManagers;
 
 use App\Models\Order;
 use Filament\Forms;
@@ -16,6 +16,12 @@ class OrdersRelationManager extends RelationManager
     protected static string $relationship = 'orders';
 
     protected static ?string $recordTitleAttribute = 'id';
+
+    protected static ?string $modelLabel = 'Заказ';
+
+    protected static ?string $pluralModelLabel = 'Заказы';
+
+    protected static ?string $title = 'Заказ';
 
     public static function form(Form $form): Form
     {
@@ -31,13 +37,17 @@ class OrdersRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
-                Tables\Columns\TextColumn::make('total_price'),
+                Tables\Columns\TextColumn::make('id')
+                    ->label('Номер заказа'),
+                Tables\Columns\TextColumn::make('total_price')
+                    ->money('RUB')
+                    ->label('Сумма'),
                 Tables\Columns\BadgeColumn::make('status')
                     ->label('Статус')
                     ->getStateUsing(fn (Order $record): string => $record->status->toLocalizedString())
                     ->color(fn (Order $record): string => $record->status->getColor()),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Создан')
                     ->dateTime(),
             ])
             ->filters([

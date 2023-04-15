@@ -40,7 +40,6 @@ class CallbackSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         Callback::query()->truncate();
         Callback::insert($result->toArray());
-        DB::update('UPDATE `callbacks` LEFT JOIN `clients` ON `clients`.`phone` = `callbacks`.`phone` SET `callbacks`.`client_id` = `clients`.`id`');
         Schema::enableForeignKeyConstraints();
     }
 

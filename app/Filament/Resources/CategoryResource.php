@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Filament\RelationManagers\ProductRelationManager;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Models\Category;
 use Filament\Forms;
@@ -57,22 +58,24 @@ class CategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->reorderable('position')
+            ->defaultSort('position', 'asc')
             ->columns([
                 Tables\Columns\TextColumn::make('parent.title'),
-                Tables\Columns\TextColumn::make('slug'),
+                // Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('short_description'),
-                Tables\Columns\TextColumn::make('description'),
-                Tables\Columns\TextColumn::make('meta_title'),
-                Tables\Columns\TextColumn::make('meta_description'),
+                // Tables\Columns\TextColumn::make('short_description'),
+                // Tables\Columns\TextColumn::make('description'),
+                // Tables\Columns\TextColumn::make('meta_title'),
+                // Tables\Columns\TextColumn::make('meta_description'),
                 Tables\Columns\TextColumn::make('position'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime(),
+                // Tables\Columns\TextColumn::make('deleted_at')
+                //     ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -90,8 +93,13 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ProductRelationManager::class,
         ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title'];
     }
 
     public static function getPages(): array

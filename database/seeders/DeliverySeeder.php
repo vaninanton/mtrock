@@ -16,8 +16,9 @@ class DeliverySeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
         $old = DB::table('mtrock.mr_store_delivery')->get();
+
+        Schema::disableForeignKeyConstraints();
         Delivery::query()->truncate();
         foreach ($old as $item) {
             $delivery = new Delivery();

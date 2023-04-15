@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\OrderStatus;
+use App\Filament\RelationManagers\OrdersRelationManager;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Filament\Resources\ClientResource\RelationManagers\CallbacksRelationManager;
-use App\Filament\Resources\ClientResource\RelationManagers\OrdersRelationManager;
 use App\Models\Client;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 
 class ClientResource extends Resource
 {
@@ -46,17 +48,10 @@ class ClientResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->tel()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone_country')
-                    ->tel()
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('country')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('city')
-                    ->maxLength(255),
-            ]);
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -68,14 +63,17 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->label('Телефон')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\BadgeColumn::make('orders_count')
+                Tables\Columns\BadgeColumn::make('orders_success_count')
                     ->sortable()
-                    ->label('Количество заказов'),
+                    ->label('Заказов'),
+                Tables\Columns\TextColumn::make('orders_success_sum')
+                    ->money('RUB')
+                    ->default(0)
+                    ->sortable()
+                    ->label('Сумма'),
                 Tables\Columns\BadgeColumn::make('callbacks_count')
                     ->sortable()
-                    ->label('Количество обратных звонков'),
-                // Tables\Columns\TextColumn::make('phone_country')
-                //     ->label(''),
+                    ->label('Обратных звонков'),
                 Tables\Columns\TextColumn::make('email')
                     ->label('E-mail')
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -85,14 +83,20 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('city')
                     ->label('Город')
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->dateTime()
-                //     ->label('Дата создания'),
-                // Tables\Columns\TextColumn::make('updated_at')
-                //     ->dateTime(),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('orders')
+                    ->label('Что-то купил')
+                    ->query(fn (Builder $query): Builder => $query
+                        ->whereHas(
+                            'orders',
+                            fn (Builder $query2) => $query2->whereIn('status', OrderStatus::onlySuccess())
+                        )),
+                Tables\Filters\Filter::make('callbacks')
+                    ->label('Оставлял заявку на звонок')
+                    ->query(fn (Builder $query): Builder => $query
+                        ->whereHas('callbacks')),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

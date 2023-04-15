@@ -36,6 +36,7 @@ class OrderSeeder extends Seeder
             'street' => $item->street ?: null,
             'house' => $item->house ?: null,
             'apartment' => $item->apartment ?: null,
+            'phone' => $this->phoneFormat($item->phone),
             'email' => $item->email ?: null,
             'comment' => $item->comment ?: null,
             'note' => $item->note ?: null,
@@ -44,7 +45,7 @@ class OrderSeeder extends Seeder
             'paid_at' => $item->paid ? $item->modified : null,
             'created_at' => $item->date,
             'updated_at' => $item->modified,
-            'phone' => $this->phoneFormat($item->phone),
+            'deleted_at' => $item->status_id == 4 ? $item->modified : null,
         ]);
 
         Schema::disableForeignKeyConstraints();
@@ -52,8 +53,6 @@ class OrderSeeder extends Seeder
         foreach (array_chunk($result->toArray(), 1000) as $values) {
             Order::query()->insert($values);
         }
-        // DB::update('UPDATE `orders` LEFT JOIN `clients` ON `clients`.`phone` = `orders`.`phone` SET `orders`.`client_id` = `clients`.`id`');
-        DB::update('UPDATE `orders` LEFT JOIN `clients` ON `clients`.`email` = `orders`.`email` SET `orders`.`client_id` = `clients`.`id`');
         Schema::enableForeignKeyConstraints();
     }
 

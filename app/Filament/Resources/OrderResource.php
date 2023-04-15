@@ -201,7 +201,10 @@ class OrderResource extends Resource
             ])
             ->defaultSort('id', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->multiple()
+                    ->options(OrderStatus::toLocalizedArray())
+                    ->label('Статус'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

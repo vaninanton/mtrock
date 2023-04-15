@@ -8,6 +8,7 @@ use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
 
 /**
@@ -39,6 +40,7 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
  * @property \Illuminate\Support\Carbon|null $paid_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Client|null $client
  * @property-read \App\Models\Delivery|null $delivery
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderProduct> $products
@@ -46,12 +48,17 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order withoutTrashed()
  *
  * @mixin \Eloquent
  */
 class Order extends Model
 {
+    use SoftDeletes;
+
     protected $casts = [
         'delivery_price' => 'decimal:2',
         'total_price' => 'decimal:2',
