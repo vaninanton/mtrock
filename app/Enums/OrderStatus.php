@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use Illuminate\Contracts\Support\Htmlable;
-
-enum OrderStatus: int implements Htmlable
+enum OrderStatus: int
 {
     case NEW = 1;
     case PENDING = 2;
@@ -19,11 +17,6 @@ enum OrderStatus: int implements Htmlable
     case DISCARDING = 11;
     case PAYMENT_SUCCESS_WAITING = 12;
     case PAYMENT_SUCCESS = 13;
-
-    public function toHtml()
-    {
-        return $this->value;
-    }
 
     public function getColor(): string
     {

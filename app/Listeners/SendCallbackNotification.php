@@ -23,10 +23,10 @@ class SendCallbackNotification
             'text' => implode(PHP_EOL, $text),
         ]);
 
-        /** @var int|null */
-        $messageId = $msg->getMessageId();
+        // /** @var int|null */
+        // $messageId = $msg->getMessageId();
 
-        $event->callback->telegram_message_id = $messageId;
-        $event->callback->save();
+        // $event->callback->telegram_message_id = $messageId;
+        // $event->callback->save();
     }
 }

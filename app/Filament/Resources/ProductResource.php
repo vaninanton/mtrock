@@ -233,6 +233,7 @@ class ProductResource extends Resource
         ];
     }
 
+    /** @param  Product  $record */
     public static function getGlobalSearchResultTitle(Model $record): string
     {
         return $record->title;

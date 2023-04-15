@@ -22,7 +22,7 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
  * @property int|null $telegram_message_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $answered_at
+ * @property \Illuminate\Support\Carbon|null $answered_at
  * @property-read \App\Models\Client|null $client
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $viewedProducts
  * @property-read int|null $viewed_products_count
@@ -38,6 +38,7 @@ class Callback extends Model
     protected $casts = [
         'phone' => E164PhoneNumberCast::class,
         'price' => 'float',
+        'answered_at' => 'datetime',
     ];
 
     protected $fillable = [
