@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignIdFor(Callback::class);
             $table->foreignIdFor(Product::class);
             $table->decimal('price')->nullable();
-            $table->timestamps();
         });
     }
 

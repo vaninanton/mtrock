@@ -55,7 +55,7 @@ class NewsSeeder extends Seeder
             return null;
         }
 
-        return 'store/news/'.$image;
+        return 'news/'.$image;
     }
 
     private function getShortDescription(?string $value): ?string

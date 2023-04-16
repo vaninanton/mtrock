@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CallbackResource\Pages;
+use App\Filament\Resources\CallbackResource\RelationManagers\ProductsRelationManager;
 use App\Models\Callback;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class CallbackResource extends Resource
 {
@@ -40,21 +43,32 @@ class CallbackResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('client_id')
+                    ->label('Клиент')
+                    ->lazy()
+                    ->searchable()
+                    ->relationship('client', 'name'),
                 Forms\Components\TextInput::make('name')
+                    ->label('Имя')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('phone')
+                    ->label('Телефон')
                     ->tel()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('timezone')
+                    ->label('Часовой пояс')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('url')
+                    ->label('Ссылка')
                     ->url()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('comment')
-                    ->maxLength(65535),
+                    ->maxLength(1000),
                 Forms\Components\DateTimePicker::make('answered_at'),
+                Forms\Components\Textarea::make('comment')
+                    ->label('Комментарий')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -63,21 +77,13 @@ class CallbackResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('url')
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('comment')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\BadgeColumn::make('products_count')
+                    ->label('Просмотрено')
+                    ->counts('products'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->sortable()
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('answered_at')
-                    ->sortable()
                     ->dateTime(),
             ])
             ->defaultSort('id', 'desc')
@@ -95,26 +101,23 @@ class CallbackResource extends Resource
                         $record->save();
                     })
                     ->icon('heroicon-o-check')
-                    // ->disabled(fn (Callback $record) => !is_null($record->answered_at))
+                    ->disabled(fn (Callback $record) => !is_null($record->answered_at))
                     ->requiresConfirmation(fn (Callback $record) => !is_null($record->answered_at)),
-                // ->color('success'),
 
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                BulkAction::make('answer')
+                    ->action(fn (Collection $records) => $records->each->answer())
+                    ->deselectRecordsAfterCompletion(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            ProductsRelationManager::class,
         ];
-    }
-
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['phone'];
     }
 
     public static function getPages(): array

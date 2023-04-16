@@ -38,6 +38,7 @@
             <time class="small float-right text-sm" datetime="{{ $news->created_at->format('Y-m-d') }}" pubdate>{{ $news->created_at->locale('ru_RU')->translatedFormat('d F Y') }}</time>
         </div>
         <img src="{{ Storage::url($news->image) }}" alt="" class="float-right ml-4 max-w-xs" loading="lazy">
+        <div>{!! $news->short_description !!}</div>
         <div>{!! $news->description !!}</div>
     </div>
     @if ($news->products->count())

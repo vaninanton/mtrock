@@ -24,8 +24,8 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $answered_at
  * @property-read \App\Models\Client|null $client
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $viewedProducts
- * @property-read int|null $viewed_products_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Callback newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Callback newQuery()
@@ -52,11 +52,16 @@ class Callback extends Model
         return $this->belongsTo(Client::class);
     }
 
-    public function viewedProducts(): BelongsToMany
+    public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class)
-            ->withTimestamps()
             ->withPivot('price')
             ->using(CallbackProduct::class);
+    }
+
+    public function answer(): void
+    {
+        $this->answered_at = now();
+        $this->save();
     }
 }

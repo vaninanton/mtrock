@@ -64,13 +64,12 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('parent.title'),
                 // Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\ImageColumn::make('image')
-                    ->multiple(),
+                Tables\Columns\ImageColumn::make('image'),
                 // Tables\Columns\TextColumn::make('short_description'),
                 // Tables\Columns\TextColumn::make('description'),
                 // Tables\Columns\TextColumn::make('meta_title'),
                 // Tables\Columns\TextColumn::make('meta_description'),
-                Tables\Columns\TextColumn::make('position'),
+                // Tables\Columns\TextColumn::make('position'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 // Tables\Columns\TextColumn::make('updated_at')

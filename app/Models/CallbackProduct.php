@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int $callback_id
  * @property int $product_id
  * @property string|null $price
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Callback|null $callback
  * @property-read \App\Models\Product|null $product
  *

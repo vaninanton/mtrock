@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('timezone')->nullable();
-            $table->string('url')->nullable();
+            $table->string('url', 1000)->nullable();
             $table->text('comment')->nullable();
             $table->integer('telegram_message_id')->nullable();
             $table->timestamps();

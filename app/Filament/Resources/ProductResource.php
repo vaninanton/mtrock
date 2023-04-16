@@ -15,7 +15,9 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class ProductResource extends Resource
@@ -296,12 +298,11 @@ class ProductResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('quantity')
                     ->label('Количество'),
-                Tables\Columns\IconColumn::make('in_stock')
-                    ->label('На складе')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('status')
-                    ->label('Статус')
-                    ->boolean(),
+                // Tables\Columns\IconColumn::make('in_stock')
+                //     ->label('На складе')
+                //     ->boolean(),
+                Tables\Columns\ToggleColumn::make('status')
+                    ->label('Статус'),
                 Tables\Columns\TextColumn::make('old_price')
                     ->label('Старая цена')
                     ->money('RUB', false)
@@ -311,17 +312,14 @@ class ProductResource extends Resource
                     ->label('Цена')
                     ->money('RUB', false)
                     ->alignEnd(),
-                Tables\Columns\IconColumn::make('flag_special')
+                Tables\Columns\ToggleColumn::make('flag_special')
                     ->label('Акция')
-                    ->boolean()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('flag_new')
+                Tables\Columns\ToggleColumn::make('flag_new')
                     ->label('Новинка')
-                    ->boolean()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('flag_hit')
+                Tables\Columns\ToggleColumn::make('flag_hit')
                     ->label('Хит')
-                    ->boolean()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -344,6 +342,62 @@ class ProductResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
+                BulkAction::make('flag_special_true')
+                    ->label('Включить акцию')
+                    ->color('success')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Product $product) {
+                            $product->flag_special = true;
+                            $product->save();
+                        });
+                    }),
+                BulkAction::make('flag_special_false')
+                    ->label('Выключить акцию')
+                    ->color('danger')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Product $product) {
+                            $product->flag_special = false;
+                            $product->save();
+                        });
+                    }),
+
+                BulkAction::make('flag_new_true')
+                    ->label('Включить новинку')
+                    ->color('success')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Product $product) {
+                            $product->flag_new = true;
+                            $product->save();
+                        });
+                    }),
+                BulkAction::make('flag_new_false')
+                    ->label('Выключить новинку')
+                    ->color('danger')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Product $product) {
+                            $product->flag_new = false;
+                            $product->save();
+                        });
+                    }),
+
+                BulkAction::make('flag_hit_true')
+                    ->label('Включить хит')
+                    ->color('success')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Product $product) {
+                            $product->flag_hit = true;
+                            $product->save();
+                        });
+                    }),
+                BulkAction::make('flag_hit_false')
+                    ->label('Выключить хит')
+                    ->color('danger')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Product $product) {
+                            $product->flag_hit = false;
+                            $product->save();
+                        });
+                    }),
             ]);
     }
 

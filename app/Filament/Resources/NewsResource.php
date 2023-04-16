@@ -44,7 +44,7 @@ class NewsResource extends Resource
                     ->unique(News::class, 'slug', ignoreRecord: true),
                 Forms\Components\FileUpload::make('image')
                     ->label('Фотография')
-                    ->directory('store/news'),
+                    ->directory('news'),
                 Forms\Components\Textarea::make('short_description')
                     ->label('Краткое описание')
                     ->maxLength(1000),

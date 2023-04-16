@@ -24,7 +24,7 @@ class CallbackController extends Controller
         $callback->url = $request->headers->get('referer');
         $callback->timezone = $request->get('timezone');
         $callback->save();
-        $callback->viewedProducts()->attach($k);
+        $callback->products()->attach($k);
 
         CallbackCreated::dispatch($callback);
 
