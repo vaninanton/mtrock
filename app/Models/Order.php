@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use App\Enums\PayMethod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +20,7 @@ use Propaganistas\LaravelPhone\Casts\E164PhoneNumberCast;
  * @property string|null $slug
  * @property int|null $delivery_id
  * @property string|null $delivery_price
- * @property string|null $pay_method
+ * @property PayMethod|null $pay_method
  * @property string|null $total_price
  * @property string|null $coupon_discount
  * @property bool|null $separate_delivery
@@ -59,6 +60,33 @@ class Order extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'id',
+        'client_id',
+        'slug',
+        'delivery_id',
+        'delivery_price',
+        'pay_method',
+        'total_price',
+        'coupon_discount',
+        'separate_delivery',
+        'status',
+        'name',
+        'country',
+        'city',
+        'street',
+        'house',
+        'apartment',
+        'phone',
+        'phone_country',
+        'email',
+        'comment',
+        'note',
+        'payment_link',
+        'ip_address',
+        'paid_at',
+    ];
+
     protected $casts = [
         'delivery_price' => 'decimal:2',
         'total_price' => 'decimal:2',
@@ -67,6 +95,7 @@ class Order extends Model
         'paid_at' => 'datetime',
         'status' => OrderStatus::class,
         'phone' => E164PhoneNumberCast::class,
+        'pay_method' => PayMethod::class,
     ];
 
     public function client(): BelongsTo

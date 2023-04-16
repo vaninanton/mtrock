@@ -23,15 +23,15 @@ enum OrderStatus: int
         return match ($this) {
             self::NEW => 'danger',
             self::PENDING => 'info',
-            self::SUCCESS => 'success',
+            self::SUCCESS => 'green',
             self::DELETED => 'deleted',
             self::PAYMENT_WAIT => 'info',
             self::SENT_TO_DELIVERY => 'primary',
             self::SENT_TO_PICKUP => 'primary',
             self::SENT => 'primary',
             self::DISCARDING => 'primary',
-            self::PAYMENT_SUCCESS_WAITING => 'success',
-            self::PAYMENT_SUCCESS => 'success',
+            self::PAYMENT_SUCCESS_WAITING => 'green',
+            self::PAYMENT_SUCCESS => 'green',
         };
     }
 

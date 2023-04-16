@@ -7,7 +7,7 @@ namespace App\Models;
 use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -16,16 +16,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $slug
  * @property string $title
- * @property string|null $short_text
- * @property string|null $full_text
  * @property string|null $image
+ * @property string|null $short_description
+ * @property string|null $description
  * @property string|null $link
  * @property string|null $video
- * @property int|null $product_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Product|null $product
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
  *
  * @method static \Database\Factories\NewsFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|News newModelQuery()
@@ -43,8 +43,24 @@ class News extends Model
     use SoftDeletes;
     use HasSlug;
 
-    public function product(): BelongsTo
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'slug',
+        'title',
+        'short_description',
+        'description',
+        'image',
+        'link',
+        'video',
+        'product_id',
+    ];
+
+    public function products(): BelongsToMany
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 }

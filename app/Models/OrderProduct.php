@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * App\Models\OrderProduct
@@ -18,8 +18,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $sku
  * @property string|null $price
  * @property int|null $quantity
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Order $order
  * @property-read \App\Models\Order $product
  *
@@ -29,7 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-class OrderProduct extends Model
+class OrderProduct extends Pivot
 {
     use HasFactory;
 

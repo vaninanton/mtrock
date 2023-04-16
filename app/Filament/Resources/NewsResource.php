@@ -13,6 +13,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class NewsResource extends Resource
 {
@@ -30,33 +31,42 @@ class NewsResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('slug')
-                    ->label('Slug')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('title')
                     ->label('Название новости')
                     ->required()
+                    ->lazy()
+                    ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null)
                     ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
+                    ->disabled()
+                    ->required()
+                    ->unique(News::class, 'slug', ignoreRecord: true),
                 Forms\Components\FileUpload::make('image')
                     ->label('Фотография')
                     ->directory('store/news'),
-                Forms\Components\TextInput::make('short_text')
+                Forms\Components\Textarea::make('short_description')
                     ->label('Краткое описание')
-                    ->maxLength(65535),
-                Forms\Components\RichEditor::make('full_text')
+                    ->maxLength(1000),
+                Forms\Components\RichEditor::make('description')
                     ->label('Текст новости')
-                    ->maxLength(65535),
-                Forms\Components\Select::make('product_id')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('products')
                     ->label('Привязать продукт')
-                    ->relationship('product', 'title'),
+                    ->relationship('products', 'title')
+                    ->multiple()
+                    ->searchable(),
                 Forms\Components\TextInput::make('link')
+                    ->label('Привязать ссылку')
                     ->url()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('video')
+                    ->label('Ссылка на видео')
                     ->url()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('created_at'),
+                Forms\Components\DateTimePicker::make('created_at')
+                    ->label('Дата создания'),
             ]);
     }
 
@@ -64,8 +74,8 @@ class NewsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
             ])

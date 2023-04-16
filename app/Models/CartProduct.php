@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int $quantity
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
  *
  * @method static \Illuminate\Database\Eloquent\Builder|CartProduct newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CartProduct newQuery()
@@ -24,4 +26,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class CartProduct extends Pivot
 {
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -1,5 +1,5 @@
 @section('meta_title', $news->title)
-@section('meta_description', strip_tags($news->short_text))
+@section('meta_description', $news->short_description)
 
 <x-app-layout>
     <x-slot:header>
@@ -27,14 +27,25 @@
                 </nav>
             </x-slot:breadcrumbs>
             <x-slot:subheading>
-                <time class="small" datetime="{{ $news->created_at->format('Y-m-d') }}" pubdate>{{ $news->created_at->locale('ru_RU')->translatedFormat('d F Y') }}</time>
+                {{ $news->short_description }}
             </x-slot:subheading>
         </x-top-header>
     </x-slot:header>
 
-    <div class="container mx-auto p-4 max-w-3xl prose dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600">
-        <img src="{{ Storage::url($news->image) }}" alt="" class="float-right ml-4" loading="lazy">
-        <div>{!! $news->short_text !!}</div>
-        <div>{!! $news->full_text !!}</div>
+    <div class="container mx-auto p-4 max-w-3xl prose dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600 bg-white shadow">
+        <div class="h1">
+            {{ $news->title }}
+            <time class="small float-right text-sm" datetime="{{ $news->created_at->format('Y-m-d') }}" pubdate>{{ $news->created_at->locale('ru_RU')->translatedFormat('d F Y') }}</time>
+        </div>
+        <img src="{{ Storage::url($news->image) }}" alt="" class="float-right ml-4 max-w-xs" loading="lazy">
+        <div>{!! $news->description !!}</div>
     </div>
+    @if ($news->products->count())
+    <hr class="my-8">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach($news->products as $product)
+        <x-product-card :product="$product" hideparams />
+        @endforeach
+    </div>
+    @endif
 </x-app-layout>

@@ -9,6 +9,23 @@ module.exports = {
         './node_modules/flowbite/**/*.js',
     ],
 
+    safelist: [
+        'bg-danger-100',
+        'bg-info-100',
+        'bg-green-100',
+        'bg-deleted-100',
+        'bg-info-100',
+        'bg-primary-100',
+        'bg-green-100',
+        'text-danger-800',
+        'text-info-800',
+        'text-green-800',
+        'text-deleted-800',
+        'text-info-800',
+        'text-primary-800',
+        'text-green-800',
+    ],
+
     theme: {
         extend: {
             colors: {

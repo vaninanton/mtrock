@@ -18,6 +18,8 @@ class NewsController extends Controller
 
     public function show(News $news): View
     {
+        $news->load('products.brand');
+
         return view('news.show', compact('news'));
     }
 }

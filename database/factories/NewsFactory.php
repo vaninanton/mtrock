@@ -25,8 +25,8 @@ class NewsFactory extends Factory
         return [
             'title' => $title,
             'slug' => $slug,
-            'short_text' => fake()->sentence(),
-            'full_text' => fake()->sentence(),
+            'short_description' => fake()->sentence(),
+            'description' => fake()->sentence(),
             'image' => null,
             'link' => null,
             'video' => null,

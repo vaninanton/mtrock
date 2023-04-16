@@ -53,6 +53,7 @@ class ProductSeeder extends Seeder
             'video3' => $item->video3,
             'created_at' => $item->create_time,
             'updated_at' => $item->update_time,
+            'deleted_at' => $item->status == 0 ? now() : null,
         ]);
 
         Schema::disableForeignKeyConstraints();

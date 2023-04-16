@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Models\Order;
+use App\Models\News;
 use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,14 +15,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_product', function (Blueprint $table) {
+        Schema::create('news_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Order::class)->constrained();
+            $table->foreignIdFor(News::class)->constrained();
             $table->foreignIdFor(Product::class)->constrained();
-            $table->string('product_name')->nullable();
-            $table->string('sku')->nullable();
-            $table->decimal('price')->nullable();
-            $table->unsignedInteger('quantity')->nullable();
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_product');
+        Schema::dropIfExists('news_product');
     }
 };

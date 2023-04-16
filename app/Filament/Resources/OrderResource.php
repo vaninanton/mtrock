@@ -49,14 +49,13 @@ class OrderResource extends Resource
                                 Forms\Components\Select::make('delivery_id')
                                     ->relationship('delivery', 'title')
                                     ->label('Способ доставки')
-                                    ->required()
-                                    ->lazy()
-                                    ->afterStateUpdated(fn (string $context, $state, callable $set) => $context === 'create' ? $set('slug', Str::slug($state)) : null),
+                                    ->required(),
 
                                 Forms\Components\TextInput::make('slug')
                                     ->label('Ссылка на заказ')
                                     ->disabled()
                                     ->required()
+                                    ->default(Str::random(16))
                                     ->unique(Order::class, 'slug', ignoreRecord: true),
                             ]),
 
@@ -64,10 +63,12 @@ class OrderResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->label('Статус заказа')
-                                    ->options(OrderStatus::toLocalizedArray()),
+                                    ->options(OrderStatus::toLocalizedArray())
+                                    ->default(OrderStatus::NEW),
                                 Forms\Components\Select::make('pay_method')
                                     ->label('Метод оплаты')
-                                    ->options(PayMethod::toLocalizedArray()),
+                                    ->options(PayMethod::toLocalizedArray())
+                                    ->default(PayMethod::CASH),
                             ]),
 
                         Forms\Components\Grid::make(3)
@@ -107,12 +108,12 @@ class OrderResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('comment')
                             ->maxLength(1000),
-                        Forms\Components\TextInput::make('note')
+                        Forms\Components\Textarea::make('note')
                             ->maxLength(1000),
-                        Forms\Components\TextInput::make('payment_link')
+                        Forms\Components\Textarea::make('payment_link')
                             ->maxLength(1000),
-                        Forms\Components\TextInput::make('ip_address')
-                            ->maxLength(45),
+                        // Forms\Components\TextInput::make('ip_address')
+                        //     ->maxLength(45),
                         Forms\Components\DateTimePicker::make('paid_at'),
                     ])
                     ->columnSpan(['lg' => fn (?Order $record) => $record === null ? 3 : 2]),

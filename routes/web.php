@@ -7,6 +7,7 @@ use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -69,7 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('order/{order}', OrderController::class);
+Route::get('order/{order:slug}', OrderController::class);
 
 Route::get('/{page}.html', PageController::class)->name('page');
 

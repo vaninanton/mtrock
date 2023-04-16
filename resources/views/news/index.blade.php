@@ -34,10 +34,10 @@
             <div class="bg-white border rounded shadow-sm mb-2 flex flex-col justify-between pt-4">
                 <div>
                     <a href="{{ route('news.show', $item) }}" class="block">
-                        <img src="{{ Storage::url($item->image) }}" alt="" class="mx-auto">
+                        <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="mx-auto">
                         <div class="font-bold px-4">{{ $item->title }}</div>
                     </a>
-                    <div class="text-xs p-4">{{ strip_tags($item->short_text) }}</div>
+                    <div class="text-xs p-4">{{ $item->short_description }}</div>
                 </div>
                 <div class="text-sm p-4 text-right">
                     <time class="small" datetime="{{ $item->created_at->format('Y-m-d') }}" pubdate>{{ $item->created_at->locale('ru_RU')->translatedFormat('d F Y') }}</time>

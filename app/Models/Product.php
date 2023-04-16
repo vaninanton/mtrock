@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Models\Product
@@ -60,6 +62,8 @@ use Illuminate\Support\Facades\Storage;
  * @property-read int|null $images_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Product> $linked
  * @property-read int|null $linked_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ParamsProduct> $params
  * @property-read int|null $params_count
  * @property-read array $params_parsed
@@ -79,9 +83,11 @@ use Illuminate\Support\Facades\Storage;
  *
  * @mixin \Eloquent
  */
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, HasSlug;
+    use HasFactory, SoftDeletes, HasSlug, InteractsWithMedia;
+
+    protected $fillable = ['*'];
 
     /**
      * The attributes that should be cast.

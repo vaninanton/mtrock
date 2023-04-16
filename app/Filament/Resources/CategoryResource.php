@@ -64,7 +64,8 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('parent.title'),
                 // Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->multiple(),
                 // Tables\Columns\TextColumn::make('short_description'),
                 // Tables\Columns\TextColumn::make('description'),
                 // Tables\Columns\TextColumn::make('meta_title'),

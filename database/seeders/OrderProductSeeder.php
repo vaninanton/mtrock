@@ -16,22 +16,22 @@ class OrderProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
         $old = DB::table('mtrock.mr_store_order_product')->whereNotNull('product_id')->get();
-        OrderProduct::query()->truncate();
-        DB::beginTransaction();
-        foreach ($old as $item) {
-            $orderProduct = new OrderProduct();
-            $orderProduct->order_id = $item->order_id;
-            $orderProduct->product_id = $item->product_id;
-            $orderProduct->product_name = $item->product_name;
-            $orderProduct->price = $item->price;
-            $orderProduct->quantity = $item->quantity;
-            $orderProduct->sku = $item->sku;
-            $orderProduct->save();
-        }
-        DB::commit();
 
+        $result = $old->map(fn ($item) => [
+            'order_id' => $item->order_id,
+            'product_id' => $item->product_id,
+            'product_name' => $item->product_name ?: null,
+            'price' => $item->price ?: 0,
+            'quantity' => $item->quantity ?: 0,
+            'sku' => $item->sku ?: null,
+        ]);
+
+        Schema::disableForeignKeyConstraints();
+        OrderProduct::query()->truncate();
+        foreach (array_chunk($result->toArray(), 10) as $values) {
+            OrderProduct::query()->insert($values);
+        }
         Schema::enableForeignKeyConstraints();
     }
 }
