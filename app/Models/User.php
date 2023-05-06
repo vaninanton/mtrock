@@ -68,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         'email_verified_at' => 'datetime',
     ];
 
-    public function canAccessFilament(): bool
+    public function canAccessFilament(\Filament\Context $context): bool
     {
         return $this->hasVerifiedEmail();
     }
