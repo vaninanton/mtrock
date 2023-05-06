@@ -30,7 +30,6 @@ class NewsFactory extends Factory
             'image' => null,
             'link' => null,
             'video' => null,
-            'product_id' => null,
         ];
     }
 }

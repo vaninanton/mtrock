@@ -1,6 +1,6 @@
 name: Static Tests
 
-on: ["push", "pull_request"]
+on: pull_request_target
 
 jobs:
   ci:
@@ -11,13 +11,12 @@ jobs:
         os: [ubuntu-latest]
         php: [8.1]
         laravel: [10.*]
-        stability: [prefer-stable]
         include:
           - laravel: 10.*
             testbench: 8.*
             carbon: ^2.63
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -38,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer update --no-interaction
 
       - name: Prepare Laravel Application
         run: |
