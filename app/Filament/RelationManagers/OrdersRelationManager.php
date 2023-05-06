@@ -6,10 +6,10 @@ namespace App\Filament\RelationManagers;
 
 use App\Models\Order;
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 
 class OrdersRelationManager extends RelationManager
 {
@@ -23,7 +23,7 @@ class OrdersRelationManager extends RelationManager
 
     protected static ?string $title = 'Заказ';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -33,7 +33,7 @@ class OrdersRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -42,7 +42,8 @@ class OrdersRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('total_price')
                     ->money('RUB')
                     ->label('Сумма'),
-                Tables\Columns\BadgeColumn::make('status')
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
                     ->label('Статус')
                     ->getStateUsing(fn (Order $record): string => $record->status->toLocalizedString())
                     ->color(fn (Order $record): string => $record->status->getColor()),
