@@ -62,16 +62,16 @@ class AppServiceProvider extends ServiceProvider
             return $category;
         });
 
-        Filament::serving(function () {
-            Filament::registerNavigationGroups([
-                NavigationGroup::make()
-                    ->label('Клиенты')
-                    ->icon('heroicon-s-users')
-                    ->collapsed(),
-                NavigationGroup::make()
-                    ->label('Магазин')
-                    ->icon('heroicon-s-shopping-cart'),
-            ]);
-        });
+        // Filament::serving(function () {
+        //     Filament::registerNavigationGroups([
+        //         NavigationGroup::make()
+        //             ->label('Клиенты')
+        //             ->icon('heroicon-s-users')
+        //             ->collapsed(),
+        //         NavigationGroup::make()
+        //             ->label('Магазин')
+        //             ->icon('heroicon-s-shopping-cart'),
+        //     ]);
+        // });
     }
 }

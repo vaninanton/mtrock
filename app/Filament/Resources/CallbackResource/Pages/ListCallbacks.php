@@ -6,6 +6,7 @@ namespace App\Filament\Resources\CallbackResource\Pages;
 
 use App\Filament\Resources\CallbackResource;
 use App\Filament\Resources\CallbackResource\Widgets\CallbackOverview;
+use Filament\Actions\CreateAction;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -16,16 +17,16 @@ class ListCallbacks extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 
-    protected function getHeaderWidgetsColumns(): int|array
+    public function getHeaderWidgetsColumns(): int|array
     {
         return 1;
     }
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [
             CallbackOverview::class,

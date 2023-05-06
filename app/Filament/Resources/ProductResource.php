@@ -12,9 +12,9 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Model;
@@ -306,12 +306,12 @@ class ProductResource extends Resource
                     ->label('Статус'),
                 Tables\Columns\TextColumn::make('old_price')
                     ->label('Старая цена')
-                    ->money('RUB', false)
+                    ->money('RUB')
                     ->alignEnd()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('price')
                     ->label('Цена')
-                    ->money('RUB', false)
+                    ->money('RUB')
                     ->alignEnd(),
                 Tables\Columns\ToggleColumn::make('flag_special')
                     ->label('Акция')
@@ -429,7 +429,7 @@ class ProductResource extends Resource
         return ['sku', 'title'];
     }
 
-    protected static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
     {
         return (string) self::$model::count();
     }

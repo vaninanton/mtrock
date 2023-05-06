@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ClientResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 
 class CallbacksRelationManager extends RelationManager
@@ -22,7 +22,7 @@ class CallbacksRelationManager extends RelationManager
 
     protected static ?string $title = 'Коллбек';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -32,7 +32,7 @@ class CallbacksRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
