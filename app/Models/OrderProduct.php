@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * App\Models\OrderProduct
@@ -27,9 +27,11 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  *
  * @mixin \Eloquent
  */
-class OrderProduct extends Pivot
+class OrderProduct extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
 
     public function order(): BelongsTo
     {

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Filament\RelationManagers;
 
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 
 class ProductRelationManager extends RelationManager
 {
@@ -22,7 +22,7 @@ class ProductRelationManager extends RelationManager
 
     protected static ?string $title = 'Товар';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -32,7 +32,7 @@ class ProductRelationManager extends RelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -56,12 +56,12 @@ class ProductRelationManager extends RelationManager
                     ->boolean(),
                 Tables\Columns\TextColumn::make('old_price')
                     ->label('Старая цена')
-                    ->money('RUB', false)
+                    ->money('RUB')
                     ->alignEnd()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('price')
                     ->label('Цена')
-                    ->money('RUB', false)
+                    ->money('RUB')
                     ->alignEnd(),
                 Tables\Columns\IconColumn::make('flag_special')
                     ->label('Акция')
