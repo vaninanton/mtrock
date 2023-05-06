@@ -44,8 +44,7 @@ class CartController extends Controller
 
         if ($this->cart->products->contains($product->id)) {
             $pivotRow = $this->cart->products()->where('product_id', $product->id)->withPivot('quantity')->first();
-            // @phpstan-ignore-next-line
-            $this->cart->products()->updateExistingPivot($product, ['quantity' => $pivotRow->pivot->quantity++]);
+            $this->cart->products()->updateExistingPivot($product, ['quantity' => $pivotRow->getRelationValue('pivot')->quantity++]);
         } else {
             $this->cart->products()->attach($product, ['quantity' => $quantity]);
         }
@@ -56,8 +55,7 @@ class CartController extends Controller
     public function minus(Product $product): RedirectResponse
     {
         $this->getCart();
-        // @phpstan-ignore-next-line
-        $pivotRow = $this->cart->products()->where('product_id', $product->id)->first()->pivot;
+        $pivotRow = $this->cart->products()->where('product_id', $product->id)->first()->getRelationValue('pivot');
         $pivotRow->quantity--;
         $pivotRow->save();
         if ($pivotRow->quantity == 0) {
@@ -70,8 +68,7 @@ class CartController extends Controller
     public function plus(Product $product): RedirectResponse
     {
         $this->getCart();
-        // @phpstan-ignore-next-line
-        $pivotRow = $this->cart->products()->where('product_id', $product->id)->first()->pivot;
+        $pivotRow = $this->cart->products()->where('product_id', $product->id)->first()->getRelationValue('pivot');
         $pivotRow->quantity++;
         $pivotRow->save();
 
@@ -105,11 +102,11 @@ class CartController extends Controller
         // $order->delivery_id = $request->get('delivery_id');
         // $order->delivery_price = $request->get('delivery_price');
         // $order->pay_method = $request->get('pay_method');
-        $order->total_price = $this->cart->products->sum(fn (Product $product) => $product->price * $product->pivot->quantity);
+        $order->total_price = $this->cart->products->sum(fn (Product $product) => $product->price * $product->getRelationValue('pivot')->quantity);
         // $order->coupon_discount = $request->get('coupon_discount');
         // $order->separate_delivery = $request->get('separate_delivery');
         $order->status = OrderStatus::NEW;
-        $order->name = $request->get('first_name').' '.$request->get('last_name');
+        $order->name = $request->get('first_name') . ' ' . $request->get('last_name');
         $order->country = $request->get('country');
         $order->city = $request->get('city');
         $order->street = $request->get('street');
@@ -132,7 +129,7 @@ class CartController extends Controller
             $orderProduct->product_name = $cartProduct->title;
             $orderProduct->sku = $cartProduct->sku;
             $orderProduct->price = $cartProduct->price;
-            $orderProduct->quantity = $cartProduct->pivot->quantity;
+            $orderProduct->quantity = $cartProduct->getRelationValue('pivot')->quantity;
             $orderProduct->save();
         }
         dump($order->toArray(), $request->all(), $this->cart->products->toArray());

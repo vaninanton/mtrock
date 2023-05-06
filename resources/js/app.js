@@ -1,4 +1,6 @@
 import "flowbite";
+import { createApp } from 'vue'
+import Cart from './components/Cart.vue'
 
 let jsFilterForm = document.querySelector("#js-filter-form");
 if (jsFilterForm) {
@@ -18,6 +20,9 @@ if (jsFilterForm) {
         window.location.search = asString;
     });
 }
+
+createApp(Cart).mount("#cart")
+
 // import './bootstrap';
 
 // import Alpine from 'alpinejs';
