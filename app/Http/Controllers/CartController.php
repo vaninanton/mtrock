@@ -106,7 +106,7 @@ class CartController extends Controller
         // $order->coupon_discount = $request->get('coupon_discount');
         // $order->separate_delivery = $request->get('separate_delivery');
         $order->status = OrderStatus::NEW;
-        $order->name = $request->get('first_name') . ' ' . $request->get('last_name');
+        $order->name = $request->get('first_name').' '.$request->get('last_name');
         $order->country = $request->get('country');
         $order->city = $request->get('city');
         $order->street = $request->get('street');
