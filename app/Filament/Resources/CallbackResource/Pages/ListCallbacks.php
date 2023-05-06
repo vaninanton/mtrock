@@ -7,7 +7,6 @@ namespace App\Filament\Resources\CallbackResource\Pages;
 use App\Filament\Resources\CallbackResource;
 use App\Filament\Resources\CallbackResource\Widgets\CallbackOverview;
 use Filament\Actions\CreateAction;
-use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListCallbacks extends ListRecords

@@ -7,8 +7,8 @@ namespace App\Filament\Resources\CallbackResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 
 class ProductsRelationManager extends RelationManager
 {
