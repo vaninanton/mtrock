@@ -71,6 +71,7 @@ class ProductResource extends Resource
                                     ->multiple()
                                     ->responsiveImages()
                                     ->conversion('thumb')
+                                    ->enableReordering()
                                     ->maxFiles(5)
                                     ->disableLabel(),
                             ])

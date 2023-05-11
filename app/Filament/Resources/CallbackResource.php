@@ -123,9 +123,7 @@ class CallbackResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCallbacks::route('/'),
-            'create' => Pages\CreateCallback::route('/create'),
-            'edit' => Pages\EditCallback::route('/{record}/edit'),
+            'index' => Pages\ManageCallbacks::route('/'),
         ];
     }
 }

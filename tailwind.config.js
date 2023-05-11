@@ -36,7 +36,7 @@ module.exports = {
                 },
             },
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
             },
         },
     },

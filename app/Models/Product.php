@@ -203,9 +203,7 @@ class Product extends Model implements HasMedia
     public function route(): Attribute
     {
         return Attribute::make(
-            get: function (): string {
-                return route('product', $this);
-            }
+            get: fn (): string => route('product', $this)
         )->shouldCache();
     }
 

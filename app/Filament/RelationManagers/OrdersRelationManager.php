@@ -42,8 +42,7 @@ class OrdersRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('total_price')
                     ->money('RUB')
                     ->label('Сумма'),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge()
+                Tables\Columns\BadgeColumn::make('status')
                     ->label('Статус')
                     ->getStateUsing(fn (Order $record): string => $record->status->toLocalizedString())
                     ->color(fn (Order $record): string => $record->status->getColor()),

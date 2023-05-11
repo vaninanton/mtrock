@@ -93,9 +93,9 @@
                     <div class="hidden" id="image_main">
                         <img src="{{ Storage::url($product->image) }}" alt="" class="block h-auto w-full lg:mix-blend-multiply" loading="lazy">
                     </div>
-                    @foreach ($product->images as $image)
-                    <div class="hidden" id="image_{{ $image->id }}">
-                        <img src="{{ Storage::url($image->path) }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply" loading="eager">
+                    @foreach ($product->getMedia('product-images') as $media)
+                    <div class="hidden" id="image_{{ $media->id }}">
+                        {{ $media()->lazy()->attributes(['class' => 'transition-transform transform-gpu lg:mix-blend-multiply']) }}
                     </div>
                     @endforeach
                 </div>
@@ -103,10 +103,11 @@
                     <button data-tabs-target="#image_main" type="button" role="tab" aria-controls="contacts" aria-selected="false">
                         <img src="{{ Storage::url($product->image) }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
                     </button>
-                    @foreach ($product->images as $image)
-                    <button data-tabs-target="#image_{{ $image->id }}" type="button" role="tab" aria-controls="contacts" aria-selected="false">
-                        <img src="{{ Storage::url($image->path) }}" alt="" class="transition-transform transform-gpu lg:mix-blend-multiply max-h-8" loading="lazy">
-                    </button>
+                    @foreach ($product->getMedia('product-images') as $media)
+                        <button data-tabs-target="#image_{{ $media->id }}" type="button" role="tab"
+                                aria-controls="contacts" aria-selected="false">
+                            {{ $media()->lazy()->attributes(['class' => 'max-h-8 transform-gpu transition-transform lg:mix-blend-multiply']) }}
+                        </button>
                     @endforeach
                 </div>
             </div>

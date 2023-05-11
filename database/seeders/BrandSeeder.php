@@ -42,7 +42,7 @@ class BrandSeeder extends Seeder
             return null;
         }
 
-        return 'store/brand/'.$image;
+        return 'store/producer/'.$image;
     }
 
     private function getShortDescription(?string $value): ?string
