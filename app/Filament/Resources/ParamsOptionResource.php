@@ -7,16 +7,16 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ParamsOptionResource\Pages;
 use App\Models\ParamsOption;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Resources\Form;
 use Filament\Resources\Resource;
+use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Table;
 
 class ParamsOptionResource extends Resource
 {
     protected static ?string $model = ParamsOption::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $navigationGroup = 'Магазин';
 

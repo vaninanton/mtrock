@@ -8,11 +8,11 @@ use App\Filament\Resources\CallbackResource\Pages;
 use App\Filament\Resources\CallbackResource\RelationManagers\ProductsRelationManager;
 use App\Models\Callback;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Resources\Form;
 use Filament\Resources\Resource;
+use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -20,7 +20,7 @@ class CallbackResource extends Resource
 {
     protected static ?string $model = Callback::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-phone-arrow-up-right';
+    protected static ?string $navigationIcon = 'heroicon-o-phone-outgoing';
 
     protected static ?string $recordTitleAttribute = 'name';
 

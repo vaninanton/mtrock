@@ -8,16 +8,16 @@ use App\Enums\ParamType;
 use App\Filament\Resources\ParamResource\Pages;
 use App\Models\Param;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Resources\Form;
 use Filament\Resources\Resource;
+use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Table;
 
 class ParamResource extends Resource
 {
     protected static ?string $model = Param::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $navigationGroup = 'Магазин';
 

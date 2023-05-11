@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Filament\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Table;
 
 class ProductRelationManager extends RelationManager
 {
@@ -22,7 +22,7 @@ class ProductRelationManager extends RelationManager
 
     protected static ?string $title = 'Товар';
 
-    public function form(Form $form): Form
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -32,7 +32,7 @@ class ProductRelationManager extends RelationManager
             ]);
     }
 
-    public function table(Table $table): Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([

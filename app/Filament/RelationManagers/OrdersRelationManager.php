@@ -6,10 +6,10 @@ namespace App\Filament\RelationManagers;
 
 use App\Models\Order;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Table;
 
 class OrdersRelationManager extends RelationManager
 {
@@ -23,7 +23,7 @@ class OrdersRelationManager extends RelationManager
 
     protected static ?string $title = 'Заказ';
 
-    public function form(Form $form): Form
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -33,7 +33,7 @@ class OrdersRelationManager extends RelationManager
             ]);
     }
 
-    public function table(Table $table): Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
