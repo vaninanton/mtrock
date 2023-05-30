@@ -60,7 +60,7 @@ class DownloadOldImagesCommand extends Command
         ];
 
         foreach ($alls as $all) {
-            $bar = $this->output->createProgressBar(count($all));
+            $bar = $this->output->createProgressBar(count($all['urls']));
             $bar->setFormat('debug');
             $bar->start();
 
@@ -69,7 +69,7 @@ class DownloadOldImagesCommand extends Command
                 /** @var PromiseInterface[] */
                 $promises = [];
                 foreach ($files as $file) {
-                    $url = $baseUrl . $all['folder'] . rawurlencode(basename($file));
+                    $url = $baseUrl.$all['folder'].rawurlencode(basename($file));
                     $path = Storage::path($file);
 
                     if (!is_file($path)) {
@@ -93,7 +93,7 @@ class DownloadOldImagesCommand extends Command
             ->whereNotNull('image')
             ->where('image', '<>', '')
             ->pluck('image', 'id')
-            ->map(fn (string $file): string => 'store/producer/' . $file);
+            ->map(fn (string $file): string => 'store/producer/'.$file);
     }
 
     protected function getProductImages(): Collection
@@ -102,7 +102,7 @@ class DownloadOldImagesCommand extends Command
             ->whereNotNull('image')
             ->where('image', '<>', '')
             ->pluck('image', 'id')
-            ->map(fn (string $file): string => 'store/product/' . $file);
+            ->map(fn (string $file): string => 'store/product/'.$file);
     }
 
     protected function getNewsImages(): Collection
@@ -111,7 +111,7 @@ class DownloadOldImagesCommand extends Command
             ->whereNotNull('image')
             ->where('image', '<>', '')
             ->pluck('image', 'id')
-            ->map(fn (string $file): string => 'news/' . $file);
+            ->map(fn (string $file): string => 'news/'.$file);
     }
 
     protected function getProductPhotos(): Collection
@@ -120,6 +120,6 @@ class DownloadOldImagesCommand extends Command
             ->whereNotNull('name')
             ->where('name', '<>', '')
             ->pluck('name', 'id')
-            ->map(fn (string $file): string => 'store/product/' . $file);
+            ->map(fn (string $file): string => 'store/product/'.$file);
     }
 }

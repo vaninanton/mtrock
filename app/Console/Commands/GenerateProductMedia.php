@@ -51,11 +51,10 @@ class GenerateProductMedia extends Command
         foreach ($productImages as $product_id => $images) {
             try {
                 $product = Product::findOrFail($product_id);
-                $product->clearMediaCollection('product-images');
-                // $product->addMediaCollection('product-images');
+                // $product->clearMediaCollection('product-images');
                 foreach ($images as $image) {
-                    // dump($image->name);
-                    $product->addMediaFromDisk($image->name, 'uploads')->toMediaCollection('product-images');
+                    $res = $product->addMediaFromDisk($image->name, 'uploads')->toMediaCollection('product-images');
+                    dump($res);
                 }
             } catch (ModelNotFoundException|FileDoesNotExist) {
             }
